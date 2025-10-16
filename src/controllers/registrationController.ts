@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ComputerModel, { IComputer } from "../models/computerModel";
-import CentreModel from "../models/centreModel";
+import CentreModel, { AuthenticatedCentre } from "../models/centreModel";
+import { httpService } from "../httpService";
 
 export const registerComputer = async (req: Request, res: Response) => {
   const centre = await CentreModel.findOne();
@@ -43,4 +44,22 @@ export const viewRegisteredComputers = async (req: Request, res: Response) => {
   });
 
   res.send({ total, totalComputers });
+};
+
+export const uploadComputers = async (
+  req: AuthenticatedCentre,
+  res: Response
+) => {
+  const computers = await ComputerModel.find();
+
+  const response = await httpService.post(
+    "centre/uploadcomputer",
+    { computers },
+    { headers: { centre: req.centre?._id.toString() } }
+  );
+
+  if (response.status !== 200)
+    return res.status(response.status).send(response.data);
+
+  res.send("Success");
 };

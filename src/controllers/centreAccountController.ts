@@ -10,7 +10,8 @@ import jwt from "jsonwebtoken";
 
 export const loginAccount = async (req: Request, res: Response) => {
   try {
-    const response = await httpService.post("logincentre", req.body);
+    console.log(req.body);
+    const response = await httpService.post("centre/login", req.body);
 
     if (response.status === 200) {
       // save to database

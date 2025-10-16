@@ -2,14 +2,14 @@ import axios from "axios";
 
 export const baseURL =
   process.env.NODE_ENV === "production"
-    ? "http://192.168.137.237:4000/api"
+    ? "http://192.168.17.122:4000/api"
     : //
-      "http://192.168.137.237:4000/api";
+      "http://192.168.17.122:4000/api";
 
 const httpService = axios.create({
   baseURL,
   withCredentials: true, // always send cookies
-  timeout: 10_000,
+  timeout: 50_000,
   headers: {
     "Content-Type": "application/json",
     //adminid: loggedInAdmin ? loggedInAdmin._id : "",
