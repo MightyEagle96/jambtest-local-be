@@ -52,14 +52,14 @@ export const uploadComputers = async (
 ) => {
   const computers = await ComputerModel.find();
 
-  const response = await httpService.post(
-    "centre/uploadcomputer",
-    { computers },
-    { headers: { centre: req.centre?._id.toString() } }
-  );
+  const response = await httpService.post("centre/uploadcomputer", {
+    computers,
+    centreId: req.centre?._id.toString(),
+  });
 
-  if (response.status !== 200)
-    return res.status(response.status).send(response.data);
+  // if (response.status !== 200)
+  //   return res.status(response.status).send(response.data);
 
-  res.send("Success");
+  // res.send("Success");
+  res.status(response.status).send(response.data);
 };

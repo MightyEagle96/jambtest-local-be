@@ -7,6 +7,7 @@ import {
   tokens,
 } from "./jwtController";
 import jwt from "jsonwebtoken";
+import ComputerModel from "../models/computerModel";
 
 export const loginAccount = async (req: Request, res: Response) => {
   try {
@@ -54,7 +55,8 @@ export const loginAccount = async (req: Request, res: Response) => {
 };
 
 export const logoutAccount = async (req: Request, res: Response) => {
-  await CentreModel.deleteMany();
+  await Promise.all([CentreModel.deleteMany(), ComputerModel.deleteMany()]);
+
   res.clearCookie("accessToken").clearCookie("refreshToken").send("Success");
 };
 
