@@ -17,16 +17,17 @@ export const loginAccount = async (req: Request, res: Response) => {
     if (response.status === 200) {
       // save to database
 
-      await CentreModel.deleteMany({});
-
-      await CentreModel.create(response.data);
+      await Promise.all([
+        CentreModel.create(response.data.centre),
+        ComputerModel.insertMany(response.data.computers),
+      ]);
 
       const accessToken = generateAccessToken({
-        ...response.data,
+        ...response.data.centre,
         role: "admin",
       });
       const refreshToken = generateRefreshToken({
-        ...response.data,
+        ...response.data.centre,
         role: "admin",
       });
       res
@@ -48,7 +49,7 @@ export const loginAccount = async (req: Request, res: Response) => {
         .clearCookie("accessToken")
         .clearCookie("refreshToken")
         .status(response.status)
-        .send(response.data);
+        .send(response.data.centre);
   } catch (error) {
     res.status(500).send("Something went wrong");
   }
@@ -111,4 +112,15 @@ export const getRefreshToken = async (
     res.status(401).send("Invalid refresh token");
   }
   //  res.send(req.cookies[tokens.refresh_token]);
+};
+
+export const centreDashboard = async (
+  req: AuthenticatedCentre,
+  res: Response
+) => {
+  const response = await httpService("centre/dashboard", {
+    headers: { centreid: req.centre?._id.toString() },
+  });
+
+  res.status(response.status).send(response.data);
 };

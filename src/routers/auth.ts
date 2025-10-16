@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  centreDashboard,
   centreProfile,
   getRefreshToken,
   loginAccount,
@@ -13,6 +14,7 @@ authRouter
   .post("/login", loginAccount)
   .get("/profile", authenticateToken, centreProfile)
   .get("/logout", logoutAccount)
+  .get("/dashboard", authenticateToken, centreDashboard)
   .get("/refresh", getRefreshToken);
 
 export { authRouter };
