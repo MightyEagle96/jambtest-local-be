@@ -1,19 +1,19 @@
-import { model, Schema, Types } from "mongoose";
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 export interface IComputer {
   serialNumber: string;
   macAddresses: string[];
-  ramMB: number;
-  operatingSystem: string;
-  processorId: string;
-  cpuModel: string;
-  model: string;
-  manufacturer: string;
+  ramMB?: number;
+  operatingSystem?: string;
+  processorId?: string;
+  cpuModel?: string;
+  model?: string;
+  manufacturer?: string;
   centre: Types.ObjectId;
-  uploaded: boolean;
+  flagged?: boolean;
 }
 
-const schema = new Schema<IComputer>(
+const computerSchema = new Schema<IComputer>(
   {
     serialNumber: { type: String, lowercase: true },
     macAddresses: { type: [String], lowercase: true },
@@ -23,14 +23,12 @@ const schema = new Schema<IComputer>(
     cpuModel: { type: String, lowercase: true },
     model: { type: String, lowercase: true },
     manufacturer: { type: String, lowercase: true },
-    centre: { type: Schema.Types.ObjectId, ref: "Centre" },
-    uploaded: { type: Boolean, default: false },
+    centre: { type: Schema.Types.ObjectId, ref: "Centre", required: true },
+    flagged: { type: Boolean, default: false },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-const ComputerModel = model("Computer", schema);
+const ComputerModel = mongoose.model<IComputer>("Computer", computerSchema);
 
 export default ComputerModel;
