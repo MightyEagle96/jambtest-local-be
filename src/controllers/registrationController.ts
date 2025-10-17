@@ -57,9 +57,19 @@ export const uploadComputers = async (
     centreId: req.centre?._id.toString(),
   });
 
-  // if (response.status !== 200)
-  //   return res.status(response.status).send(response.data);
+  res.status(response.status).send(response.data);
+};
 
-  // res.send("Success");
+export const deleteComputers = async () => {};
+
+export const fetchInfractionReports = async (
+  req: AuthenticatedCentre,
+  res: Response
+) => {
+  const response = await httpService.get("centre/infractions", {
+    headers: { centreid: req.centre?._id.toString() },
+    params: { page: req.query.page || 1, limit: req.query.limit || 50 },
+  });
+
   res.status(response.status).send(response.data);
 };

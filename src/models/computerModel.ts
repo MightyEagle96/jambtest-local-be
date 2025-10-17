@@ -10,6 +10,7 @@ export interface IComputer {
   model: string;
   manufacturer: string;
   centre: Types.ObjectId;
+  uploaded: boolean;
 }
 
 const schema = new Schema<IComputer>(
@@ -23,6 +24,7 @@ const schema = new Schema<IComputer>(
     model: { type: String, lowercase: true },
     manufacturer: { type: String, lowercase: true },
     centre: { type: Schema.Types.ObjectId, ref: "Centre" },
+    uploaded: { type: Boolean, default: false },
   },
   {
     timestamps: true,

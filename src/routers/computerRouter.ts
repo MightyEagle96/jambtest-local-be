@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  fetchInfractionReports,
   registerComputer,
   uploadComputers,
   viewRegisteredComputers,
@@ -11,6 +12,7 @@ const computerRouter = Router();
 computerRouter
   .post("/register", registerComputer)
   .get("/view", viewRegisteredComputers)
-  .post("/uploadcomputer", authenticateToken, uploadComputers);
+  .post("/uploadcomputer", authenticateToken, uploadComputers)
+  .get("/infractionreports", authenticateToken, fetchInfractionReports);
 
 export { computerRouter };
