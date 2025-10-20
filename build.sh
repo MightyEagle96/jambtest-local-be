@@ -12,7 +12,7 @@ echo "Committing changes..."
 git commit -m "$1"
 
 echo "Pushing to remote..."
-git push origin main
+git push origin master
 
  
 
