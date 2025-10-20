@@ -34,9 +34,14 @@ export const viewRegisteredComputers = async (req: Request, res: Response) => {
     .limit(limit)
     .lean();
 
-  const total = await ComputerModel.countDocuments({});
-  const cleanComputers = await ComputerModel.countDocuments({ flagged: false });
-  const infractions = total - cleanComputers;
+  const [total, cleanComputers, infractions, uploaded, notUploaded] =
+    await Promise.all([
+      ComputerModel.countDocuments(),
+      ComputerModel.countDocuments({ flagged: false }),
+      ComputerModel.countDocuments({ flagged: true }),
+      ComputerModel.countDocuments({ status: "uploaded" }),
+      ComputerModel.countDocuments({ status: "not uploaded" }),
+    ]);
 
   const totalComputers = computers.map((c, i) => {
     return {
@@ -45,7 +50,14 @@ export const viewRegisteredComputers = async (req: Request, res: Response) => {
     };
   });
 
-  res.send({ total, totalComputers, cleanComputers, infractions });
+  res.send({
+    total,
+    totalComputers,
+    cleanComputers,
+    infractions,
+    uploaded,
+    notUploaded,
+  });
 };
 
 export const uploadComputers = async (
