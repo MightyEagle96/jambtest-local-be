@@ -11,6 +11,7 @@ export interface IComputer {
   manufacturer?: string;
   centre: Types.ObjectId;
   flagged?: boolean;
+  status?: string;
 }
 
 const computerSchema = new Schema<IComputer>(
@@ -25,6 +26,7 @@ const computerSchema = new Schema<IComputer>(
     manufacturer: { type: String, lowercase: true },
     centre: { type: Schema.Types.ObjectId, ref: "Centre", required: true },
     flagged: { type: Boolean, default: false },
+    status: { type: String, default: "uploaded" },
   },
   { timestamps: true }
 );
