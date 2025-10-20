@@ -26,7 +26,7 @@ const computerSchema = new Schema<IComputer>(
     manufacturer: { type: String, lowercase: true },
     centre: { type: Schema.Types.ObjectId, ref: "Centre", required: true },
     flagged: { type: Boolean, default: false },
-    status: { type: String, default: "uploaded" },
+    status: { type: String, default: "not uploaded" },
   },
   { timestamps: true }
 );

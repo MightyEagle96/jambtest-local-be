@@ -11,7 +11,6 @@ import ComputerModel from "../models/computerModel";
 
 export const loginAccount = async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
     const response = await httpService.post("centre/login", req.body);
 
     if (response.status === 200) {
@@ -49,7 +48,7 @@ export const loginAccount = async (req: Request, res: Response) => {
         .clearCookie("accessToken")
         .clearCookie("refreshToken")
         .status(response.status)
-        .send(response.data.centre);
+        .send(response.data);
   } catch (error) {
     res.status(500).send("Something went wrong");
   }

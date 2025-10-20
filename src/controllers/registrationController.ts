@@ -35,6 +35,8 @@ export const viewRegisteredComputers = async (req: Request, res: Response) => {
     .lean();
 
   const total = await ComputerModel.countDocuments({});
+  const cleanComputers = await ComputerModel.countDocuments({ flagged: false });
+  const infractions = total - cleanComputers;
 
   const totalComputers = computers.map((c, i) => {
     return {
@@ -43,14 +45,14 @@ export const viewRegisteredComputers = async (req: Request, res: Response) => {
     };
   });
 
-  res.send({ total, totalComputers });
+  res.send({ total, totalComputers, cleanComputers, infractions });
 };
 
 export const uploadComputers = async (
   req: AuthenticatedCentre,
   res: Response
 ) => {
-  const computers = await ComputerModel.find();
+  const computers = await ComputerModel.find({ status: "not uploaded" });
 
   const response = await httpService.post("centre/uploadcomputer", {
     computers,
@@ -72,4 +74,17 @@ export const fetchInfractionReports = async (
   });
 
   res.status(response.status).send(response.data);
+};
+
+export const getComputers = async (req: AuthenticatedCentre, res: Response) => {
+  const response = await httpService.get("centre/centrecomputers", {
+    params: { centre: req.centre?._id.toString() },
+  });
+
+  if (response.status === 200) {
+    await ComputerModel.deleteMany();
+    await ComputerModel.insertMany(response.data);
+
+    res.send("New computers imported");
+  } else res.status(response.status).send("Could not import new computers");
 };
