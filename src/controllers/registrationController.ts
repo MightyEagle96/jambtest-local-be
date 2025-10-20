@@ -100,3 +100,8 @@ export const getComputers = async (req: AuthenticatedCentre, res: Response) => {
     res.send("New computers imported");
   } else res.status(response.status).send("Could not import new computers");
 };
+
+export const deleteComputer = async (req: Request, res: Response) => {
+  await ComputerModel.deleteOne({ _id: req.params.id });
+  res.send("Computer deleted");
+};

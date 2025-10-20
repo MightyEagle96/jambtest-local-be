@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  deleteComputer,
   fetchInfractionReports,
   getComputers,
   registerComputer,
@@ -15,6 +16,7 @@ computerRouter
   .get("/view", viewRegisteredComputers)
   .post("/uploadcomputer", authenticateToken, uploadComputers)
   .get("/infractionreports", authenticateToken, fetchInfractionReports)
-  .get("/getcomputers", authenticateToken, getComputers);
+  .get("/getcomputers", authenticateToken, getComputers)
+  .delete("/delete/:id", deleteComputer);
 
 export { computerRouter };
