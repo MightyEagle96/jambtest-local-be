@@ -7,4 +7,5 @@ const networkTestRouter = (0, express_1.Router)();
 exports.networkTestRouter = networkTestRouter;
 networkTestRouter
     .post("/create", networkTestController_1.createNetworkTest)
-    .get("/view", networkTestController_1.viewNetworkTests);
+    .get("/view", networkTestController_1.viewNetworkTests)
+    .get("/toggleactivation", networkTestController_1.toggleActivation);

@@ -33,3 +33,13 @@ export const viewNetworkTests = async (req: Request, res: Response) => {
   });
   res.send(mappedTests);
 };
+
+export const toggleActivation = async (req: Request, res: Response) => {
+  const test = await NetworkTestModel.findOne({ _id: req.query.id });
+  if (!test) {
+    return res.status(400).send("Test not found");
+  }
+  test.active = !test.active;
+  await test.save();
+  res.send("Success");
+};
