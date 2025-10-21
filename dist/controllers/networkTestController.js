@@ -12,10 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
+exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
 const uuid_1 = require("uuid");
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
+const centreModel_1 = __importDefault(require("../models/centreModel"));
 const id = (0, uuid_1.v4)();
 const createNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const uploadedSystems = yield computerModel_1.default.countDocuments({
@@ -55,3 +56,42 @@ const viewNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function
     res.send(test);
 });
 exports.viewNetworkTest = viewNetworkTest;
+const errorMessages = {
+    noCentre: "No centre found, contact administrator",
+    noComputer: "Computer not yet registered",
+    noActiveTest: "There is no active network test",
+    computerFlagged: "This computer has been flagged for an infraction",
+    notUploaded: "This computer is not yet registered on the JAMB test network",
+};
+const networkTestValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const centre = yield centreModel_1.default.findOne();
+    console.log(req.body);
+    if (!centre) {
+        return res.status(400).send(errorMessages.noCentre);
+    }
+    const computer = yield computerModel_1.default.findOne({
+        serialNumber: req.body.serialNumber,
+        macAddresses: req.body.macAddress,
+    });
+    if (!computer) {
+        return res.status(400).send(errorMessages.noComputer);
+    }
+    if (computer.status !== "uploaded") {
+        return res.status(400).send(errorMessages.notUploaded);
+    }
+    if (computer.flagged) {
+        return res.status(400).send(errorMessages.computerFlagged);
+    }
+    const activeTest = yield networkTest_1.default.findOne({ active: false });
+    if (activeTest) {
+        return res.status(400).send(errorMessages.noActiveTest);
+    }
+    next();
+    req.headers.computer = computer._id.toString();
+    //res.send("Success");
+});
+exports.networkTestValidation = networkTestValidation;
+const beginNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send("Success");
+});
+exports.beginNetworkTest = beginNetworkTest;

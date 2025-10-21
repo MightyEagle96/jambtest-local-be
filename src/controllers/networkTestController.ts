@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import NetworkTestModel from "../models/networkTest";
 import ComputerModel from "../models/computerModel";
+import CentreModel from "../models/centreModel";
 
 const id = uuidv4();
 export const createNetworkTest = async (req: Request, res: Response) => {
@@ -52,4 +53,56 @@ export const viewNetworkTest = async (req: Request, res: Response) => {
     return res.status(400).send("Test not found");
   }
   res.send(test);
+};
+
+const errorMessages = {
+  noCentre: "No centre found, contact administrator",
+  noComputer: "Computer not yet registered",
+  noActiveTest: "There is no active network test",
+  computerFlagged: "This computer has been flagged for an infraction",
+  notUploaded: "This computer is not yet registered on the JAMB test network",
+};
+
+export const networkTestValidation = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const centre = await CentreModel.findOne();
+
+  console.log(req.body);
+  if (!centre) {
+    return res.status(400).send(errorMessages.noCentre);
+  }
+
+  const computer = await ComputerModel.findOne({
+    serialNumber: req.body.serialNumber,
+    macAddresses: req.body.macAddress,
+  });
+
+  if (!computer) {
+    return res.status(400).send(errorMessages.noComputer);
+  }
+
+  if (computer.status !== "uploaded") {
+    return res.status(400).send(errorMessages.notUploaded);
+  }
+
+  if (computer.flagged) {
+    return res.status(400).send(errorMessages.computerFlagged);
+  }
+
+  const activeTest = await NetworkTestModel.findOne({ active: false });
+  if (activeTest) {
+    return res.status(400).send(errorMessages.noActiveTest);
+  }
+
+  next();
+
+  req.headers.computer = computer._id.toString();
+  //res.send("Success");
+};
+
+export const beginNetworkTest = async (req: Request, res: Response) => {
+  res.send("Success");
 };

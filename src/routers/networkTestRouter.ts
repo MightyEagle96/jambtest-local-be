@@ -1,6 +1,8 @@
 import { Router } from "express";
 import {
+  beginNetworkTest,
   createNetworkTest,
+  networkTestValidation,
   toggleActivation,
   viewNetworkTest,
   viewNetworkTests,
@@ -12,6 +14,7 @@ networkTestRouter
   .post("/create", createNetworkTest)
   .get("/view", viewNetworkTests)
   .get("/toggleactivation", toggleActivation)
-  .get("/view/:id", viewNetworkTest);
+  .get("/view/:id", viewNetworkTest)
+  .post("/begintest", networkTestValidation, beginNetworkTest);
 
 export { networkTestRouter };
