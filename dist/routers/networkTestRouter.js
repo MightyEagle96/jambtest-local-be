@@ -8,4 +8,5 @@ exports.networkTestRouter = networkTestRouter;
 networkTestRouter
     .post("/create", networkTestController_1.createNetworkTest)
     .get("/view", networkTestController_1.viewNetworkTests)
-    .get("/toggleactivation", networkTestController_1.toggleActivation);
+    .get("/toggleactivation", networkTestController_1.toggleActivation)
+    .get("/view/:id", networkTestController_1.viewNetworkTest);

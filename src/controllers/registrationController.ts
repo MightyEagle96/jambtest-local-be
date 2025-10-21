@@ -105,3 +105,8 @@ export const deleteComputer = async (req: Request, res: Response) => {
   await ComputerModel.deleteOne({ _id: req.params.id });
   res.send("Computer deleted");
 };
+
+export const viewCleanedComputers = async (req: Request, res: Response) => {
+  const computers = await ComputerModel.find({ flagged: false }).lean();
+  res.send(computers);
+};

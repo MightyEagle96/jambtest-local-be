@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
+exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
 const uuid_1 = require("uuid");
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
@@ -38,6 +38,7 @@ const viewNetworkTests = (req, res) => __awaiter(void 0, void 0, void 0, functio
 exports.viewNetworkTests = viewNetworkTests;
 const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const test = yield networkTest_1.default.findOne({ _id: req.query.id });
+    yield networkTest_1.default.updateMany({ active: true }, { active: false });
     if (!test) {
         return res.status(400).send("Test not found");
     }
@@ -46,3 +47,11 @@ const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, functio
     res.send("Success");
 });
 exports.toggleActivation = toggleActivation;
+const viewNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const test = yield networkTest_1.default.findById(req.params.id);
+    if (!test) {
+        return res.status(400).send("Test not found");
+    }
+    res.send(test);
+});
+exports.viewNetworkTest = viewNetworkTest;

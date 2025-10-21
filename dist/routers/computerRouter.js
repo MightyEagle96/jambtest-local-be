@@ -12,4 +12,5 @@ computerRouter
     .post("/uploadcomputer", jwtController_1.authenticateToken, registrationController_1.uploadComputers)
     .get("/infractionreports", jwtController_1.authenticateToken, registrationController_1.fetchInfractionReports)
     .get("/getcomputers", jwtController_1.authenticateToken, registrationController_1.getComputers)
-    .delete("/delete/:id", registrationController_1.deleteComputer);
+    .delete("/delete/:id", registrationController_1.deleteComputer)
+    .get("/cleanedcomputers", registrationController_1.viewCleanedComputers);

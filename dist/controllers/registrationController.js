@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteComputer = exports.getComputers = exports.fetchInfractionReports = exports.deleteComputers = exports.uploadComputers = exports.viewRegisteredComputers = exports.registerComputer = void 0;
+exports.viewCleanedComputers = exports.deleteComputer = exports.getComputers = exports.fetchInfractionReports = exports.deleteComputers = exports.uploadComputers = exports.viewRegisteredComputers = exports.registerComputer = void 0;
 const computerModel_1 = __importDefault(require("../models/computerModel"));
 const centreModel_1 = __importDefault(require("../models/centreModel"));
 const httpService_1 = require("../httpService");
@@ -100,3 +100,8 @@ const deleteComputer = (req, res) => __awaiter(void 0, void 0, void 0, function*
     res.send("Computer deleted");
 });
 exports.deleteComputer = deleteComputer;
+const viewCleanedComputers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const computers = yield computerModel_1.default.find({ flagged: false }).lean();
+    res.send(computers);
+});
+exports.viewCleanedComputers = viewCleanedComputers;

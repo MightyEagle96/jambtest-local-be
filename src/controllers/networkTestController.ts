@@ -36,10 +36,20 @@ export const viewNetworkTests = async (req: Request, res: Response) => {
 
 export const toggleActivation = async (req: Request, res: Response) => {
   const test = await NetworkTestModel.findOne({ _id: req.query.id });
+
+  await NetworkTestModel.updateMany({ active: true }, { active: false });
   if (!test) {
     return res.status(400).send("Test not found");
   }
   test.active = !test.active;
   await test.save();
   res.send("Success");
+};
+
+export const viewNetworkTest = async (req: Request, res: Response) => {
+  const test = await NetworkTestModel.findById(req.params.id);
+  if (!test) {
+    return res.status(400).send("Test not found");
+  }
+  res.send(test);
 };

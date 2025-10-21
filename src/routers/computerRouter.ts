@@ -5,6 +5,7 @@ import {
   getComputers,
   registerComputer,
   uploadComputers,
+  viewCleanedComputers,
   viewRegisteredComputers,
 } from "../controllers/registrationController";
 import { authenticateToken } from "../controllers/jwtController";
@@ -17,6 +18,7 @@ computerRouter
   .post("/uploadcomputer", authenticateToken, uploadComputers)
   .get("/infractionreports", authenticateToken, fetchInfractionReports)
   .get("/getcomputers", authenticateToken, getComputers)
-  .delete("/delete/:id", deleteComputer);
+  .delete("/delete/:id", deleteComputer)
+  .get("/cleanedcomputers", viewCleanedComputers);
 
 export { computerRouter };
