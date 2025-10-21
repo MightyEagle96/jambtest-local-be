@@ -13,5 +13,5 @@ const schema = new mongoose_1.Schema({
     responses: Number,
     timeLeft: Number,
 }, { timestamps: true });
-const NetworkTestModel = (0, mongoose_1.model)("NetworkTest", schema);
-exports.default = NetworkTestModel;
+const NetworkTestResponseModel = (0, mongoose_1.model)("NetworkTestResponse", schema);
+exports.default = NetworkTestResponseModel;

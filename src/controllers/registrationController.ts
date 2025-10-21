@@ -110,3 +110,11 @@ export const viewCleanedComputers = async (req: Request, res: Response) => {
   const computers = await ComputerModel.find({ flagged: false }).lean();
   res.send(computers);
 };
+
+export const viewComputer = async (req: Request, res: Response) => {
+  const computer = await ComputerModel.findById(req.params.id).lean();
+
+  const ip = req.ip;
+
+  res.send({ ...computer, ip });
+};

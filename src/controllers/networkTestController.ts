@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 import NetworkTestModel from "../models/networkTest";
 import ComputerModel from "../models/computerModel";
 import CentreModel from "../models/centreModel";
+import { ConcurrentJobQueue } from "./DataQueue";
+import NetworkTestResponseModel from "../models/networkTestResponse";
 
 const id = uuidv4();
 export const createNetworkTest = async (req: Request, res: Response) => {
@@ -70,7 +72,6 @@ export const networkTestValidation = async (
 ) => {
   const centre = await CentreModel.findOne();
 
-  console.log(req.body);
   if (!centre) {
     return res.status(400).send(errorMessages.noCentre);
   }
@@ -92,17 +93,49 @@ export const networkTestValidation = async (
     return res.status(400).send(errorMessages.computerFlagged);
   }
 
-  const activeTest = await NetworkTestModel.findOne({ active: false });
-  if (activeTest) {
+  const activeTest = await NetworkTestModel.findOne({ active: true });
+  if (!activeTest) {
     return res.status(400).send(errorMessages.noActiveTest);
   }
 
+  req.headers.computer = computer._id.toString();
+  req.headers.networktest = activeTest._id.toString();
   next();
 
-  req.headers.computer = computer._id.toString();
   //res.send("Success");
 };
 
+const dataQueue = new ConcurrentJobQueue({
+  concurrency: 1,
+  maxQueueSize: 100,
+  retries: 0,
+  retryDelay: 3000,
+  shutdownTimeout: 30000,
+});
 export const beginNetworkTest = async (req: Request, res: Response) => {
-  res.send("Success");
+  res.send({
+    networkTest: req.headers.networktest,
+    computer: req.headers.computer,
+  });
+
+  dataQueue.enqueue(async () => {
+    const networkTest = await NetworkTestModel.findById(
+      req.headers.networktest
+    );
+    const response = await NetworkTestResponseModel.findOne({
+      computer: req.headers.computer,
+      networkTest: req.headers.networktest,
+    });
+
+    if (!response && networkTest) {
+      await NetworkTestResponseModel.create({
+        computer: req.headers.computer,
+        networkTest: req.headers.networktest,
+        ipAddress: req.ip,
+        responses: 0,
+        timeLeft: networkTest.duration,
+        loggedInAt: new Date(),
+      });
+    }
+  });
 };

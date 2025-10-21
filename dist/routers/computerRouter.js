@@ -13,4 +13,5 @@ computerRouter
     .get("/infractionreports", jwtController_1.authenticateToken, registrationController_1.fetchInfractionReports)
     .get("/getcomputers", jwtController_1.authenticateToken, registrationController_1.getComputers)
     .delete("/delete/:id", registrationController_1.deleteComputer)
-    .get("/cleanedcomputers", registrationController_1.viewCleanedComputers);
+    .get("/cleanedcomputers", registrationController_1.viewCleanedComputers)
+    .get("/viewcomputer/:id", registrationController_1.viewComputer);

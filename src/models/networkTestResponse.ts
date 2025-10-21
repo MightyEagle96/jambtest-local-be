@@ -26,6 +26,6 @@ const schema = new Schema<INetworkTestResponse>(
   { timestamps: true }
 );
 
-const NetworkTestModel = model("NetworkTest", schema);
+const NetworkTestResponseModel = model("NetworkTestResponse", schema);
 
-export default NetworkTestModel;
+export default NetworkTestResponseModel;

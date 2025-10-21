@@ -17,6 +17,8 @@ const uuid_1 = require("uuid");
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
 const centreModel_1 = __importDefault(require("../models/centreModel"));
+const DataQueue_1 = require("./DataQueue");
+const networkTestResponse_1 = __importDefault(require("../models/networkTestResponse"));
 const id = (0, uuid_1.v4)();
 const createNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const uploadedSystems = yield computerModel_1.default.countDocuments({
@@ -65,7 +67,6 @@ const errorMessages = {
 };
 const networkTestValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const centre = yield centreModel_1.default.findOne();
-    console.log(req.body);
     if (!centre) {
         return res.status(400).send(errorMessages.noCentre);
     }
@@ -82,16 +83,44 @@ const networkTestValidation = (req, res, next) => __awaiter(void 0, void 0, void
     if (computer.flagged) {
         return res.status(400).send(errorMessages.computerFlagged);
     }
-    const activeTest = yield networkTest_1.default.findOne({ active: false });
-    if (activeTest) {
+    const activeTest = yield networkTest_1.default.findOne({ active: true });
+    if (!activeTest) {
         return res.status(400).send(errorMessages.noActiveTest);
     }
-    next();
     req.headers.computer = computer._id.toString();
+    req.headers.networktest = activeTest._id.toString();
+    next();
     //res.send("Success");
 });
 exports.networkTestValidation = networkTestValidation;
+const dataQueue = new DataQueue_1.ConcurrentJobQueue({
+    concurrency: 1,
+    maxQueueSize: 100,
+    retries: 0,
+    retryDelay: 3000,
+    shutdownTimeout: 30000,
+});
 const beginNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send("Success");
+    res.send({
+        networkTest: req.headers.networktest,
+        computer: req.headers.computer,
+    });
+    dataQueue.enqueue(() => __awaiter(void 0, void 0, void 0, function* () {
+        const networkTest = yield networkTest_1.default.findById(req.headers.networktest);
+        const response = yield networkTestResponse_1.default.findOne({
+            computer: req.headers.computer,
+            networkTest: req.headers.networktest,
+        });
+        if (!response && networkTest) {
+            yield networkTestResponse_1.default.create({
+                computer: req.headers.computer,
+                networkTest: req.headers.networktest,
+                ipAddress: req.ip,
+                responses: 0,
+                timeLeft: networkTest.duration,
+                loggedInAt: new Date(),
+            });
+        }
+    }));
 });
 exports.beginNetworkTest = beginNetworkTest;
