@@ -146,11 +146,12 @@ const responseQueue = new DataQueue_1.ConcurrentJobQueue({
 const sendResponses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     responseQueue.enqueue(() => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield networkTestResponse_1.default.findOne({
-            computer: req.headers.computer,
-            networkTest: req.headers.networktest,
+            computer: req.body.computer,
+            networkTest: req.body.networktest,
         });
         if (response) {
-            response.responses = req.body.responses;
+            response.responses = response.responses += 1;
+            response.timeLeft = req.body.timeLeft;
             yield response.save();
         }
     }));

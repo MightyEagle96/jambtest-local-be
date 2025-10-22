@@ -169,11 +169,12 @@ const responseQueue = new ConcurrentJobQueue({
 export const sendResponses = async (req: Request, res: Response) => {
   responseQueue.enqueue(async () => {
     const response = await NetworkTestResponseModel.findOne({
-      computer: req.headers.computer,
-      networkTest: req.headers.networktest,
+      computer: req.body.computer,
+      networkTest: req.body.networktest,
     });
     if (response) {
-      response.responses = req.body.responses;
+      response.responses = response.responses += 1;
+      response.timeLeft = req.body.timeLeft;
       await response.save();
     }
   });
