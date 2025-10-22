@@ -10,4 +10,5 @@ networkTestRouter
     .get("/view", networkTestController_1.viewNetworkTests)
     .get("/toggleactivation", networkTestController_1.toggleActivation)
     .get("/view/:id", networkTestController_1.viewNetworkTest)
-    .post("/begintest", networkTestController_1.networkTestValidation, networkTestController_1.beginNetworkTest);
+    .post("/begintest", networkTestController_1.networkTestValidation, networkTestController_1.beginNetworkTest)
+    .get("/computerlist/:id", networkTestController_1.computerListUnderNetworkTest);

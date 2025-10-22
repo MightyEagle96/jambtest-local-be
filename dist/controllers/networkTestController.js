@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
+exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
 const uuid_1 = require("uuid");
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
@@ -124,3 +124,15 @@ const beginNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }));
 });
 exports.beginNetworkTest = beginNetworkTest;
+const computerListUnderNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const computerList = yield networkTestResponse_1.default.find({
+        networkTest: req.params.id,
+    })
+        .populate("computer")
+        .lean();
+    const mappedComputerList = computerList.map((computer, i) => {
+        return Object.assign(Object.assign({}, computer), { id: i + 1 });
+    });
+    res.send(mappedComputerList);
+});
+exports.computerListUnderNetworkTest = computerListUnderNetworkTest;

@@ -5,6 +5,7 @@ export interface INetworkTestResponse {
   networkTest: Types.ObjectId;
   computer: Types.ObjectId;
   loggedInAt: Date;
+  endedAt: Date;
   ipAddress: string;
   responses: number;
   timeLeft: number;
@@ -19,6 +20,7 @@ const schema = new Schema<INetworkTestResponse>(
     },
     computer: { type: Schema.Types.ObjectId, ref: "Computer", required: true },
     loggedInAt: Date,
+    endedAt: Date,
     ipAddress: String,
     responses: Number,
     timeLeft: Number,

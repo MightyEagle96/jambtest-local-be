@@ -139,3 +139,22 @@ export const beginNetworkTest = async (req: Request, res: Response) => {
     }
   });
 };
+
+export const computerListUnderNetworkTest = async (
+  req: Request,
+  res: Response
+) => {
+  const computerList = await NetworkTestResponseModel.find({
+    networkTest: req.params.id,
+  })
+    .populate("computer")
+    .lean();
+
+  const mappedComputerList = computerList.map((computer, i) => {
+    return {
+      ...computer,
+      id: i + 1,
+    };
+  });
+  res.send(mappedComputerList);
+};

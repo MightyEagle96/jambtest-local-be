@@ -9,6 +9,7 @@ const schema = new mongoose_1.Schema({
     },
     computer: { type: mongoose_1.Schema.Types.ObjectId, ref: "Computer", required: true },
     loggedInAt: Date,
+    endedAt: Date,
     ipAddress: String,
     responses: Number,
     timeLeft: Number,
