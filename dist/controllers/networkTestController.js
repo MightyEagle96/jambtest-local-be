@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
+exports.deleteNetworkTest = exports.viewMyComputerResponse = exports.sendResponses = exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
 const uuid_1 = require("uuid");
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
@@ -136,3 +136,43 @@ const computerListUnderNetworkTest = (req, res) => __awaiter(void 0, void 0, voi
     res.send(mappedComputerList);
 });
 exports.computerListUnderNetworkTest = computerListUnderNetworkTest;
+const responseQueue = new DataQueue_1.ConcurrentJobQueue({
+    concurrency: 1,
+    maxQueueSize: 100,
+    retries: 0,
+    retryDelay: 3000,
+    shutdownTimeout: 30000,
+});
+const sendResponses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    responseQueue.enqueue(() => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield networkTestResponse_1.default.findOne({
+            computer: req.headers.computer,
+            networkTest: req.headers.networktest,
+        });
+        if (response) {
+            response.responses = req.body.responses;
+            yield response.save();
+        }
+    }));
+    res.send("Success");
+});
+exports.sendResponses = sendResponses;
+const viewMyComputerResponse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const response = yield networkTestResponse_1.default.findOne({
+        computer: req.headers.computer,
+        networkTest: req.headers.networktest,
+    }).populate(["networkTest", "computer"]);
+    if (!response) {
+        return res.status(404).send("Response not found");
+    }
+    res.send(response);
+});
+exports.viewMyComputerResponse = viewMyComputerResponse;
+const deleteNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield Promise.all([
+        networkTest_1.default.deleteOne({ _id: req.query.id }),
+        networkTestResponse_1.default.deleteMany({ networkTest: req.query.id }),
+    ]);
+    res.send("Network test deleted");
+});
+exports.deleteNetworkTest = deleteNetworkTest;

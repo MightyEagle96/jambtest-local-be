@@ -158,3 +158,44 @@ export const computerListUnderNetworkTest = async (
   });
   res.send(mappedComputerList);
 };
+
+const responseQueue = new ConcurrentJobQueue({
+  concurrency: 1,
+  maxQueueSize: 100,
+  retries: 0,
+  retryDelay: 3000,
+  shutdownTimeout: 30000,
+});
+export const sendResponses = async (req: Request, res: Response) => {
+  responseQueue.enqueue(async () => {
+    const response = await NetworkTestResponseModel.findOne({
+      computer: req.headers.computer,
+      networkTest: req.headers.networktest,
+    });
+    if (response) {
+      response.responses = req.body.responses;
+      await response.save();
+    }
+  });
+  res.send("Success");
+};
+
+export const viewMyComputerResponse = async (req: Request, res: Response) => {
+  const response = await NetworkTestResponseModel.findOne({
+    computer: req.headers.computer,
+    networkTest: req.headers.networktest,
+  }).populate(["networkTest", "computer"]);
+  if (!response) {
+    return res.status(404).send("Response not found");
+  }
+  res.send(response);
+};
+
+export const deleteNetworkTest = async (req: Request, res: Response) => {
+  await Promise.all([
+    NetworkTestModel.deleteOne({ _id: req.query.id }),
+    NetworkTestResponseModel.deleteMany({ networkTest: req.query.id }),
+  ]);
+
+  res.send("Network test deleted");
+};
