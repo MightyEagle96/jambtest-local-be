@@ -4,6 +4,7 @@ import {
   computerListUnderNetworkTest,
   createNetworkTest,
   deleteNetworkTest,
+  endNetworkTest,
   networkTestValidation,
   sendResponses,
   toggleActivation,
@@ -22,6 +23,7 @@ networkTestRouter
   .post("/begintest", networkTestValidation, beginNetworkTest)
   .get("/computerlist/:id", computerListUnderNetworkTest)
   .post("/sendresponses", sendResponses)
+  .post("/endnetworktest", endNetworkTest)
   .get("/myresponse", viewMyComputerResponse)
   .get("/delete", deleteNetworkTest);
 

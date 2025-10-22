@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteNetworkTest = exports.viewMyComputerResponse = exports.sendResponses = exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
+exports.deleteNetworkTest = exports.viewMyComputerResponse = exports.endNetworkTest = exports.sendResponses = exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
 const uuid_1 = require("uuid");
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
@@ -64,6 +64,7 @@ const errorMessages = {
     noActiveTest: "There is no active network test",
     computerFlagged: "This computer has been flagged for an infraction",
     notUploaded: "This computer is not yet registered on the JAMB test network",
+    alreadyTested: "This computer has already been tested",
 };
 const networkTestValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const centre = yield centreModel_1.default.findOne();
@@ -86,6 +87,15 @@ const networkTestValidation = (req, res, next) => __awaiter(void 0, void 0, void
     const activeTest = yield networkTest_1.default.findOne({ active: true });
     if (!activeTest) {
         return res.status(400).send(errorMessages.noActiveTest);
+    }
+    if (activeTest) {
+        const response = yield networkTestResponse_1.default.findOne({
+            computer: computer._id.toString(),
+            networkTest: activeTest._id.toString(),
+        });
+        if (response) {
+            return res.status(400).send(errorMessages.alreadyTested);
+        }
     }
     req.headers.computer = computer._id.toString();
     req.headers.networktest = activeTest._id.toString();
@@ -144,20 +154,61 @@ const responseQueue = new DataQueue_1.ConcurrentJobQueue({
     shutdownTimeout: 30000,
 });
 const sendResponses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    responseQueue.enqueue(() => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield networkTestResponse_1.default.findOne({
-            computer: req.body.computer,
-            networkTest: req.body.networktest,
-        });
-        if (response) {
-            response.responses = response.responses += 1;
-            response.timeLeft = req.body.timeLeft;
+    try {
+        yield responseQueue.enqueue(() => __awaiter(void 0, void 0, void 0, function* () {
+            const { computer, networktest, timeLeft } = req.body;
+            const response = yield networkTestResponse_1.default.findOne({
+                computer,
+                networkTest: networktest,
+            });
+            if (!response) {
+                console.log("No matching response found for:", {
+                    computer,
+                    networktest,
+                });
+                // Explicitly return 404 so frontend can act accordingly
+                return res.status(404).send({ message: "No matching response found" });
+            }
+            // Update existing record
+            response.responses += 1;
+            response.timeLeft = timeLeft;
+            response.status = "connected";
             yield response.save();
-        }
-    }));
-    res.send("Success");
+            // Find computers not updated in the last 1 minute
+            const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
+            const staleComputers = yield networkTestResponse_1.default.find({
+                networkTest: networktest,
+                updatedAt: { $lt: oneMinuteAgo },
+            });
+            for (const c of staleComputers) {
+                if (c.status === "connected") {
+                    c.status = "disconnected";
+                    c.networkLosses += 1;
+                    yield c.save();
+                }
+            }
+            res.send("Success");
+        }));
+    }
+    catch (error) {
+        console.error("Error in sendResponses:", error);
+        res.status(500).send({ message: "Server error" });
+    }
 });
 exports.sendResponses = sendResponses;
+const endNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const response = yield networkTestResponse_1.default.findOne({
+        computer: req.body.computer,
+        networkTest: req.body.networktest,
+    });
+    if (response) {
+        response.timeLeft = 0;
+        response.endedAt = new Date();
+        yield response.save();
+    }
+    res.send("Success");
+});
+exports.endNetworkTest = endNetworkTest;
 const viewMyComputerResponse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield networkTestResponse_1.default.findOne({
         computer: req.headers.computer,

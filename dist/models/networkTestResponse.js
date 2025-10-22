@@ -11,10 +11,10 @@ const schema = new mongoose_1.Schema({
     loggedInAt: Date,
     endedAt: Date,
     ipAddress: String,
-    responses: Number,
+    responses: { type: Number, default: 0 },
     timeLeft: Number,
     status: String,
-    networkLosses: Number,
+    networkLosses: { type: Number, default: 0 },
 }, { timestamps: true });
 const NetworkTestResponseModel = (0, mongoose_1.model)("NetworkTestResponse", schema);
 exports.default = NetworkTestResponseModel;

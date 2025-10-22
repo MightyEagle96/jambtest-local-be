@@ -13,5 +13,6 @@ networkTestRouter
     .post("/begintest", networkTestController_1.networkTestValidation, networkTestController_1.beginNetworkTest)
     .get("/computerlist/:id", networkTestController_1.computerListUnderNetworkTest)
     .post("/sendresponses", networkTestController_1.sendResponses)
+    .post("/endnetworktest", networkTestController_1.endNetworkTest)
     .get("/myresponse", networkTestController_1.viewMyComputerResponse)
     .get("/delete", networkTestController_1.deleteNetworkTest);

@@ -9,8 +9,10 @@ export interface INetworkTestResponse {
   ipAddress: string;
   responses: number;
   timeLeft: number;
-  status: "connected" | "disconnected";
+  status: "connected" | "disconnected" | "ended";
   networkLosses: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const schema = new Schema<INetworkTestResponse>(
@@ -24,10 +26,10 @@ const schema = new Schema<INetworkTestResponse>(
     loggedInAt: Date,
     endedAt: Date,
     ipAddress: String,
-    responses: Number,
+    responses: { type: Number, default: 0 },
     timeLeft: Number,
     status: String,
-    networkLosses: Number,
+    networkLosses: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

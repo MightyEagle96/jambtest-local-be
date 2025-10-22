@@ -5,6 +5,8 @@ import ComputerModel from "../models/computerModel";
 import CentreModel from "../models/centreModel";
 import { ConcurrentJobQueue } from "./DataQueue";
 import NetworkTestResponseModel from "../models/networkTestResponse";
+import { WebSocketServer } from "ws";
+import { wss } from "../app";
 
 const id = uuidv4();
 export const createNetworkTest = async (req: Request, res: Response) => {
@@ -63,6 +65,7 @@ const errorMessages = {
   noActiveTest: "There is no active network test",
   computerFlagged: "This computer has been flagged for an infraction",
   notUploaded: "This computer is not yet registered on the JAMB test network",
+  alreadyTested: "This computer has already been tested",
 };
 
 export const networkTestValidation = async (
@@ -98,6 +101,15 @@ export const networkTestValidation = async (
     return res.status(400).send(errorMessages.noActiveTest);
   }
 
+  if (activeTest) {
+    const response = await NetworkTestResponseModel.findOne({
+      computer: computer._id.toString(),
+      networkTest: activeTest._id.toString(),
+    });
+    if (response) {
+      return res.status(400).send(errorMessages.alreadyTested);
+    }
+  }
   req.headers.computer = computer._id.toString();
   req.headers.networktest = activeTest._id.toString();
   next();
@@ -166,18 +178,66 @@ const responseQueue = new ConcurrentJobQueue({
   retryDelay: 3000,
   shutdownTimeout: 30000,
 });
+
 export const sendResponses = async (req: Request, res: Response) => {
-  responseQueue.enqueue(async () => {
-    const response = await NetworkTestResponseModel.findOne({
-      computer: req.body.computer,
-      networkTest: req.body.networktest,
-    });
-    if (response) {
-      response.responses = response.responses += 1;
-      response.timeLeft = req.body.timeLeft;
+  try {
+    await responseQueue.enqueue(async () => {
+      const { computer, networktest, timeLeft } = req.body;
+
+      const response = await NetworkTestResponseModel.findOne({
+        computer,
+        networkTest: networktest,
+      });
+
+      if (!response) {
+        console.log("No matching response found for:", {
+          computer,
+          networktest,
+        });
+        // Explicitly return 404 so frontend can act accordingly
+        return res.status(404).send({ message: "No matching response found" });
+      }
+
+      // Update existing record
+      response.responses += 1;
+      response.timeLeft = timeLeft;
+      response.status = "connected";
       await response.save();
-    }
+
+      // Find computers not updated in the last 1 minute
+      const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
+
+      const staleComputers = await NetworkTestResponseModel.find({
+        networkTest: networktest,
+        updatedAt: { $lt: oneMinuteAgo },
+      });
+
+      for (const c of staleComputers) {
+        if (c.status === "connected") {
+          c.status = "disconnected";
+          c.networkLosses += 1;
+          await c.save();
+        }
+      }
+
+      res.send("Success");
+    });
+  } catch (error) {
+    console.error("Error in sendResponses:", error);
+    res.status(500).send({ message: "Server error" });
+  }
+};
+
+export const endNetworkTest = async (req: Request, res: Response) => {
+  const response = await NetworkTestResponseModel.findOne({
+    computer: req.body.computer,
+    networkTest: req.body.networktest,
   });
+  if (response) {
+    response.timeLeft = 0;
+    response.endedAt = new Date();
+    await response.save();
+  }
   res.send("Success");
 };
 
