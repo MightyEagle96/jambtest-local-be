@@ -236,6 +236,7 @@ export const endNetworkTest = async (req: Request, res: Response) => {
   if (response) {
     response.timeLeft = 0;
     response.endedAt = new Date();
+    response.status = "ended";
     await response.save();
   }
   res.send("Success");

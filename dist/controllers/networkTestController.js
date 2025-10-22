@@ -204,6 +204,7 @@ const endNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function*
     if (response) {
         response.timeLeft = 0;
         response.endedAt = new Date();
+        response.status = "ended";
         yield response.save();
     }
     res.send("Success");
