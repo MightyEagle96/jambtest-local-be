@@ -7,6 +7,7 @@ import { ConcurrentJobQueue } from "./DataQueue";
 import NetworkTestResponseModel from "../models/networkTestResponse";
 import { WebSocketServer } from "ws";
 import { wss } from "../app";
+import mongoose from "mongoose";
 
 const id = uuidv4();
 export const createNetworkTest = async (req: Request, res: Response) => {
@@ -264,4 +265,97 @@ export const deleteNetworkTest = async (req: Request, res: Response) => {
   ]);
 
   res.send("Network test deleted");
+};
+
+export const networkTestDashboard = async (req: Request, res: Response) => {
+  try {
+    const networkTest = await NetworkTestModel.findById(req.query.id);
+
+    if (!networkTest) {
+      return res.status(400).send("Test not found");
+    }
+
+    const [
+      totalComputers,
+      //  networkTest,
+      connected,
+      computersWithNetworkLosses,
+      totalNetworkLosses,
+      ended,
+      disconnected,
+      totalResponses,
+    ] = await Promise.all([
+      NetworkTestResponseModel.countDocuments({
+        networkTest: req.query.id,
+      }),
+
+      // NetworkTestModel.findById(req.query.id),
+
+      NetworkTestResponseModel.countDocuments({
+        networkTest: req.query.id,
+        status: "connected",
+      }),
+
+      NetworkTestResponseModel.countDocuments({
+        networkTest: req.query.id,
+        networkLosses: { $gt: 0 },
+      }),
+
+      NetworkTestResponseModel.aggregate([
+        {
+          $match: {
+            networkTest: new mongoose.Types.ObjectId(req.query.id?.toString()),
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: "$networkLosses" },
+          },
+        },
+      ]),
+
+      NetworkTestResponseModel.countDocuments({
+        networkTest: req.query.id,
+        status: "ended",
+      }),
+
+      NetworkTestResponseModel.countDocuments({
+        networkTest: req.query.id,
+        status: "disconnected",
+      }),
+
+      NetworkTestResponseModel.aggregate([
+        {
+          $match: {
+            networkTest: new mongoose.Types.ObjectId(req.query.id?.toString()),
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: "$responses" },
+          },
+        },
+      ]),
+    ]);
+
+    res.send({
+      totalComputers,
+      connected,
+      computersWithNetworkLosses,
+      totalNetworkLosses: totalNetworkLosses[0]?.total || 0,
+      ended,
+      disconnected,
+      totalResponses: totalResponses[0]?.total || 0,
+      expected: (totalComputers * networkTest?.duration) / 1000 / 60,
+      responseThroughput: (
+        ((totalResponses[0]?.total || 0) /
+          ((totalComputers * networkTest?.duration) / 1000 / 60)) *
+        100
+      ).toFixed(2),
+    });
+  } catch (error) {
+    res.status(500).send("Server error");
+  }
 };

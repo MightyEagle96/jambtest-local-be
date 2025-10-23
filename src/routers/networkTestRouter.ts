@@ -5,6 +5,7 @@ import {
   createNetworkTest,
   deleteNetworkTest,
   endNetworkTest,
+  networkTestDashboard,
   networkTestValidation,
   sendResponses,
   toggleActivation,
@@ -22,6 +23,8 @@ networkTestRouter
   .get("/view/:id", viewNetworkTest)
   .post("/begintest", networkTestValidation, beginNetworkTest)
   .get("/computerlist/:id", computerListUnderNetworkTest)
+  .get("/dashboard", networkTestDashboard)
+
   .post("/sendresponses", sendResponses)
   .post("/endnetworktest", endNetworkTest)
   .get("/myresponse", viewMyComputerResponse)

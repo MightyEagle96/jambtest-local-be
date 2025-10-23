@@ -12,6 +12,7 @@ networkTestRouter
     .get("/view/:id", networkTestController_1.viewNetworkTest)
     .post("/begintest", networkTestController_1.networkTestValidation, networkTestController_1.beginNetworkTest)
     .get("/computerlist/:id", networkTestController_1.computerListUnderNetworkTest)
+    .get("/dashboard", networkTestController_1.networkTestDashboard)
     .post("/sendresponses", networkTestController_1.sendResponses)
     .post("/endnetworktest", networkTestController_1.endNetworkTest)
     .get("/myresponse", networkTestController_1.viewMyComputerResponse)

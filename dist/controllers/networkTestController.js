@@ -12,13 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteNetworkTest = exports.viewMyComputerResponse = exports.endNetworkTest = exports.sendResponses = exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
+exports.networkTestDashboard = exports.deleteNetworkTest = exports.viewMyComputerResponse = exports.endNetworkTest = exports.sendResponses = exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
 const uuid_1 = require("uuid");
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
 const centreModel_1 = __importDefault(require("../models/centreModel"));
 const DataQueue_1 = require("./DataQueue");
 const networkTestResponse_1 = __importDefault(require("../models/networkTestResponse"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const id = (0, uuid_1.v4)();
 const createNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const uploadedSystems = yield computerModel_1.default.countDocuments({
@@ -233,3 +234,79 @@ const deleteNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, functi
     res.send("Network test deleted");
 });
 exports.deleteNetworkTest = deleteNetworkTest;
+const networkTestDashboard = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b, _c, _d, _e;
+    try {
+        const networkTest = yield networkTest_1.default.findById(req.query.id);
+        if (!networkTest) {
+            return res.status(400).send("Test not found");
+        }
+        const [totalComputers, 
+        //  networkTest,
+        connected, computersWithNetworkLosses, totalNetworkLosses, ended, disconnected, totalResponses,] = yield Promise.all([
+            networkTestResponse_1.default.countDocuments({
+                networkTest: req.query.id,
+            }),
+            // NetworkTestModel.findById(req.query.id),
+            networkTestResponse_1.default.countDocuments({
+                networkTest: req.query.id,
+                status: "connected",
+            }),
+            networkTestResponse_1.default.countDocuments({
+                networkTest: req.query.id,
+                networkLosses: { $gt: 0 },
+            }),
+            networkTestResponse_1.default.aggregate([
+                {
+                    $match: {
+                        networkTest: new mongoose_1.default.Types.ObjectId((_a = req.query.id) === null || _a === void 0 ? void 0 : _a.toString()),
+                    },
+                },
+                {
+                    $group: {
+                        _id: null,
+                        total: { $sum: "$networkLosses" },
+                    },
+                },
+            ]),
+            networkTestResponse_1.default.countDocuments({
+                networkTest: req.query.id,
+                status: "ended",
+            }),
+            networkTestResponse_1.default.countDocuments({
+                networkTest: req.query.id,
+                status: "disconnected",
+            }),
+            networkTestResponse_1.default.aggregate([
+                {
+                    $match: {
+                        networkTest: new mongoose_1.default.Types.ObjectId((_b = req.query.id) === null || _b === void 0 ? void 0 : _b.toString()),
+                    },
+                },
+                {
+                    $group: {
+                        _id: null,
+                        total: { $sum: "$responses" },
+                    },
+                },
+            ]),
+        ]);
+        res.send({
+            totalComputers,
+            connected,
+            computersWithNetworkLosses,
+            totalNetworkLosses: ((_c = totalNetworkLosses[0]) === null || _c === void 0 ? void 0 : _c.total) || 0,
+            ended,
+            disconnected,
+            totalResponses: ((_d = totalResponses[0]) === null || _d === void 0 ? void 0 : _d.total) || 0,
+            expected: (totalComputers * (networkTest === null || networkTest === void 0 ? void 0 : networkTest.duration)) / 1000 / 60,
+            responseThroughput: (((((_e = totalResponses[0]) === null || _e === void 0 ? void 0 : _e.total) || 0) /
+                ((totalComputers * (networkTest === null || networkTest === void 0 ? void 0 : networkTest.duration)) / 1000 / 60)) *
+                100).toFixed(2),
+        });
+    }
+    catch (error) {
+        res.status(500).send("Server error");
+    }
+});
+exports.networkTestDashboard = networkTestDashboard;
