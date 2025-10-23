@@ -106,6 +106,7 @@ export const networkTestValidation = async (
     const response = await NetworkTestResponseModel.findOne({
       computer: computer._id.toString(),
       networkTest: activeTest._id.toString(),
+      status: "ended",
     });
     if (response) {
       return res.status(400).send(errorMessages.alreadyTested);

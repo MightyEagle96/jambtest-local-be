@@ -93,6 +93,7 @@ const networkTestValidation = (req, res, next) => __awaiter(void 0, void 0, void
         const response = yield networkTestResponse_1.default.findOne({
             computer: computer._id.toString(),
             networkTest: activeTest._id.toString(),
+            status: "ended",
         });
         if (response) {
             return res.status(400).send(errorMessages.alreadyTested);
