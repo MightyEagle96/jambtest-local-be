@@ -161,6 +161,7 @@ export const computerListUnderNetworkTest = async (
   })
     .populate("computer")
     .lean();
+  checkLastActive(req.params.id);
 
   const mappedComputerList = computerList.map((computer, i) => {
     return {
@@ -178,6 +179,24 @@ const responseQueue = new ConcurrentJobQueue({
   retryDelay: 3000,
   shutdownTimeout: 30000,
 });
+
+const checkLastActive = async (networkTest: any) => {
+  // Find computers not updated in the last 1 minute
+  const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
+
+  const staleComputers = await NetworkTestResponseModel.find({
+    networkTest: networkTest,
+    updatedAt: { $lt: oneMinuteAgo },
+  });
+
+  for (const c of staleComputers) {
+    if (c.status === "connected") {
+      c.status = "disconnected";
+      c.networkLosses += 1;
+      await c.save();
+    }
+  }
+};
 
 export const sendResponses = async (req: Request, res: Response) => {
   try {
@@ -204,22 +223,7 @@ export const sendResponses = async (req: Request, res: Response) => {
       response.status = "connected";
       await response.save();
 
-      // Find computers not updated in the last 1 minute
-      const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
-
-      const staleComputers = await NetworkTestResponseModel.find({
-        networkTest: networktest,
-        updatedAt: { $lt: oneMinuteAgo },
-      });
-
-      for (const c of staleComputers) {
-        if (c.status === "connected") {
-          c.status = "disconnected";
-          c.networkLosses += 1;
-          await c.save();
-        }
-      }
-
+      checkLastActive(networktest);
       res.send("Success");
     });
   } catch (error) {

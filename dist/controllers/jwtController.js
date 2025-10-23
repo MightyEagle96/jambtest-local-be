@@ -24,14 +24,19 @@ const generateRefreshToken = (payload) => {
 };
 exports.generateRefreshToken = generateRefreshToken;
 const authenticateToken = (req, res, next) => {
-    const token = req.cookies.accessToken;
-    if (!token) {
-        return res.sendStatus(401);
+    try {
+        const token = req.cookies.accessToken;
+        if (!token) {
+            return res.sendStatus(401);
+        }
+        const decoded = jsonwebtoken_1.default.verify(token, process.env.ACCESS_TOKEN);
+        if (decoded) {
+            req.centre = decoded;
+        }
+        next();
     }
-    const decoded = jsonwebtoken_1.default.verify(token, process.env.ACCESS_TOKEN);
-    if (decoded) {
-        req.centre = decoded;
+    catch (error) {
+        res.sendStatus(401);
     }
-    next();
 };
 exports.authenticateToken = authenticateToken;

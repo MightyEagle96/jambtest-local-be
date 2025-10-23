@@ -140,6 +140,7 @@ const computerListUnderNetworkTest = (req, res) => __awaiter(void 0, void 0, voi
     })
         .populate("computer")
         .lean();
+    checkLastActive(req.params.id);
     const mappedComputerList = computerList.map((computer, i) => {
         return Object.assign(Object.assign({}, computer), { id: i + 1 });
     });
@@ -152,6 +153,21 @@ const responseQueue = new DataQueue_1.ConcurrentJobQueue({
     retries: 0,
     retryDelay: 3000,
     shutdownTimeout: 30000,
+});
+const checkLastActive = (networkTest) => __awaiter(void 0, void 0, void 0, function* () {
+    // Find computers not updated in the last 1 minute
+    const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
+    const staleComputers = yield networkTestResponse_1.default.find({
+        networkTest: networkTest,
+        updatedAt: { $lt: oneMinuteAgo },
+    });
+    for (const c of staleComputers) {
+        if (c.status === "connected") {
+            c.status = "disconnected";
+            c.networkLosses += 1;
+            yield c.save();
+        }
+    }
 });
 const sendResponses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -174,19 +190,7 @@ const sendResponses = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             response.timeLeft = timeLeft;
             response.status = "connected";
             yield response.save();
-            // Find computers not updated in the last 1 minute
-            const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
-            const staleComputers = yield networkTestResponse_1.default.find({
-                networkTest: networktest,
-                updatedAt: { $lt: oneMinuteAgo },
-            });
-            for (const c of staleComputers) {
-                if (c.status === "connected") {
-                    c.status = "disconnected";
-                    c.networkLosses += 1;
-                    yield c.save();
-                }
-            }
+            checkLastActive(networktest);
             res.send("Success");
         }));
     }

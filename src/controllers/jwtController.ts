@@ -27,18 +27,22 @@ export const authenticateToken = (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.cookies.accessToken;
+  try {
+    const token = req.cookies.accessToken;
 
-  if (!token) {
-    return res.sendStatus(401);
+    if (!token) {
+      return res.sendStatus(401);
+    }
+
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN!) as JwtPayload &
+      ICentre;
+
+    if (decoded) {
+      req.centre = decoded;
+    }
+
+    next();
+  } catch (error) {
+    res.sendStatus(401);
   }
-
-  const decoded = jwt.verify(token, process.env.ACCESS_TOKEN!) as JwtPayload &
-    ICentre;
-
-  if (decoded) {
-    req.centre = decoded;
-  }
-
-  next();
 };
