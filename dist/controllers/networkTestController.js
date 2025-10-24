@@ -175,6 +175,12 @@ const sendResponses = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         yield responseQueue.enqueue(() => __awaiter(void 0, void 0, void 0, function* () {
             const { computer, networktest, timeLeft } = req.body;
+            const networkTestData = yield networkTest_1.default.findById(networktest);
+            if (!networkTestData) {
+                console.log("No matching test found for:", networktest);
+                // Explicitly return 404 so frontend can act accordingly
+                return res.status(404).send("No matching test found");
+            }
             const response = yield networkTestResponse_1.default.findOne({
                 computer,
                 networkTest: networktest,
@@ -188,7 +194,9 @@ const sendResponses = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 return res.status(404).send({ message: "No matching response found" });
             }
             // Update existing record
-            response.responses += 1;
+            if (response.responses + 1 <= networkTestData.maxResponses) {
+                response.responses += 1;
+            }
             response.timeLeft = timeLeft;
             response.status = "connected";
             yield response.save();
@@ -202,17 +210,26 @@ const sendResponses = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.sendResponses = sendResponses;
+const endQueue = new DataQueue_1.ConcurrentJobQueue({
+    concurrency: 1,
+    maxQueueSize: 100,
+    retries: 0,
+    retryDelay: 3000,
+    shutdownTimeout: 30000,
+});
 const endNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield networkTestResponse_1.default.findOne({
-        computer: req.body.computer,
-        networkTest: req.body.networktest,
-    });
-    if (response) {
-        response.timeLeft = 0;
-        response.endedAt = new Date();
-        response.status = "ended";
-        yield response.save();
-    }
+    endQueue.enqueue(() => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield networkTestResponse_1.default.findOne({
+            computer: req.body.computer,
+            networkTest: req.body.networktest,
+        });
+        if (response) {
+            response.timeLeft = 0;
+            response.endedAt = new Date();
+            response.status = "ended";
+            yield response.save();
+        }
+    }));
     res.send("Success");
 });
 exports.endNetworkTest = endNetworkTest;

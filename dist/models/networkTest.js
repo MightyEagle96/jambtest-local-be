@@ -7,6 +7,11 @@ const schema = new mongoose_1.Schema({
     connectedComputers: { type: Number, default: 0 },
     active: { type: Boolean, default: false },
     dateCreated: { type: Date, default: new Date() },
+    maxResponses: { type: Number, default: 0 },
 }, { timestamps: true });
+schema.pre("save", function (next) {
+    this.maxResponses = this.duration / 1000 / 60;
+    next();
+});
 const NetworkTestModel = (0, mongoose_1.model)("NetworkTest", schema);
 exports.default = NetworkTestModel;

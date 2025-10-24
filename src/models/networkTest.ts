@@ -7,6 +7,7 @@ export interface INetworkTest {
   connectedComputers: number;
   active: boolean;
   dateCreated: Date;
+  maxResponses: number;
 }
 
 const schema = new Schema<INetworkTest>(
@@ -16,9 +17,15 @@ const schema = new Schema<INetworkTest>(
     connectedComputers: { type: Number, default: 0 },
     active: { type: Boolean, default: false },
     dateCreated: { type: Date, default: new Date() },
+    maxResponses: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
+
+schema.pre("save", function (next) {
+  this.maxResponses = this.duration / 1000 / 60;
+  next();
+});
 
 const NetworkTestModel = model("NetworkTest", schema);
 

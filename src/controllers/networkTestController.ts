@@ -205,6 +205,14 @@ export const sendResponses = async (req: Request, res: Response) => {
     await responseQueue.enqueue(async () => {
       const { computer, networktest, timeLeft } = req.body;
 
+      const networkTestData = await NetworkTestModel.findById(networktest);
+
+      if (!networkTestData) {
+        console.log("No matching test found for:", networktest);
+        // Explicitly return 404 so frontend can act accordingly
+        return res.status(404).send("No matching test found");
+      }
+
       const response = await NetworkTestResponseModel.findOne({
         computer,
         networkTest: networktest,
@@ -220,7 +228,11 @@ export const sendResponses = async (req: Request, res: Response) => {
       }
 
       // Update existing record
-      response.responses += 1;
+
+      if (response.responses + 1 <= networkTestData.maxResponses) {
+        response.responses += 1;
+      }
+
       response.timeLeft = timeLeft;
       response.status = "connected";
       await response.save();
@@ -234,17 +246,27 @@ export const sendResponses = async (req: Request, res: Response) => {
   }
 };
 
+const endQueue = new ConcurrentJobQueue({
+  concurrency: 1,
+  maxQueueSize: 100,
+  retries: 0,
+  retryDelay: 3000,
+  shutdownTimeout: 30000,
+});
+
 export const endNetworkTest = async (req: Request, res: Response) => {
-  const response = await NetworkTestResponseModel.findOne({
-    computer: req.body.computer,
-    networkTest: req.body.networktest,
+  endQueue.enqueue(async () => {
+    const response = await NetworkTestResponseModel.findOne({
+      computer: req.body.computer,
+      networkTest: req.body.networktest,
+    });
+    if (response) {
+      response.timeLeft = 0;
+      response.endedAt = new Date();
+      response.status = "ended";
+      await response.save();
+    }
   });
-  if (response) {
-    response.timeLeft = 0;
-    response.endedAt = new Date();
-    response.status = "ended";
-    await response.save();
-  }
   res.send("Success");
 };
 
