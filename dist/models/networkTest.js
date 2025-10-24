@@ -8,6 +8,14 @@ const schema = new mongoose_1.Schema({
     active: { type: Boolean, default: false },
     dateCreated: { type: Date, default: new Date() },
     maxResponses: { type: Number, default: 0 },
+    timeActivated: { type: Date, default: null },
+    timeEnded: { type: Date, default: null },
+    ended: { type: Boolean, default: false },
+    totalNetworkLosses: { type: Number, default: 0 },
+    computersWithNetworkLosses: { type: Number, default: 0 },
+    endedComputers: { type: Number, default: 0 },
+    lostInTransport: { type: Number, default: 0 },
+    responseThroughput: String,
 }, { timestamps: true });
 schema.pre("save", function (next) {
     this.maxResponses = this.duration / 1000 / 60;

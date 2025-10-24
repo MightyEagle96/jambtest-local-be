@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.networkTestDashboard = exports.deleteNetworkTest = exports.viewMyComputerResponse = exports.endNetworkTest = exports.questionAndResponseCount = exports.sendResponses = exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
+exports.endNetworkTestForAdmin = exports.networkTestDashboard = exports.deleteNetworkTest = exports.viewMyComputerResponse = exports.endNetworkTest = exports.questionAndResponseCount = exports.sendResponses = exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
 const uuid_1 = require("uuid");
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
@@ -42,14 +42,43 @@ const viewNetworkTests = (req, res) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.viewNetworkTests = viewNetworkTests;
 const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const test = yield networkTest_1.default.findOne({ _id: req.query.id });
-    yield networkTest_1.default.updateMany({ active: true }, { active: false });
-    if (!test) {
-        return res.status(400).send("Test not found");
+    try {
+        const testId = req.query.id;
+        const test = yield networkTest_1.default.findById(testId);
+        if (!test) {
+            return res.status(404).send("Test not found");
+        }
+        // 💡 If the test is currently active — it means we’re deactivating it.
+        if (test.active) {
+            if (!test.ended) {
+                return res
+                    .status(400)
+                    .send("Cannot deactivate this test — it has not been ended.");
+            }
+            test.active = false;
+            yield test.save();
+            return res.send("Test deactivated successfully.");
+        }
+        // 💡 If we're activating a test — check that no other active test exists that hasn’t ended.
+        const ongoingTest = yield networkTest_1.default.findOne({
+            active: true,
+            ended: false,
+        });
+        if (ongoingTest) {
+            return res
+                .status(400)
+                .send("Another test is currently active and has not been ended.");
+        }
+        // ✅ Safe to activate
+        test.active = true;
+        test.timeActivated = new Date();
+        yield test.save();
+        res.send("Test activated successfully.");
     }
-    test.active = !test.active;
-    yield test.save();
-    res.send("Success");
+    catch (error) {
+        console.error("Toggle activation error:", error);
+        res.status(500).send("Internal server error.");
+    }
 });
 exports.toggleActivation = toggleActivation;
 const viewNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -359,3 +388,82 @@ const networkTestDashboard = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.networkTestDashboard = networkTestDashboard;
+const endNetworkTestForAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b, _c, _d;
+    try {
+        const networkTest = yield networkTest_1.default.findById(req.query.id);
+        if (!networkTest) {
+            return res.status(400).send("Test not found");
+        }
+        const [totalComputers, 
+        //  networkTest,
+        connected, computersWithNetworkLosses, totalNetworkLosses, ended, disconnected, totalResponses,] = yield Promise.all([
+            networkTestResponse_1.default.countDocuments({
+                networkTest: req.query.id,
+            }),
+            // NetworkTestModel.findById(req.query.id),
+            networkTestResponse_1.default.countDocuments({
+                networkTest: req.query.id,
+                status: "connected",
+            }),
+            networkTestResponse_1.default.countDocuments({
+                networkTest: req.query.id,
+                networkLosses: { $gt: 0 },
+            }),
+            networkTestResponse_1.default.aggregate([
+                {
+                    $match: {
+                        networkTest: new mongoose_1.default.Types.ObjectId((_a = req.query.id) === null || _a === void 0 ? void 0 : _a.toString()),
+                    },
+                },
+                {
+                    $group: {
+                        _id: null,
+                        total: { $sum: "$networkLosses" },
+                    },
+                },
+            ]),
+            networkTestResponse_1.default.countDocuments({
+                networkTest: req.query.id,
+                status: "ended",
+            }),
+            networkTestResponse_1.default.countDocuments({
+                networkTest: req.query.id,
+                status: "disconnected",
+            }),
+            networkTestResponse_1.default.aggregate([
+                {
+                    $match: {
+                        networkTest: new mongoose_1.default.Types.ObjectId((_b = req.query.id) === null || _b === void 0 ? void 0 : _b.toString()),
+                    },
+                },
+                {
+                    $group: {
+                        _id: null,
+                        total: { $sum: "$responses" },
+                    },
+                },
+            ]),
+        ]);
+        yield networkTest_1.default.updateOne({ _id: req.query.id }, {
+            $set: {
+                active: false,
+                ended: true,
+                timeEnded: new Date(),
+                totalNetworkLosses: ((_c = totalNetworkLosses[0]) === null || _c === void 0 ? void 0 : _c.total) || 0,
+                computersWithNetworkLosses: computersWithNetworkLosses,
+                connectedComputers: totalComputers,
+                endedComputers: ended,
+                lostInTransport: disconnected + connected,
+                responseThroughput: (((((_d = totalResponses[0]) === null || _d === void 0 ? void 0 : _d.total) || 0) /
+                    ((totalComputers * (networkTest === null || networkTest === void 0 ? void 0 : networkTest.duration)) / 1000 / 60)) *
+                    100).toFixed(2),
+            },
+        });
+        res.send("Test ended successfully");
+    }
+    catch (error) {
+        res.status(500).send("Server error");
+    }
+});
+exports.endNetworkTestForAdmin = endNetworkTestForAdmin;

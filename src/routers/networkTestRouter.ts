@@ -5,6 +5,7 @@ import {
   createNetworkTest,
   deleteNetworkTest,
   endNetworkTest,
+  endNetworkTestForAdmin,
   networkTestDashboard,
   networkTestValidation,
   questionAndResponseCount,
@@ -30,6 +31,7 @@ networkTestRouter
   .post("/questionandresponsecount", questionAndResponseCount)
   .post("/endnetworktest", endNetworkTest)
   .get("/myresponse", viewMyComputerResponse)
-  .get("/delete", deleteNetworkTest);
+  .get("/delete", deleteNetworkTest)
+  .get("/endnetworktestadmin", endNetworkTestForAdmin);
 
 export { networkTestRouter };

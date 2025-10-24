@@ -42,15 +42,49 @@ export const viewNetworkTests = async (req: Request, res: Response) => {
 };
 
 export const toggleActivation = async (req: Request, res: Response) => {
-  const test = await NetworkTestModel.findOne({ _id: req.query.id });
+  try {
+    const testId = req.query.id as string;
+    const test = await NetworkTestModel.findById(testId);
 
-  await NetworkTestModel.updateMany({ active: true }, { active: false });
-  if (!test) {
-    return res.status(400).send("Test not found");
+    if (!test) {
+      return res.status(404).send("Test not found");
+    }
+
+    // 💡 If the test is currently active — it means we’re deactivating it.
+    if (test.active) {
+      if (!test.ended) {
+        return res
+          .status(400)
+          .send("Cannot deactivate this test — it has not been ended.");
+      }
+
+      test.active = false;
+      await test.save();
+      return res.send("Test deactivated successfully.");
+    }
+
+    // 💡 If we're activating a test — check that no other active test exists that hasn’t ended.
+    const ongoingTest = await NetworkTestModel.findOne({
+      active: true,
+      ended: false,
+    });
+
+    if (ongoingTest) {
+      return res
+        .status(400)
+        .send("Another test is currently active and has not been ended.");
+    }
+
+    // ✅ Safe to activate
+    test.active = true;
+    test.timeActivated = new Date();
+    await test.save();
+
+    res.send("Test activated successfully.");
+  } catch (error) {
+    console.error("Toggle activation error:", error);
+    res.status(500).send("Internal server error.");
   }
-  test.active = !test.active;
-  await test.save();
-  res.send("Success");
 };
 
 export const viewNetworkTest = async (req: Request, res: Response) => {
@@ -420,6 +454,106 @@ export const networkTestDashboard = async (req: Request, res: Response) => {
         100
       ).toFixed(2),
     });
+  } catch (error) {
+    res.status(500).send("Server error");
+  }
+};
+
+export const endNetworkTestForAdmin = async (req: Request, res: Response) => {
+  try {
+    const networkTest = await NetworkTestModel.findById(req.query.id);
+
+    if (!networkTest) {
+      return res.status(400).send("Test not found");
+    }
+
+    const [
+      totalComputers,
+      //  networkTest,
+      connected,
+      computersWithNetworkLosses,
+      totalNetworkLosses,
+      ended,
+      disconnected,
+      totalResponses,
+    ] = await Promise.all([
+      NetworkTestResponseModel.countDocuments({
+        networkTest: req.query.id,
+      }),
+
+      // NetworkTestModel.findById(req.query.id),
+
+      NetworkTestResponseModel.countDocuments({
+        networkTest: req.query.id,
+        status: "connected",
+      }),
+
+      NetworkTestResponseModel.countDocuments({
+        networkTest: req.query.id,
+        networkLosses: { $gt: 0 },
+      }),
+
+      NetworkTestResponseModel.aggregate([
+        {
+          $match: {
+            networkTest: new mongoose.Types.ObjectId(req.query.id?.toString()),
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: "$networkLosses" },
+          },
+        },
+      ]),
+
+      NetworkTestResponseModel.countDocuments({
+        networkTest: req.query.id,
+        status: "ended",
+      }),
+
+      NetworkTestResponseModel.countDocuments({
+        networkTest: req.query.id,
+        status: "disconnected",
+      }),
+
+      NetworkTestResponseModel.aggregate([
+        {
+          $match: {
+            networkTest: new mongoose.Types.ObjectId(req.query.id?.toString()),
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: "$responses" },
+          },
+        },
+      ]),
+    ]);
+
+    await NetworkTestModel.updateOne(
+      { _id: req.query.id },
+      {
+        $set: {
+          active: false,
+          ended: true,
+          timeEnded: new Date(),
+          totalNetworkLosses: totalNetworkLosses[0]?.total || 0,
+          computersWithNetworkLosses: computersWithNetworkLosses,
+          connectedComputers: totalComputers,
+          endedComputers: ended,
+          lostInTransport: disconnected + connected,
+          responseThroughput: (
+            ((totalResponses[0]?.total || 0) /
+              ((totalComputers * networkTest?.duration) / 1000 / 60)) *
+            100
+          ).toFixed(2),
+        },
+      }
+    );
+
+    res.send("Test ended successfully");
   } catch (error) {
     res.status(500).send("Server error");
   }

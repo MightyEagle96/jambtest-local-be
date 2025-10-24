@@ -17,4 +17,5 @@ networkTestRouter
     .post("/questionandresponsecount", networkTestController_1.questionAndResponseCount)
     .post("/endnetworktest", networkTestController_1.endNetworkTest)
     .get("/myresponse", networkTestController_1.viewMyComputerResponse)
-    .get("/delete", networkTestController_1.deleteNetworkTest);
+    .get("/delete", networkTestController_1.deleteNetworkTest)
+    .get("/endnetworktestadmin", networkTestController_1.endNetworkTestForAdmin);
