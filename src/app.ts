@@ -22,6 +22,7 @@ const corsOptions: CorsOptions = {
       !origin ||
       /^http:\/\/(localhost|127\.0\.0\.1):3000$/.test(origin) ||
       /^http:\/\/192\.168\.\d+\.\d+(:\d+)?$/.test(origin) ||
+      /^http:\/\/172\.16\.\d+\.\d+(:\d+)?$/.test(origin) ||
       /^http:\/\/10\.\d+\.\d+\.\d+(:\d+)?$/.test(origin)
     ) {
       callback(null, true);

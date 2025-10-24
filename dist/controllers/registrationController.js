@@ -17,20 +17,47 @@ const computerModel_1 = __importDefault(require("../models/computerModel"));
 const centreModel_1 = __importDefault(require("../models/centreModel"));
 const httpService_1 = require("../httpService");
 const registerComputer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const centre = yield centreModel_1.default.findOne();
-    if (!centre) {
-        return res.status(400).send("Centre not found");
+    var _a, _b;
+    try {
+        const centre = yield centreModel_1.default.findOne();
+        if (!centre)
+            return res.status(400).send("Centre not found");
+        const body = req.body;
+        // Normalize for consistent comparison
+        const serialNumber = (_a = body.serialNumber) === null || _a === void 0 ? void 0 : _a.toLowerCase();
+        const processorId = (_b = body.processorId) === null || _b === void 0 ? void 0 : _b.toLowerCase();
+        const macAddresses = (body.macAddresses || []).map((m) => m.toLowerCase());
+        // Check if a computer already exists with matching identifiers
+        const existingComputer = yield computerModel_1.default.findOne({
+            $or: [
+                { serialNumber },
+                { processorId },
+                { macAddresses: { $in: macAddresses } },
+            ],
+        });
+        if (existingComputer) {
+            let conflictFields = [];
+            if (existingComputer.serialNumber === serialNumber)
+                conflictFields.push("serial number");
+            if (existingComputer.processorId === processorId)
+                conflictFields.push("processor ID");
+            if (existingComputer.macAddresses.some((mac) => macAddresses.includes(mac)))
+                conflictFields.push("MAC address");
+            return res
+                .status(400)
+                .send(`Computer already registered — duplicate ${conflictFields.join(", ")}.`);
+        }
+        // Save new computer
+        const newComputer = new computerModel_1.default(Object.assign(Object.assign({}, body), { serialNumber,
+            processorId,
+            macAddresses, centre: centre._id }));
+        yield newComputer.save();
+        res.send("Computer registered successfully");
     }
-    const body = req.body;
-    const existingComputer = yield computerModel_1.default.findOne({
-        serialNumber: body.serialNumber,
-    });
-    if (existingComputer) {
-        return res.status(400).send("Computer already registered");
+    catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error");
     }
-    body.centre = centre._id;
-    yield computerModel_1.default.create(body);
-    res.send("Success");
 });
 exports.registerComputer = registerComputer;
 const viewRegisteredComputers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

@@ -4,28 +4,68 @@ import CentreModel, { AuthenticatedCentre } from "../models/centreModel";
 import { httpService } from "../httpService";
 
 export const registerComputer = async (req: Request, res: Response) => {
-  const centre = await CentreModel.findOne();
+  try {
+    const centre = await CentreModel.findOne();
+    if (!centre) return res.status(400).send("Centre not found");
 
-  if (!centre) {
-    return res.status(400).send("Centre not found");
+    const body = req.body;
+
+    // Normalize for consistent comparison
+    const serialNumber = body.serialNumber?.toLowerCase();
+    const processorId = body.processorId?.toLowerCase();
+    const macAddresses = (body.macAddresses || []).map((m: string) =>
+      m.toLowerCase()
+    );
+
+    // Check if a computer already exists with matching identifiers
+    const existingComputer = await ComputerModel.findOne({
+      $or: [
+        { serialNumber },
+        { processorId },
+        { macAddresses: { $in: macAddresses } },
+      ],
+    });
+
+    if (existingComputer) {
+      let conflictFields: string[] = [];
+
+      if (existingComputer.serialNumber === serialNumber)
+        conflictFields.push("serial number");
+      if (existingComputer.processorId === processorId)
+        conflictFields.push("processor ID");
+      if (
+        existingComputer.macAddresses.some((mac: string) =>
+          macAddresses.includes(mac)
+        )
+      )
+        conflictFields.push("MAC address");
+
+      return res
+        .status(400)
+        .send(
+          `Computer already registered — duplicate ${conflictFields.join(
+            ", "
+          )}.`
+        );
+    }
+
+    // Save new computer
+    const newComputer = new ComputerModel({
+      ...body,
+      serialNumber,
+      processorId,
+      macAddresses,
+      centre: centre._id,
+    });
+
+    await newComputer.save();
+
+    res.send("Computer registered successfully");
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).send("Internal server error");
   }
-  const body: IComputer = req.body;
-
-  const existingComputer = await ComputerModel.findOne({
-    serialNumber: body.serialNumber,
-  });
-
-  if (existingComputer) {
-    return res.status(400).send("Computer already registered");
-  }
-
-  body.centre = centre._id;
-
-  await ComputerModel.create(body);
-
-  res.send("Success");
 };
-
 export const viewRegisteredComputers = async (req: Request, res: Response) => {
   const page = (req.query.page || 1) as number;
   const limit = (req.query.limit || 50) as number;
