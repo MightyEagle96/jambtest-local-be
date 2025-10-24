@@ -29,7 +29,7 @@ const registerComputer = (req, res) => __awaiter(void 0, void 0, void 0, functio
         const macAddresses = (body.macAddresses || []).map((m) => m.toLowerCase());
         // Check if a computer already exists with matching identifiers
         const existingComputer = yield computerModel_1.default.findOne({
-            $or: [
+            $and: [
                 { serialNumber },
                 { processorId },
                 { macAddresses: { $in: macAddresses } },

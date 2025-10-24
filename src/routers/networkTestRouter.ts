@@ -7,6 +7,7 @@ import {
   endNetworkTest,
   networkTestDashboard,
   networkTestValidation,
+  questionAndResponseCount,
   sendResponses,
   toggleActivation,
   viewMyComputerResponse,
@@ -26,6 +27,7 @@ networkTestRouter
   .get("/dashboard", networkTestDashboard)
 
   .post("/sendresponses", sendResponses)
+  .post("/questionandresponsecount", questionAndResponseCount)
   .post("/endnetworktest", endNetworkTest)
   .get("/myresponse", viewMyComputerResponse)
   .get("/delete", deleteNetworkTest);

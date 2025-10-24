@@ -19,7 +19,7 @@ export const registerComputer = async (req: Request, res: Response) => {
 
     // Check if a computer already exists with matching identifiers
     const existingComputer = await ComputerModel.findOne({
-      $or: [
+      $and: [
         { serialNumber },
         { processorId },
         { macAddresses: { $in: macAddresses } },

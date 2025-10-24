@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.networkTestDashboard = exports.deleteNetworkTest = exports.viewMyComputerResponse = exports.endNetworkTest = exports.sendResponses = exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
+exports.networkTestDashboard = exports.deleteNetworkTest = exports.viewMyComputerResponse = exports.endNetworkTest = exports.questionAndResponseCount = exports.sendResponses = exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
 const uuid_1 = require("uuid");
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
@@ -20,6 +20,7 @@ const centreModel_1 = __importDefault(require("../models/centreModel"));
 const DataQueue_1 = require("./DataQueue");
 const networkTestResponse_1 = __importDefault(require("../models/networkTestResponse"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const questions_1 = __importDefault(require("./questions"));
 const id = (0, uuid_1.v4)();
 const createNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const uploadedSystems = yield computerModel_1.default.countDocuments({
@@ -68,13 +69,22 @@ const errorMessages = {
     alreadyTested: "This computer has already been tested",
 };
 const networkTestValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     const centre = yield centreModel_1.default.findOne();
+    const body = req.body;
+    // Normalize for consistent comparison
+    const serialNumber = (_a = body.serialNumber) === null || _a === void 0 ? void 0 : _a.toLowerCase();
+    const processorId = (_b = body.processorId) === null || _b === void 0 ? void 0 : _b.toLowerCase();
+    const macAddresses = (body.macAddresses || []).map((m) => m.toLowerCase());
     if (!centre) {
         return res.status(400).send(errorMessages.noCentre);
     }
     const computer = yield computerModel_1.default.findOne({
-        serialNumber: req.body.serialNumber,
-        macAddresses: req.body.macAddress,
+        $and: [
+            { serialNumber },
+            { processorId },
+            { macAddresses: { $in: macAddresses } },
+        ],
     });
     if (!computer) {
         return res.status(400).send(errorMessages.noComputer);
@@ -210,6 +220,27 @@ const sendResponses = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.sendResponses = sendResponses;
+const questionAndResponseCount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const [response, networkTest] = yield Promise.all([
+        networkTestResponse_1.default.findOne({
+            computer: req.body.computer,
+            networkTest: req.body.networktest,
+        }),
+        networkTest_1.default.findById(req.body.networktest),
+    ]);
+    if (!response) {
+        return res.status(404).send("Response not found");
+    }
+    if (!networkTest) {
+        return res.status(404).send("Test not found");
+    }
+    function selectRandomQuestion() {
+        const randomIndex = Math.floor(Math.random() * questions_1.default.length);
+        return questions_1.default[randomIndex];
+    }
+    res.send(Object.assign(Object.assign({}, selectRandomQuestion()), { responses: response.responses, maxResponses: networkTest.maxResponses }));
+});
+exports.questionAndResponseCount = questionAndResponseCount;
 const endQueue = new DataQueue_1.ConcurrentJobQueue({
     concurrency: 1,
     maxQueueSize: 100,

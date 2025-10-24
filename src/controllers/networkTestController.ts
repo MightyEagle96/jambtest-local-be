@@ -8,6 +8,7 @@ import NetworkTestResponseModel from "../models/networkTestResponse";
 import { WebSocketServer } from "ws";
 import { wss } from "../app";
 import mongoose from "mongoose";
+import testQuestions from "./questions";
 
 const id = uuidv4();
 export const createNetworkTest = async (req: Request, res: Response) => {
@@ -76,13 +77,25 @@ export const networkTestValidation = async (
 ) => {
   const centre = await CentreModel.findOne();
 
+  const body = req.body;
+
+  // Normalize for consistent comparison
+  const serialNumber = body.serialNumber?.toLowerCase();
+  const processorId = body.processorId?.toLowerCase();
+  const macAddresses = (body.macAddresses || []).map((m: string) =>
+    m.toLowerCase()
+  );
+
   if (!centre) {
     return res.status(400).send(errorMessages.noCentre);
   }
 
   const computer = await ComputerModel.findOne({
-    serialNumber: req.body.serialNumber,
-    macAddresses: req.body.macAddress,
+    $and: [
+      { serialNumber },
+      { processorId },
+      { macAddresses: { $in: macAddresses } },
+    ],
   });
 
   if (!computer) {
@@ -244,6 +257,35 @@ export const sendResponses = async (req: Request, res: Response) => {
     console.error("Error in sendResponses:", error);
     res.status(500).send({ message: "Server error" });
   }
+};
+
+export const questionAndResponseCount = async (req: Request, res: Response) => {
+  const [response, networkTest] = await Promise.all([
+    NetworkTestResponseModel.findOne({
+      computer: req.body.computer,
+      networkTest: req.body.networktest,
+    }),
+    NetworkTestModel.findById(req.body.networktest),
+  ]);
+
+  if (!response) {
+    return res.status(404).send("Response not found");
+  }
+
+  if (!networkTest) {
+    return res.status(404).send("Test not found");
+  }
+  function selectRandomQuestion() {
+    const randomIndex = Math.floor(Math.random() * testQuestions.length);
+    return testQuestions[randomIndex];
+  }
+
+  res.send({
+    ...selectRandomQuestion(),
+    responses: response.responses,
+
+    maxResponses: networkTest.maxResponses,
+  });
 };
 
 const endQueue = new ConcurrentJobQueue({
