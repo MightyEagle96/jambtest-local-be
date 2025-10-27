@@ -1,20 +1,16 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import cors, { CorsOptions } from "cors";
 import { ConnectDatabase } from "./database";
 import appRouter from "./routers/appRouter";
-import crypto from "crypto";
-import cookieParser from "cookie-parser";
+import path from "path";
 
-import { WebSocketServer } from "ws";
-import NetworkTestResponseModel from "./models/networkTestResponse";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
 const app = express();
-
-const allowedOrigins = ["http://localhost:3000", "http://127.0.0.1:3000"];
 
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
@@ -43,57 +39,12 @@ app
 
   .use(cors(corsOptions))
 
-  .use("/api", appRouter);
+  .use("/api", appRouter)
 
-const server = app.listen(4000, "0.0.0.0", () => {
-  console.log("server started on http://localhost:4000");
-});
+  .get("*", (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  })
 
-export const wss = new WebSocketServer({ server });
-
-wss.on("connection", (ws) => {
-  console.log("Client connected");
-
-  ws.on("message", async (msg) => {
-    try {
-      const data = JSON.parse(msg.toString());
-
-      // Expect a message like:
-      // { type: "sendResponse", networktest: "NT1", computer: "C123", timeLeft: 50 }
-
-      if (data.type === "sendResponse") {
-        const { networktest, computer, timeLeft } = data;
-
-        const response = await NetworkTestResponseModel.findOne({
-          computer,
-          networkTest: networktest,
-        });
-
-        if (response) {
-          response.responses += 1;
-          response.timeLeft = timeLeft;
-          await response.save();
-        } else {
-          // console.log("No matching response found for:", {
-          //   computer,
-          //   networktest,
-          // });
-          ws.send(
-            JSON.stringify({
-              type: "error",
-              reason: "no-matching-response",
-              computer,
-              networktest,
-            })
-          );
-        }
-      }
-    } catch (err) {
-      console.error("Invalid WS message", err);
-    }
+  .listen(4000, "0.0.0.0", () => {
+    console.log("server started on http://localhost:4000");
   });
-
-  ws.on("close", () => {
-    console.log("Client disconnected");
-  });
-});
