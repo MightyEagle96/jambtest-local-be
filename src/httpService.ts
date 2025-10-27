@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const baseURL =
   process.env.NODE_ENV === "production"
-    ? "http://10.5.175.216:4000/api"
+    ? "https://miniautotestcentral-be.onrender.com/api"
     : //
       "http://10.5.175.216:4000/api";
 

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.httpService = exports.baseURL = void 0;
 const axios_1 = __importDefault(require("axios"));
 exports.baseURL = process.env.NODE_ENV === "production"
-    ? "http://10.5.175.216:4000/api"
+    ? "https://miniautotestcentral-be.onrender.com/api"
     : //
         "http://10.5.175.216:4000/api";
 const httpService = axios_1.default.create({
