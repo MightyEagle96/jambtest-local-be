@@ -21,6 +21,7 @@ const DataQueue_1 = require("./DataQueue");
 const networkTestResponse_1 = __importDefault(require("../models/networkTestResponse"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const questions_1 = __importDefault(require("./questions"));
+const activeTestIntervals = new Map();
 const id = (0, uuid_1.v4)();
 const createNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const uploadedSystems = yield computerModel_1.default.countDocuments({
@@ -79,7 +80,6 @@ exports.viewNetworkTests = viewNetworkTests;
 //     res.status(500).send("Internal server error.");
 //   }
 // };
-const activeTestIntervals = new Map();
 const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const testId = req.query.id;
@@ -122,7 +122,7 @@ const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, functio
         const intervalId = setInterval(() => {
             checkLastActive(testId);
             console.log("Background check for test", testId);
-        }, 60 * 1000); // Adjust interval as needed (10 seconds here)
+        }, 10 * 1000); // Adjust interval as needed (10 seconds here)
         // Store the interval ID
         activeTestIntervals.set(testId, intervalId);
         res.send("Test activated successfully.");

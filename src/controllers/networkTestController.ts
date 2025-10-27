@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
-import NetworkTestModel from "../models/networkTest";
+import NetworkTestModel, { INetworkTest } from "../models/networkTest";
 import ComputerModel from "../models/computerModel";
 import CentreModel from "../models/centreModel";
 import { ConcurrentJobQueue } from "./DataQueue";
@@ -9,6 +9,8 @@ import { WebSocketServer } from "ws";
 import { wss } from "../app";
 import mongoose from "mongoose";
 import testQuestions from "./questions";
+
+const activeTestIntervals = new Map<string, NodeJS.Timeout>();
 
 const id = uuidv4();
 export const createNetworkTest = async (req: Request, res: Response) => {
@@ -87,7 +89,6 @@ export const viewNetworkTests = async (req: Request, res: Response) => {
 //   }
 // };
 
-const activeTestIntervals = new Map<string, NodeJS.Timeout>();
 export const toggleActivation = async (req: Request, res: Response) => {
   try {
     const testId = req.query.id as string;
@@ -118,10 +119,11 @@ export const toggleActivation = async (req: Request, res: Response) => {
     }
 
     // Check for other active tests
-    const ongoingTest = await NetworkTestModel.findOne({
-      active: true,
-      ended: false,
-    });
+    const ongoingTest: Partial<INetworkTest> | null =
+      await NetworkTestModel.findOne({
+        active: true,
+        ended: false,
+      });
 
     if (ongoingTest) {
       return res
@@ -138,7 +140,7 @@ export const toggleActivation = async (req: Request, res: Response) => {
     const intervalId = setInterval(() => {
       checkLastActive(testId);
       console.log("Background check for test", testId);
-    }, 60 * 1000); // Adjust interval as needed (10 seconds here)
+    }, 10 * 1000); // Adjust interval as needed (10 seconds here)
 
     // Store the interval ID
     activeTestIntervals.set(testId, intervalId);

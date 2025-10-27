@@ -13,6 +13,7 @@ export const loginAccount = async (req: Request, res: Response) => {
   try {
     const response = await httpService.post("centre/login", req.body);
 
+    console.log(response);
     if (response.status === 200) {
       // save to database
 

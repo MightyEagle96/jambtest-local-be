@@ -21,6 +21,7 @@ const computerModel_1 = __importDefault(require("../models/computerModel"));
 const loginAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const response = yield httpService_1.httpService.post("centre/login", req.body);
+        console.log(response);
         if (response.status === 200) {
             // save to database
             yield Promise.all([
