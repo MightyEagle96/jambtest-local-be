@@ -37,6 +37,8 @@ app
   .use(morgan("dev"))
   .use(express.json({ limit: "50mb" }))
 
+  .use(express.static(path.join(__dirname, "build")))
+
   .use(cors(corsOptions))
 
   .use("/api", appRouter)

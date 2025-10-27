@@ -33,6 +33,7 @@ app
     .use((0, cookie_parser_1.default)())
     .use((0, morgan_1.default)("dev"))
     .use(express_1.default.json({ limit: "50mb" }))
+    .use(express_1.default.static(path_1.default.join(__dirname, "build")))
     .use((0, cors_1.default)(corsOptions))
     .use("/api", appRouter_1.default)
     .get("*", (req, res) => {
