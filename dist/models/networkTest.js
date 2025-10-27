@@ -16,6 +16,7 @@ const schema = new mongoose_1.Schema({
     endedComputers: { type: Number, default: 0 },
     lostInTransport: { type: Number, default: 0 },
     responseThroughput: String,
+    timeUploaded: { type: Date },
 }, { timestamps: true });
 schema.pre("save", function (next) {
     this.maxResponses = this.duration / 1000 / 60;

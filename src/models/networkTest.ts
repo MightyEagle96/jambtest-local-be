@@ -16,6 +16,7 @@ export interface INetworkTest {
   endedComputers: number;
   lostInTransport: number;
   responseThroughput: string;
+  timeUploaded: Date;
 }
 
 const schema = new Schema<INetworkTest>(
@@ -34,6 +35,7 @@ const schema = new Schema<INetworkTest>(
     endedComputers: { type: Number, default: 0 },
     lostInTransport: { type: Number, default: 0 },
     responseThroughput: String,
+    timeUploaded: { type: Date },
   },
   { timestamps: true }
 );

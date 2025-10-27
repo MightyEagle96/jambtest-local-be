@@ -41,6 +41,45 @@ const viewNetworkTests = (req, res) => __awaiter(void 0, void 0, void 0, functio
     res.send(mappedTests);
 });
 exports.viewNetworkTests = viewNetworkTests;
+// export const toggleActivation = async (req: Request, res: Response) => {
+//   try {
+//     const testId = req.query.id as string;
+//     const test = await NetworkTestModel.findById(testId);
+//     if (!test) {
+//       return res.status(404).send("Test not found");
+//     }
+//     // 💡 If the test is currently active — it means we’re deactivating it.
+//     if (test.active) {
+//       if (!test.ended) {
+//         return res
+//           .status(400)
+//           .send("Cannot deactivate this test — it has not been ended.");
+//       }
+//       test.active = false;
+//       await test.save();
+//       return res.send("Test deactivated successfully.");
+//     }
+//     // 💡 If we're activating a test — check that no other active test exists that hasn’t ended.
+//     const ongoingTest = await NetworkTestModel.findOne({
+//       active: true,
+//       ended: false,
+//     });
+//     if (ongoingTest) {
+//       return res
+//         .status(400)
+//         .send("Another test is currently active and has not been ended.");
+//     }
+//     // ✅ Safe to activate
+//     test.active = true;
+//     test.timeActivated = new Date();
+//     await test.save();
+//     res.send("Test activated successfully.");
+//   } catch (error) {
+//     console.error("Toggle activation error:", error);
+//     res.status(500).send("Internal server error.");
+//   }
+// };
+const activeTestIntervals = new Map();
 const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const testId = req.query.id;
@@ -48,18 +87,24 @@ const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, functio
         if (!test) {
             return res.status(404).send("Test not found");
         }
-        // 💡 If the test is currently active — it means we’re deactivating it.
+        // If the test is currently active — deactivate it
         if (test.active) {
             if (!test.ended) {
                 return res
                     .status(400)
                     .send("Cannot deactivate this test — it has not been ended.");
             }
+            // Clear the interval for this test
+            const intervalId = activeTestIntervals.get(testId);
+            if (intervalId) {
+                clearInterval(intervalId);
+                activeTestIntervals.delete(testId);
+            }
             test.active = false;
             yield test.save();
             return res.send("Test deactivated successfully.");
         }
-        // 💡 If we're activating a test — check that no other active test exists that hasn’t ended.
+        // Check for other active tests
         const ongoingTest = yield networkTest_1.default.findOne({
             active: true,
             ended: false,
@@ -69,10 +114,17 @@ const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 .status(400)
                 .send("Another test is currently active and has not been ended.");
         }
-        // ✅ Safe to activate
+        // Activate the test and start background check
         test.active = true;
         test.timeActivated = new Date();
         yield test.save();
+        // Start the interval for checkLastActive (e.g., every 10 seconds)
+        const intervalId = setInterval(() => {
+            checkLastActive(testId);
+            console.log("Background check for test", testId);
+        }, 60 * 1000); // Adjust interval as needed (10 seconds here)
+        // Store the interval ID
+        activeTestIntervals.set(testId, intervalId);
         res.send("Test activated successfully.");
     }
     catch (error) {
@@ -181,7 +233,6 @@ const computerListUnderNetworkTest = (req, res) => __awaiter(void 0, void 0, voi
     })
         .populate("computer")
         .lean();
-    checkLastActive(req.params.id);
     const mappedComputerList = computerList.map((computer, i) => {
         return Object.assign(Object.assign({}, computer), { id: i + 1 });
     });
@@ -239,7 +290,6 @@ const sendResponses = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             response.timeLeft = timeLeft;
             response.status = "connected";
             yield response.save();
-            checkLastActive(networktest);
             res.send("Success");
         }));
     }
