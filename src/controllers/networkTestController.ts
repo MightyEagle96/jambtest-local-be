@@ -417,19 +417,52 @@ export const viewMyComputerResponse = async (req: Request, res: Response) => {
   res.send(response);
 };
 
+// export const deleteNetworkTest = async (req: Request, res: Response) => {
+//   const networkTest = await NetworkTestModel.findById(req.query.id);
+
+//   if (networkTest && !networkTest.ended) {
+//     return res.status(400).send("Please end this test before you delete it");
+//   }
+
+//   await Promise.all([
+//     NetworkTestModel.deleteOne({ _id: req.query.id }),
+//     NetworkTestResponseModel.deleteMany({ networkTest: req.query.id }),
+//   ]);
+
+//   res.send("Network test deleted");
+// };
+
 export const deleteNetworkTest = async (req: Request, res: Response) => {
-  const networkTest = await NetworkTestModel.findById(req.query.id);
+  try {
+    const testId = req.query.id as string;
+    const networkTest = await NetworkTestModel.findById(testId);
 
-  if (networkTest && !networkTest.ended) {
-    return res.status(400).send("Please end this test before you delete it");
+    if (!networkTest) {
+      return res.status(404).send("Network test not found");
+    }
+
+    if (!networkTest.ended) {
+      return res.status(400).send("Please end this test before you delete it");
+    }
+
+    // Clear the interval for this test, if it exists
+    const intervalId = activeTestIntervals.get(testId);
+    if (intervalId) {
+      clearInterval(intervalId);
+      activeTestIntervals.delete(testId);
+    }
+
+    // Delete the network test and related responses
+    await Promise.all([
+      NetworkTestModel.deleteOne({ _id: testId }),
+      NetworkTestResponseModel.deleteMany({ networkTest: testId }),
+    ]);
+
+    res.send("Network test deleted");
+  } catch (error) {
+    console.error("Delete network test error:", error);
+    res.status(500).send("Internal server error");
   }
-
-  await Promise.all([
-    NetworkTestModel.deleteOne({ _id: req.query.id }),
-    NetworkTestResponseModel.deleteMany({ networkTest: req.query.id }),
-  ]);
-
-  res.send("Network test deleted");
 };
 
 export const networkTestDashboard = async (req: Request, res: Response) => {
@@ -525,17 +558,124 @@ export const networkTestDashboard = async (req: Request, res: Response) => {
   }
 };
 
+// export const endNetworkTestForAdmin = async (req: Request, res: Response) => {
+//   try {
+//     const networkTest = await NetworkTestModel.findById(req.query.id);
+
+//     if (!networkTest) {
+//       return res.status(400).send("Test not found");
+//     }
+
+//     const [
+//       totalComputers,
+//       //  networkTest,
+//       connected,
+//       computersWithNetworkLosses,
+//       totalNetworkLosses,
+//       ended,
+//       disconnected,
+//       totalResponses,
+//     ] = await Promise.all([
+//       NetworkTestResponseModel.countDocuments({
+//         networkTest: req.query.id,
+//       }),
+
+//       // NetworkTestModel.findById(req.query.id),
+
+//       NetworkTestResponseModel.countDocuments({
+//         networkTest: req.query.id,
+//         status: "connected",
+//       }),
+
+//       NetworkTestResponseModel.countDocuments({
+//         networkTest: req.query.id,
+//         networkLosses: { $gt: 0 },
+//       }),
+
+//       NetworkTestResponseModel.aggregate([
+//         {
+//           $match: {
+//             networkTest: new mongoose.Types.ObjectId(req.query.id?.toString()),
+//           },
+//         },
+//         {
+//           $group: {
+//             _id: null,
+//             total: { $sum: "$networkLosses" },
+//           },
+//         },
+//       ]),
+
+//       NetworkTestResponseModel.countDocuments({
+//         networkTest: req.query.id,
+//         status: "ended",
+//       }),
+
+//       NetworkTestResponseModel.countDocuments({
+//         networkTest: req.query.id,
+//         status: "disconnected",
+//       }),
+
+//       NetworkTestResponseModel.aggregate([
+//         {
+//           $match: {
+//             networkTest: new mongoose.Types.ObjectId(req.query.id?.toString()),
+//           },
+//         },
+//         {
+//           $group: {
+//             _id: null,
+//             total: { $sum: "$responses" },
+//           },
+//         },
+//       ]),
+//     ]);
+
+//     await NetworkTestModel.updateOne(
+//       { _id: req.query.id },
+//       {
+//         $set: {
+//           active: false,
+//           ended: true,
+//           timeEnded: new Date(),
+//           totalNetworkLosses: totalNetworkLosses[0]?.total || 0,
+//           computersWithNetworkLosses: computersWithNetworkLosses,
+//           connectedComputers: totalComputers,
+//           endedComputers: ended,
+//           lostInTransport: disconnected + connected,
+//           responseThroughput: (
+//             ((totalResponses[0]?.total || 0) /
+//               ((totalComputers * networkTest?.duration) / 1000 / 60)) *
+//             100
+//           ).toFixed(2),
+//         },
+//       }
+//     );
+
+//     res.send("Test ended successfully");
+//   } catch (error) {
+//     res.status(500).send("Server error");
+//   }
+// };
+
 export const endNetworkTestForAdmin = async (req: Request, res: Response) => {
   try {
-    const networkTest = await NetworkTestModel.findById(req.query.id);
+    const testId = req.query.id as string;
+    const networkTest = await NetworkTestModel.findById(testId);
 
     if (!networkTest) {
-      return res.status(400).send("Test not found");
+      return res.status(404).send("Test not found"); // Updated to 404 for consistency
+    }
+
+    // Clear the interval for this test, if it exists
+    const intervalId = activeTestIntervals.get(testId);
+    if (intervalId) {
+      clearInterval(intervalId);
+      activeTestIntervals.delete(testId);
     }
 
     const [
       totalComputers,
-      //  networkTest,
       connected,
       computersWithNetworkLosses,
       totalNetworkLosses,
@@ -544,25 +684,23 @@ export const endNetworkTestForAdmin = async (req: Request, res: Response) => {
       totalResponses,
     ] = await Promise.all([
       NetworkTestResponseModel.countDocuments({
-        networkTest: req.query.id,
+        networkTest: testId,
       }),
 
-      // NetworkTestModel.findById(req.query.id),
-
       NetworkTestResponseModel.countDocuments({
-        networkTest: req.query.id,
+        networkTest: testId,
         status: "connected",
       }),
 
       NetworkTestResponseModel.countDocuments({
-        networkTest: req.query.id,
+        networkTest: testId,
         networkLosses: { $gt: 0 },
       }),
 
       NetworkTestResponseModel.aggregate([
         {
           $match: {
-            networkTest: new mongoose.Types.ObjectId(req.query.id?.toString()),
+            networkTest: new mongoose.Types.ObjectId(testId),
           },
         },
         {
@@ -574,19 +712,19 @@ export const endNetworkTestForAdmin = async (req: Request, res: Response) => {
       ]),
 
       NetworkTestResponseModel.countDocuments({
-        networkTest: req.query.id,
+        networkTest: testId,
         status: "ended",
       }),
 
       NetworkTestResponseModel.countDocuments({
-        networkTest: req.query.id,
+        networkTest: testId,
         status: "disconnected",
       }),
 
       NetworkTestResponseModel.aggregate([
         {
           $match: {
-            networkTest: new mongoose.Types.ObjectId(req.query.id?.toString()),
+            networkTest: new mongoose.Types.ObjectId(testId),
           },
         },
         {
@@ -599,7 +737,7 @@ export const endNetworkTestForAdmin = async (req: Request, res: Response) => {
     ]);
 
     await NetworkTestModel.updateOne(
-      { _id: req.query.id },
+      { _id: testId },
       {
         $set: {
           active: false,
@@ -621,6 +759,7 @@ export const endNetworkTestForAdmin = async (req: Request, res: Response) => {
 
     res.send("Test ended successfully");
   } catch (error) {
+    console.error("End network test error:", error);
     res.status(500).send("Server error");
   }
 };

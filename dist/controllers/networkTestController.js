@@ -354,16 +354,44 @@ const viewMyComputerResponse = (req, res) => __awaiter(void 0, void 0, void 0, f
     res.send(response);
 });
 exports.viewMyComputerResponse = viewMyComputerResponse;
+// export const deleteNetworkTest = async (req: Request, res: Response) => {
+//   const networkTest = await NetworkTestModel.findById(req.query.id);
+//   if (networkTest && !networkTest.ended) {
+//     return res.status(400).send("Please end this test before you delete it");
+//   }
+//   await Promise.all([
+//     NetworkTestModel.deleteOne({ _id: req.query.id }),
+//     NetworkTestResponseModel.deleteMany({ networkTest: req.query.id }),
+//   ]);
+//   res.send("Network test deleted");
+// };
 const deleteNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const networkTest = yield networkTest_1.default.findById(req.query.id);
-    if (networkTest && !networkTest.ended) {
-        return res.status(400).send("Please end this test before you delete it");
+    try {
+        const testId = req.query.id;
+        const networkTest = yield networkTest_1.default.findById(testId);
+        if (!networkTest) {
+            return res.status(404).send("Network test not found");
+        }
+        if (!networkTest.ended) {
+            return res.status(400).send("Please end this test before you delete it");
+        }
+        // Clear the interval for this test, if it exists
+        const intervalId = activeTestIntervals.get(testId);
+        if (intervalId) {
+            clearInterval(intervalId);
+            activeTestIntervals.delete(testId);
+        }
+        // Delete the network test and related responses
+        yield Promise.all([
+            networkTest_1.default.deleteOne({ _id: testId }),
+            networkTestResponse_1.default.deleteMany({ networkTest: testId }),
+        ]);
+        res.send("Network test deleted");
     }
-    yield Promise.all([
-        networkTest_1.default.deleteOne({ _id: req.query.id }),
-        networkTestResponse_1.default.deleteMany({ networkTest: req.query.id }),
-    ]);
-    res.send("Network test deleted");
+    catch (error) {
+        console.error("Delete network test error:", error);
+        res.status(500).send("Internal server error");
+    }
 });
 exports.deleteNetworkTest = deleteNetworkTest;
 const networkTestDashboard = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -442,32 +470,124 @@ const networkTestDashboard = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.networkTestDashboard = networkTestDashboard;
+// export const endNetworkTestForAdmin = async (req: Request, res: Response) => {
+//   try {
+//     const networkTest = await NetworkTestModel.findById(req.query.id);
+//     if (!networkTest) {
+//       return res.status(400).send("Test not found");
+//     }
+//     const [
+//       totalComputers,
+//       //  networkTest,
+//       connected,
+//       computersWithNetworkLosses,
+//       totalNetworkLosses,
+//       ended,
+//       disconnected,
+//       totalResponses,
+//     ] = await Promise.all([
+//       NetworkTestResponseModel.countDocuments({
+//         networkTest: req.query.id,
+//       }),
+//       // NetworkTestModel.findById(req.query.id),
+//       NetworkTestResponseModel.countDocuments({
+//         networkTest: req.query.id,
+//         status: "connected",
+//       }),
+//       NetworkTestResponseModel.countDocuments({
+//         networkTest: req.query.id,
+//         networkLosses: { $gt: 0 },
+//       }),
+//       NetworkTestResponseModel.aggregate([
+//         {
+//           $match: {
+//             networkTest: new mongoose.Types.ObjectId(req.query.id?.toString()),
+//           },
+//         },
+//         {
+//           $group: {
+//             _id: null,
+//             total: { $sum: "$networkLosses" },
+//           },
+//         },
+//       ]),
+//       NetworkTestResponseModel.countDocuments({
+//         networkTest: req.query.id,
+//         status: "ended",
+//       }),
+//       NetworkTestResponseModel.countDocuments({
+//         networkTest: req.query.id,
+//         status: "disconnected",
+//       }),
+//       NetworkTestResponseModel.aggregate([
+//         {
+//           $match: {
+//             networkTest: new mongoose.Types.ObjectId(req.query.id?.toString()),
+//           },
+//         },
+//         {
+//           $group: {
+//             _id: null,
+//             total: { $sum: "$responses" },
+//           },
+//         },
+//       ]),
+//     ]);
+//     await NetworkTestModel.updateOne(
+//       { _id: req.query.id },
+//       {
+//         $set: {
+//           active: false,
+//           ended: true,
+//           timeEnded: new Date(),
+//           totalNetworkLosses: totalNetworkLosses[0]?.total || 0,
+//           computersWithNetworkLosses: computersWithNetworkLosses,
+//           connectedComputers: totalComputers,
+//           endedComputers: ended,
+//           lostInTransport: disconnected + connected,
+//           responseThroughput: (
+//             ((totalResponses[0]?.total || 0) /
+//               ((totalComputers * networkTest?.duration) / 1000 / 60)) *
+//             100
+//           ).toFixed(2),
+//         },
+//       }
+//     );
+//     res.send("Test ended successfully");
+//   } catch (error) {
+//     res.status(500).send("Server error");
+//   }
+// };
 const endNetworkTestForAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c, _d;
+    var _a, _b;
     try {
-        const networkTest = yield networkTest_1.default.findById(req.query.id);
+        const testId = req.query.id;
+        const networkTest = yield networkTest_1.default.findById(testId);
         if (!networkTest) {
-            return res.status(400).send("Test not found");
+            return res.status(404).send("Test not found"); // Updated to 404 for consistency
         }
-        const [totalComputers, 
-        //  networkTest,
-        connected, computersWithNetworkLosses, totalNetworkLosses, ended, disconnected, totalResponses,] = yield Promise.all([
+        // Clear the interval for this test, if it exists
+        const intervalId = activeTestIntervals.get(testId);
+        if (intervalId) {
+            clearInterval(intervalId);
+            activeTestIntervals.delete(testId);
+        }
+        const [totalComputers, connected, computersWithNetworkLosses, totalNetworkLosses, ended, disconnected, totalResponses,] = yield Promise.all([
             networkTestResponse_1.default.countDocuments({
-                networkTest: req.query.id,
+                networkTest: testId,
             }),
-            // NetworkTestModel.findById(req.query.id),
             networkTestResponse_1.default.countDocuments({
-                networkTest: req.query.id,
+                networkTest: testId,
                 status: "connected",
             }),
             networkTestResponse_1.default.countDocuments({
-                networkTest: req.query.id,
+                networkTest: testId,
                 networkLosses: { $gt: 0 },
             }),
             networkTestResponse_1.default.aggregate([
                 {
                     $match: {
-                        networkTest: new mongoose_1.default.Types.ObjectId((_a = req.query.id) === null || _a === void 0 ? void 0 : _a.toString()),
+                        networkTest: new mongoose_1.default.Types.ObjectId(testId),
                     },
                 },
                 {
@@ -478,17 +598,17 @@ const endNetworkTestForAdmin = (req, res) => __awaiter(void 0, void 0, void 0, f
                 },
             ]),
             networkTestResponse_1.default.countDocuments({
-                networkTest: req.query.id,
+                networkTest: testId,
                 status: "ended",
             }),
             networkTestResponse_1.default.countDocuments({
-                networkTest: req.query.id,
+                networkTest: testId,
                 status: "disconnected",
             }),
             networkTestResponse_1.default.aggregate([
                 {
                     $match: {
-                        networkTest: new mongoose_1.default.Types.ObjectId((_b = req.query.id) === null || _b === void 0 ? void 0 : _b.toString()),
+                        networkTest: new mongoose_1.default.Types.ObjectId(testId),
                     },
                 },
                 {
@@ -499,17 +619,17 @@ const endNetworkTestForAdmin = (req, res) => __awaiter(void 0, void 0, void 0, f
                 },
             ]),
         ]);
-        yield networkTest_1.default.updateOne({ _id: req.query.id }, {
+        yield networkTest_1.default.updateOne({ _id: testId }, {
             $set: {
                 active: false,
                 ended: true,
                 timeEnded: new Date(),
-                totalNetworkLosses: ((_c = totalNetworkLosses[0]) === null || _c === void 0 ? void 0 : _c.total) || 0,
+                totalNetworkLosses: ((_a = totalNetworkLosses[0]) === null || _a === void 0 ? void 0 : _a.total) || 0,
                 computersWithNetworkLosses: computersWithNetworkLosses,
                 connectedComputers: totalComputers,
                 endedComputers: ended,
                 lostInTransport: disconnected + connected,
-                responseThroughput: (((((_d = totalResponses[0]) === null || _d === void 0 ? void 0 : _d.total) || 0) /
+                responseThroughput: (((((_b = totalResponses[0]) === null || _b === void 0 ? void 0 : _b.total) || 0) /
                     ((totalComputers * (networkTest === null || networkTest === void 0 ? void 0 : networkTest.duration)) / 1000 / 60)) *
                     100).toFixed(2),
             },
@@ -517,6 +637,7 @@ const endNetworkTestForAdmin = (req, res) => __awaiter(void 0, void 0, void 0, f
         res.send("Test ended successfully");
     }
     catch (error) {
+        console.error("End network test error:", error);
         res.status(500).send("Server error");
     }
 });
