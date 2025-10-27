@@ -5,8 +5,6 @@ import ComputerModel from "../models/computerModel";
 import CentreModel from "../models/centreModel";
 import { ConcurrentJobQueue } from "./DataQueue";
 import NetworkTestResponseModel from "../models/networkTestResponse";
-import { WebSocketServer } from "ws";
-import { wss } from "../app";
 import mongoose from "mongoose";
 import testQuestions from "./questions";
 
