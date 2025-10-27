@@ -358,6 +358,12 @@ export const viewMyComputerResponse = async (req: Request, res: Response) => {
 };
 
 export const deleteNetworkTest = async (req: Request, res: Response) => {
+  const networkTest = await NetworkTestModel.findById(req.query.id);
+
+  if (networkTest && !networkTest.ended) {
+    return res.status(400).send("Please end this test before you delete it");
+  }
+
   await Promise.all([
     NetworkTestModel.deleteOne({ _id: req.query.id }),
     NetworkTestResponseModel.deleteMany({ networkTest: req.query.id }),

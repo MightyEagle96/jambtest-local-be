@@ -305,6 +305,10 @@ const viewMyComputerResponse = (req, res) => __awaiter(void 0, void 0, void 0, f
 });
 exports.viewMyComputerResponse = viewMyComputerResponse;
 const deleteNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const networkTest = yield networkTest_1.default.findById(req.query.id);
+    if (networkTest && !networkTest.ended) {
+        return res.status(400).send("Please end this test before you delete it");
+    }
     yield Promise.all([
         networkTest_1.default.deleteOne({ _id: req.query.id }),
         networkTestResponse_1.default.deleteMany({ networkTest: req.query.id }),

@@ -83,7 +83,7 @@ const getRefreshToken = (req, res) => __awaiter(void 0, void 0, void 0, function
             httpOnly: false,
             secure: true,
             sameSite: "none", // for cross-site cookies (frontend <-> backend on diff domains)
-            maxAge: 1000 * 60 * 60,
+            maxAge: 1000 * 60 * 60 * 24,
         })
             .cookie("refreshToken", newRefreshToken, {
             httpOnly: false,
