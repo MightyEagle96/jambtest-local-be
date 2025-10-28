@@ -129,16 +129,23 @@ export const fetchInfractionReports = async (
 };
 
 export const getComputers = async (req: AuthenticatedCentre, res: Response) => {
-  const response = await httpService.get("centre/centrecomputers", {
-    params: { centre: req.centre?._id.toString() },
-  });
+  try {
+    const response = await httpService.get("centre/centrecomputers", {
+      params: { centre: req.centre?._id.toString() },
+    });
 
-  if (response.status === 200) {
-    await ComputerModel.deleteMany();
-    await ComputerModel.insertMany(response.data);
+    console.log(response.data);
 
-    res.send("New computers imported");
-  } else res.status(response.status).send("Could not import new computers");
+    if (response.status === 200) {
+      await ComputerModel.deleteMany();
+      await ComputerModel.insertMany(response.data);
+
+      res.send("New computers imported");
+    } else res.status(response.status).send("Could not import new computers");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
 };
 
 export const deleteComputer = async (req: Request, res: Response) => {

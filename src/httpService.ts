@@ -4,7 +4,7 @@ export const baseURL =
   process.env.NODE_ENV === "production"
     ? "https://miniautotestcentral-be.onrender.com/api"
     : //
-      "http://10.5.175.216:4000/api";
+      "http://192.168.2.1:4000/api";
 
 const httpService = axios.create({
   baseURL,
