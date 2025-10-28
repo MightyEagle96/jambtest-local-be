@@ -112,6 +112,8 @@ export const toggleActivation = async (req: Request, res: Response) => {
       }
 
       test.active = false;
+      test.timeEnded = new Date();
+      test.ended = true;
       await test.save();
       return res.send("Test deactivated successfully.");
     }
@@ -131,6 +133,8 @@ export const toggleActivation = async (req: Request, res: Response) => {
 
     // Activate the test and start background check
     test.active = true;
+    test.ended = false;
+    //test.timeEnded = ;
     test.timeActivated = new Date();
     await test.save();
 

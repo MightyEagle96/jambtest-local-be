@@ -101,6 +101,8 @@ const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 activeTestIntervals.delete(testId);
             }
             test.active = false;
+            test.timeEnded = new Date();
+            test.ended = true;
             yield test.save();
             return res.send("Test deactivated successfully.");
         }
@@ -116,6 +118,8 @@ const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, functio
         }
         // Activate the test and start background check
         test.active = true;
+        test.ended = false;
+        //test.timeEnded = ;
         test.timeActivated = new Date();
         yield test.save();
         // Start the interval for checkLastActive (e.g., every 10 seconds)
