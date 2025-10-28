@@ -13,7 +13,6 @@ export const loginAccount = async (req: Request, res: Response) => {
   try {
     const response = await httpService.post("centre/login", req.body);
 
-    console.log(response);
     if (response.status === 200) {
       // save to database
 
@@ -35,7 +34,7 @@ export const loginAccount = async (req: Request, res: Response) => {
           httpOnly: false,
           secure: true,
           sameSite: "none", // for cross-site cookies (frontend <-> backend on diff domains)
-          maxAge: 1000 * 60 * 60,
+          maxAge: 1000 * 60 * 60 * 24,
         })
         .cookie("refreshToken", refreshToken, {
           httpOnly: false,
