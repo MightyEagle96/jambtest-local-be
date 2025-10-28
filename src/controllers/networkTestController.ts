@@ -267,11 +267,19 @@ export const computerListUnderNetworkTest = async (
   req: Request,
   res: Response
 ) => {
+  const page = (req.query.page || 1) as number;
+  const limit = (req.query.limit || 50) as number;
   const computerList = await NetworkTestResponseModel.find({
     networkTest: req.params.id,
   })
     .populate("computer")
+    .skip((page - 1) * limit)
+    .limit(limit)
     .lean();
+
+  const total = await NetworkTestResponseModel.countDocuments({
+    networkTest: req.params.id,
+  });
 
   const mappedComputerList = computerList.map((computer, i) => {
     return {
@@ -279,7 +287,7 @@ export const computerListUnderNetworkTest = async (
       id: i + 1,
     };
   });
-  res.send(mappedComputerList);
+  res.send({ total, computers: mappedComputerList });
 };
 
 const responseQueue = new ConcurrentJobQueue({

@@ -228,15 +228,22 @@ const beginNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.beginNetworkTest = beginNetworkTest;
 const computerListUnderNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const page = (req.query.page || 1);
+    const limit = (req.query.limit || 50);
     const computerList = yield networkTestResponse_1.default.find({
         networkTest: req.params.id,
     })
         .populate("computer")
+        .skip((page - 1) * limit)
+        .limit(limit)
         .lean();
+    const total = yield networkTestResponse_1.default.countDocuments({
+        networkTest: req.params.id,
+    });
     const mappedComputerList = computerList.map((computer, i) => {
         return Object.assign(Object.assign({}, computer), { id: i + 1 });
     });
-    res.send(mappedComputerList);
+    res.send({ total, computers: mappedComputerList });
 });
 exports.computerListUnderNetworkTest = computerListUnderNetworkTest;
 const responseQueue = new DataQueue_1.ConcurrentJobQueue({

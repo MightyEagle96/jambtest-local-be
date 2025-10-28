@@ -110,16 +110,23 @@ const fetchInfractionReports = (req, res) => __awaiter(void 0, void 0, void 0, f
 exports.fetchInfractionReports = fetchInfractionReports;
 const getComputers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const response = yield httpService_1.httpService.get("centre/centrecomputers", {
-        params: { centre: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() },
-    });
-    if (response.status === 200) {
-        yield computerModel_1.default.deleteMany();
-        yield computerModel_1.default.insertMany(response.data);
-        res.send("New computers imported");
+    try {
+        const response = yield httpService_1.httpService.get("centre/centrecomputers", {
+            params: { centre: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() },
+        });
+        console.log(response.data);
+        if (response.status === 200) {
+            yield computerModel_1.default.deleteMany();
+            yield computerModel_1.default.insertMany(response.data);
+            res.send("New computers imported");
+        }
+        else
+            res.status(response.status).send("Could not import new computers");
     }
-    else
-        res.status(response.status).send("Could not import new computers");
+    catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error");
+    }
 });
 exports.getComputers = getComputers;
 const deleteComputer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
