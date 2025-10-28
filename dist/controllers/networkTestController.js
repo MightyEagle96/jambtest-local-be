@@ -241,7 +241,7 @@ const computerListUnderNetworkTest = (req, res) => __awaiter(void 0, void 0, voi
         networkTest: req.params.id,
     });
     const mappedComputerList = computerList.map((computer, i) => {
-        return Object.assign(Object.assign({}, computer), { id: i + 1 });
+        return Object.assign(Object.assign({}, computer), { id: (page - 1) * limit + i + 1 });
     });
     res.send({ total, computers: mappedComputerList });
 });

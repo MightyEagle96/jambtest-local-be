@@ -284,7 +284,7 @@ export const computerListUnderNetworkTest = async (
   const mappedComputerList = computerList.map((computer, i) => {
     return {
       ...computer,
-      id: i + 1,
+      id: (page - 1) * limit + i + 1,
     };
   });
   res.send({ total, computers: mappedComputerList });
