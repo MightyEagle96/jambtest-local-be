@@ -11,35 +11,19 @@ import testQuestions from "./questions";
 const activeTestIntervals = new Map<string, NodeJS.Timeout>();
 
 const id = uuidv4();
-export const createNetworkTest = async (req: Request, res: Response) => {
-  const uploadedSystems = await ComputerModel.countDocuments({
-    status: "uploaded",
-  });
 
-  if (uploadedSystems === 0) {
-    return res.status(400).send("No uploaded systems");
-  }
+// export const viewNetworkTests = async (req: Request, res: Response) => {
+//   const networkTests = await NetworkTestModel.find().lean();
 
-  await NetworkTestModel.create({
-    ...req.body,
-    examId: id,
-    duration: req.body.duration * 60 * 1000,
-  });
-  res.send("Success");
-};
-
-export const viewNetworkTests = async (req: Request, res: Response) => {
-  const networkTests = await NetworkTestModel.find().lean();
-
-  const mappedTests = networkTests.map((test, i) => {
-    return {
-      ...test,
-      duration: test.duration / 1000 / 60,
-      id: i + 1,
-    };
-  });
-  res.send(mappedTests);
-};
+//   const mappedTests = networkTests.map((test, i) => {
+//     return {
+//       ...test,
+//       duration: test.duration / 1000 / 60,
+//       id: i + 1,
+//     };
+//   });
+//   res.send(mappedTests);
+// };
 
 // export const toggleActivation = async (req: Request, res: Response) => {
 //   try {
@@ -453,10 +437,13 @@ export const deleteNetworkTest = async (req: Request, res: Response) => {
       return res.status(404).send("Network test not found");
     }
 
-    if (!networkTest.ended) {
+    // if (!networkTest.ended) {
+    //   return res.status(400).send("Please end this test before you delete it");
+    // }
+
+    if (networkTest.active) {
       return res.status(400).send("Please end this test before you delete it");
     }
-
     // Clear the interval for this test, if it exists
     const intervalId = activeTestIntervals.get(testId);
     if (intervalId) {

@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   beginNetworkTest,
   computerListUnderNetworkTest,
-  createNetworkTest,
+  // createNetworkTest,
   deleteNetworkTest,
   endNetworkTest,
   endNetworkTestForAdmin,
@@ -13,12 +13,18 @@ import {
   toggleActivation,
   viewMyComputerResponse,
   viewNetworkTest,
-  viewNetworkTests,
 } from "../controllers/networkTestController";
+import {
+  createNetworkTest,
+  viewNetworkTests,
+} from "../controllers/networkTestControllerAdmin";
+import { authenticateToken } from "../controllers/jwtController";
 
 const networkTestRouter = Router();
 
 networkTestRouter
+
+  .use(authenticateToken)
   .post("/create", createNetworkTest)
   .get("/view", viewNetworkTests)
   .get("/toggleactivation", toggleActivation)

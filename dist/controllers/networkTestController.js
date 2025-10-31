@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.endNetworkTestForAdmin = exports.networkTestDashboard = exports.deleteNetworkTest = exports.viewMyComputerResponse = exports.endNetworkTest = exports.questionAndResponseCount = exports.sendResponses = exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = exports.viewNetworkTests = exports.createNetworkTest = void 0;
+exports.endNetworkTestForAdmin = exports.networkTestDashboard = exports.deleteNetworkTest = exports.viewMyComputerResponse = exports.endNetworkTest = exports.questionAndResponseCount = exports.sendResponses = exports.computerListUnderNetworkTest = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = exports.toggleActivation = void 0;
 const uuid_1 = require("uuid");
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
@@ -23,25 +23,17 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const questions_1 = __importDefault(require("./questions"));
 const activeTestIntervals = new Map();
 const id = (0, uuid_1.v4)();
-const createNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const uploadedSystems = yield computerModel_1.default.countDocuments({
-        status: "uploaded",
-    });
-    if (uploadedSystems === 0) {
-        return res.status(400).send("No uploaded systems");
-    }
-    yield networkTest_1.default.create(Object.assign(Object.assign({}, req.body), { examId: id, duration: req.body.duration * 60 * 1000 }));
-    res.send("Success");
-});
-exports.createNetworkTest = createNetworkTest;
-const viewNetworkTests = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const networkTests = yield networkTest_1.default.find().lean();
-    const mappedTests = networkTests.map((test, i) => {
-        return Object.assign(Object.assign({}, test), { duration: test.duration / 1000 / 60, id: i + 1 });
-    });
-    res.send(mappedTests);
-});
-exports.viewNetworkTests = viewNetworkTests;
+// export const viewNetworkTests = async (req: Request, res: Response) => {
+//   const networkTests = await NetworkTestModel.find().lean();
+//   const mappedTests = networkTests.map((test, i) => {
+//     return {
+//       ...test,
+//       duration: test.duration / 1000 / 60,
+//       id: i + 1,
+//     };
+//   });
+//   res.send(mappedTests);
+// };
 // export const toggleActivation = async (req: Request, res: Response) => {
 //   try {
 //     const testId = req.query.id as string;
@@ -383,7 +375,10 @@ const deleteNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, functi
         if (!networkTest) {
             return res.status(404).send("Network test not found");
         }
-        if (!networkTest.ended) {
+        // if (!networkTest.ended) {
+        //   return res.status(400).send("Please end this test before you delete it");
+        // }
+        if (networkTest.active) {
             return res.status(400).send("Please end this test before you delete it");
         }
         // Clear the interval for this test, if it exists
