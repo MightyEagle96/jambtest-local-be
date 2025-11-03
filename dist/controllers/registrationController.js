@@ -88,11 +88,11 @@ const viewRegisteredComputers = (req, res) => __awaiter(void 0, void 0, void 0, 
 });
 exports.viewRegisteredComputers = viewRegisteredComputers;
 const uploadComputers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _c;
     const computers = yield computerModel_1.default.find({ status: "not uploaded" });
     const response = yield httpService_1.httpService.post("centre/uploadcomputer", {
         computers,
-        centreId: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString(),
+        centreId: (_c = req.centre) === null || _c === void 0 ? void 0 : _c._id.toString(),
     });
     res.status(response.status).send(response.data);
 });
@@ -100,19 +100,19 @@ exports.uploadComputers = uploadComputers;
 const deleteComputers = () => __awaiter(void 0, void 0, void 0, function* () { });
 exports.deleteComputers = deleteComputers;
 const fetchInfractionReports = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _d;
     const response = yield httpService_1.httpService.get("centre/infractions", {
-        headers: { centreid: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() },
+        headers: { centreid: (_d = req.centre) === null || _d === void 0 ? void 0 : _d._id.toString() },
         params: { page: req.query.page || 1, limit: req.query.limit || 50 },
     });
     res.status(response.status).send(response.data);
 });
 exports.fetchInfractionReports = fetchInfractionReports;
 const getComputers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _e;
     try {
         const response = yield httpService_1.httpService.get("centre/centrecomputers", {
-            params: { centre: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() },
+            params: { centre: (_e = req.centre) === null || _e === void 0 ? void 0 : _e._id.toString() },
         });
         console.log(response.data);
         if (response.status === 200) {

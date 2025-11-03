@@ -1,22 +1,26 @@
 import { Router } from "express";
 import {
   beginNetworkTest,
-  computerListUnderNetworkTest,
+  //computerListUnderNetworkTest,
   // createNetworkTest,
-  deleteNetworkTest,
+  // deleteNetworkTest,
   endNetworkTest,
-  endNetworkTestForAdmin,
-  networkTestDashboard,
+  // endNetworkTestForAdmin,
+  // networkTestDashboard,
   networkTestValidation,
   questionAndResponseCount,
   sendResponses,
-  toggleActivation,
   viewMyComputerResponse,
   viewNetworkTest,
-} from "../controllers/networkTestController";
+} from "../controllers/networkTestControllerClient";
 import {
   createNetworkTest,
   viewNetworkTests,
+  deleteNetworkTest,
+  computerListUnderNetworkTest,
+  networkTestDashboard,
+  endNetworkTestForAdmin,
+  toggleActivation,
 } from "../controllers/networkTestControllerAdmin";
 import { authenticateToken } from "../controllers/jwtController";
 
@@ -27,6 +31,8 @@ networkTestRouter
   .use(authenticateToken)
   .post("/create", createNetworkTest)
   .get("/view", viewNetworkTests)
+  .delete("/delete", deleteNetworkTest)
+
   .get("/toggleactivation", toggleActivation)
   .get("/view/:id", viewNetworkTest)
   .post("/begintest", networkTestValidation, beginNetworkTest)
