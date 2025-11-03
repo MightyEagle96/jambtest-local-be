@@ -435,3 +435,29 @@ export const computerListUnderNetworkTest = async (
   });
   res.send({ total, computers: mappedComputerList });
 };
+
+export const uploadNetworkTest = async (
+  req: AuthenticatedCentre,
+  res: Response
+) => {
+  try {
+    //upload the network test and the participating computers
+    const testId = req.query.id;
+
+    const networkTest = await NetworkTestModel.findById(testId);
+
+    const responses = await NetworkTestResponseModel.find({
+      networkTest: testId,
+    });
+
+    const response = await httpService.post(
+      "networktest/uploadtest",
+      { networkTest, responses },
+      { params: { centre: req.centre?._id.toString() } }
+    );
+
+    res.status(response.status).send(response.data);
+  } catch (error) {
+    res.status(500).send("Internal server error");
+  }
+};

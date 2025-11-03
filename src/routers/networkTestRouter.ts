@@ -21,6 +21,7 @@ import {
   networkTestDashboard,
   endNetworkTestForAdmin,
   toggleActivation,
+  uploadNetworkTest,
 } from "../controllers/networkTestControllerAdmin";
 import { authenticateToken } from "../controllers/jwtController";
 
@@ -44,6 +45,7 @@ networkTestRouter
   .use(authenticateToken)
   .post("/create", createNetworkTest)
   .get("/view", viewNetworkTests)
-  .delete("/delete", deleteNetworkTest);
+  .delete("/delete", deleteNetworkTest)
+  .get("/upload", uploadNetworkTest);
 
 export { networkTestRouter };
