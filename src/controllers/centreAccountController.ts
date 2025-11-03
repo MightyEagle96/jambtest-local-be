@@ -8,48 +8,59 @@ import {
 } from "./jwtController";
 import jwt from "jsonwebtoken";
 import ComputerModel from "../models/computerModel";
+import NetworkTestModel from "../models/networkTest";
+
+import mongoose from "mongoose";
 
 export const loginAccount = async (req: Request, res: Response) => {
   try {
     const response = await httpService.post("centre/login", req.body);
 
-    if (response.status === 200) {
-      // save to database
-
-      await Promise.all([
-        CentreModel.create(response.data.centre),
-        ComputerModel.insertMany(response.data.computers),
-      ]);
-
-      const accessToken = generateAccessToken({
-        ...response.data.centre,
-        role: "admin",
-      });
-      const refreshToken = generateRefreshToken({
-        ...response.data.centre,
-        role: "admin",
-      });
-      res
-        .cookie("accessToken", accessToken, {
-          httpOnly: false,
-          secure: true,
-          sameSite: "none", // for cross-site cookies (frontend <-> backend on diff domains)
-          maxAge: 1000 * 60 * 60 * 24,
-        })
-        .cookie("refreshToken", refreshToken, {
-          httpOnly: false,
-          secure: true,
-          sameSite: "none", // for cross-site cookies (frontend <-> backend on diff domains)
-          maxAge: 1000 * 60 * 60 * 24 * 7,
-        })
-        .send("Success");
-    } else
-      res
+    if (response.status !== 200)
+      return res
         .clearCookie("accessToken")
         .clearCookie("refreshToken")
         .status(response.status)
         .send(response.data);
-  } catch (error) {
+
+    const { centre, computers, networkTests } = response.data;
+
+    // Defensive check
+    if (!centre || !computers || !networkTests)
+      return res.status(400).send("Incomplete response data");
+
+    // ✅ Clear old data first
+    await Promise.all([
+      CentreModel.deleteMany(),
+      ComputerModel.deleteMany(),
+      NetworkTestModel.deleteMany(),
+    ]);
+
+    // ✅ Insert new data
+    await CentreModel.create(centre);
+    await ComputerModel.insertMany(computers);
+    await NetworkTestModel.insertMany(networkTests);
+
+    // ✅ Issue tokens
+    const accessToken = generateAccessToken({ ...centre, role: "admin" });
+    const refreshToken = generateRefreshToken({ ...centre, role: "admin" });
+
+    res
+      .cookie("accessToken", accessToken, {
+        httpOnly: false,
+        secure: true,
+        sameSite: "none",
+        maxAge: 1000 * 60 * 60 * 24,
+      })
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: false,
+        secure: true,
+        sameSite: "none",
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+      })
+      .send("Success");
+  } catch (error: any) {
+    console.error("Login error:", error.message);
     res.status(500).send("Something went wrong");
   }
 };

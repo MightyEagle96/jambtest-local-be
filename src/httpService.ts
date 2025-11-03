@@ -24,6 +24,7 @@ httpService.interceptors.response.use(
     if (error.response) {
       return { data: error.response.data, status: error.response.status };
     }
+
     return { data: "Cannot connect at this time", status: 500 };
   }
 );

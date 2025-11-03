@@ -28,11 +28,6 @@ const networkTestRouter = Router();
 
 networkTestRouter
 
-  .use(authenticateToken)
-  .post("/create", createNetworkTest)
-  .get("/view", viewNetworkTests)
-  .delete("/delete", deleteNetworkTest)
-
   .get("/toggleactivation", toggleActivation)
   .get("/view/:id", viewNetworkTest)
   .post("/begintest", networkTestValidation, beginNetworkTest)
@@ -44,6 +39,11 @@ networkTestRouter
   .post("/endnetworktest", endNetworkTest)
   .get("/myresponse", viewMyComputerResponse)
   .get("/delete", deleteNetworkTest)
-  .get("/endnetworktestadmin", endNetworkTestForAdmin);
+  .get("/endnetworktestadmin", endNetworkTestForAdmin)
+
+  .use(authenticateToken)
+  .post("/create", createNetworkTest)
+  .get("/view", viewNetworkTests)
+  .delete("/delete", deleteNetworkTest);
 
 export { networkTestRouter };

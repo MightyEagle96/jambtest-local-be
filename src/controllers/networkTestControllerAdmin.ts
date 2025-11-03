@@ -4,6 +4,8 @@ import { AuthenticatedCentre } from "../models/centreModel";
 import NetworkTestModel, { INetworkTest } from "../models/networkTest";
 import NetworkTestResponseModel from "../models/networkTestResponse";
 import mongoose from "mongoose";
+import ComputerModel from "../models/computerModel";
+import { v4 as uuidv4 } from "uuid";
 
 const activeTestIntervals = new Map<string, NodeJS.Timeout>();
 
@@ -29,11 +31,41 @@ export const createNetworkTest = async (
   req: AuthenticatedCentre,
   res: Response
 ) => {
-  const response = await httpService.post("networktest/create", req.body, {
-    headers: { centreid: req.centre?._id.toString() },
-  });
+  /**
+   * Check for uploaded computers
+   * Check for not uploaded test
+   */
 
-  res.status(response.status).send(response.data);
+  const notUploadedTest = await NetworkTestModel.findOne({
+    status: { $ne: "uploaded" },
+  });
+  if (notUploadedTest) {
+    return res.status(400).send("A test is yet to be uploaded");
+  }
+
+  const [computers, uploadedComputers] = await Promise.all([
+    ComputerModel.countDocuments(),
+    ComputerModel.countDocuments({ status: "uploaded" }),
+  ]);
+
+  if (uploadedComputers === 0) {
+    return res.status(400).send("No computers uploaded");
+  }
+  if (computers !== uploadedComputers) {
+    return res
+      .status(400)
+      .send("All computers must be uploaded before creating a test");
+  }
+
+  const examId = uuidv4();
+
+  req.body.duration = Number(req.body.duration * 60 * 1000);
+  req.body.centre = req.centre?._id.toString();
+  req.body.examId = examId;
+
+  await NetworkTestModel.create(req.body);
+
+  res.send("New network test created");
 };
 
 export const viewNetworkTests = async (
@@ -41,29 +73,29 @@ export const viewNetworkTests = async (
   res: Response
 ) => {
   try {
-    const response = await httpService.get("networktest/viewcentretests", {
-      headers: { centreid: req.centre?._id.toString() },
+    const page = (req.query.page || 1) as number;
+    const limit = (req.query.limit || 50) as number;
+    const networkTests = await NetworkTestModel.find({
+      centre: req.centre?._id.toString(),
+    })
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .lean();
+
+    const total = await NetworkTestModel.countDocuments({
+      centre: req.centre?._id.toString(),
     });
 
-    if (response.status === 200) {
-      for (const test of response.data) {
-        await NetworkTestModel.updateOne(
-          { _id: test._id }, // or testId if different
-          { $set: test },
-          { upsert: true }
-        );
-      }
+    const mappedNetworkTests = networkTests.map((networkTest, i) => {
+      return {
+        ...networkTest,
+        id: (page - 1) * limit + i + 1,
+      };
+    });
 
-      const remoteIds = response.data.map((t: any) => t._id);
-      await NetworkTestModel.deleteMany({ _id: { $nin: remoteIds } });
-
-      return res.send(response.data);
-    }
-
-    return res.status(response.status).send(response.data);
-  } catch (err: any) {
-    console.error("Error viewing network tests:", err.message);
-    return res.status(500).send({ error: "Failed to fetch network tests" });
+    res.send({ total, networkTests: mappedNetworkTests });
+  } catch (error) {
+    res.status(500).send("Internal server error");
   }
 };
 
@@ -78,10 +110,6 @@ export const deleteNetworkTest = async (
     if (!networkTest) {
       return res.status(404).send("Network test not found");
     }
-
-    // if (!networkTest.ended) {
-    //   return res.status(400).send("Please end this test before you delete it");
-    // }
 
     if (networkTest.active) {
       return res.status(400).send("Please end this test before you delete it");
@@ -108,21 +136,24 @@ export const deleteNetworkTest = async (
 export const toggleActivation = async (req: Request, res: Response) => {
   try {
     const testId = req.query.id as string;
+
+    if (!testId) {
+      return res.status(400).send("Invalid test ID");
+    }
+
     const test = await NetworkTestModel.findById(testId);
 
+    console.log(test);
     if (!test) {
       return res.status(404).send("Test not found");
     }
 
-    // If the test is currently active — deactivate it
+    // 🔴 Deactivate if active
     if (test.active) {
       if (!test.ended) {
-        return res
-          .status(400)
-          .send("Cannot deactivate this test — it has not been ended.");
+        return res.status(400).send("Cannot deactivate — test not ended yet.");
       }
 
-      // Clear the interval for this test
       const intervalId = activeTestIntervals.get(testId);
       if (intervalId) {
         clearInterval(intervalId);
@@ -130,42 +161,49 @@ export const toggleActivation = async (req: Request, res: Response) => {
       }
 
       test.active = false;
-      test.timeEnded = new Date();
       test.ended = true;
+      test.timeEnded = new Date();
       await test.save();
+
       return res.send("Test deactivated successfully.");
     }
 
-    // Check for other active tests
-    const ongoingTest: Partial<INetworkTest> | null =
-      await NetworkTestModel.findOne({
-        active: true,
-        ended: false,
-      });
-
+    // 🟢 Activate new test
+    const ongoingTest = await NetworkTestModel.findOne({
+      active: true,
+      ended: false,
+    });
     if (ongoingTest) {
       return res
         .status(400)
-        .send("Another test is currently active and has not been ended.");
+        .send("Another test is currently active and not yet ended.");
     }
 
-    // Activate the test and start background check
+    // Clear any residual interval (safety)
+    if (activeTestIntervals.has(testId)) {
+      clearInterval(activeTestIntervals.get(testId)!);
+      activeTestIntervals.delete(testId);
+    }
+
+    await NetworkTestModel.updateOne(
+      { _id: testId },
+      { $set: { active: true, ended: false, timeActivated: new Date() } }
+    );
+
     test.active = true;
     test.ended = false;
-    //test.timeEnded = ;
     test.timeActivated = new Date();
     await test.save();
 
-    // Start the interval for checkLastActive (e.g., every 10 seconds)
     const intervalId = setInterval(() => {
       checkLastActive(testId);
-      console.log("Background check for test", testId);
-    }, 10 * 1000); // Adjust interval as needed (10 seconds here)
+      console.log(
+        `[${new Date().toISOString()}] Background check for ${testId}`
+      );
+    }, 10 * 1000);
 
-    // Store the interval ID
     activeTestIntervals.set(testId, intervalId);
-
-    res.send("Test activated successfully.");
+    return res.send("Test activated successfully.");
   } catch (error) {
     console.error("Toggle activation error:", error);
     res.status(500).send("Internal server error.");
