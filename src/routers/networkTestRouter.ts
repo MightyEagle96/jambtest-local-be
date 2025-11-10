@@ -25,6 +25,7 @@ import {
   networkPing,
 } from "../controllers/networkTestControllerAdmin";
 import { authenticateToken } from "../controllers/jwtController";
+import { centreDetail } from "../controllers/centreAccountController";
 
 const networkTestRouter = Router();
 
@@ -35,6 +36,9 @@ networkTestRouter
   .post("/begintest", networkTestValidation, beginNetworkTest)
   .get("/computerlist/:id", computerListUnderNetworkTest)
   .get("/dashboard", networkTestDashboard)
+
+  //get the centre's detail
+  .get("/centredetail", centreDetail)
 
   .post("/sendresponses", sendResponses)
   .get("/ping", networkPing)

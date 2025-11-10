@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.centreDashboard = exports.getRefreshToken = exports.centreProfile = exports.logoutAccount = exports.loginAccount = void 0;
+exports.centreDetail = exports.centreDashboard = exports.getRefreshToken = exports.centreProfile = exports.logoutAccount = exports.loginAccount = void 0;
 const httpService_1 = require("../httpService");
 const centreModel_1 = __importDefault(require("../models/centreModel"));
 const jwtController_1 = require("./jwtController");
@@ -117,3 +117,8 @@ const centreDashboard = (req, res) => __awaiter(void 0, void 0, void 0, function
     res.status(response.status).send(response.data);
 });
 exports.centreDashboard = centreDashboard;
+const centreDetail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const centre = yield centreModel_1.default.findOne();
+    res.send(centre);
+});
+exports.centreDetail = centreDetail;

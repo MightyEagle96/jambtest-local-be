@@ -134,3 +134,8 @@ export const centreDashboard = async (
 
   res.status(response.status).send(response.data);
 };
+
+export const centreDetail = async (req: Request, res: Response) => {
+  const centre = await CentreModel.findOne();
+  res.send(centre);
+};
