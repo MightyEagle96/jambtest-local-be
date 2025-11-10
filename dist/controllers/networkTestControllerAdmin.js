@@ -92,7 +92,6 @@ const viewNetworkTests = (req, res) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.viewNetworkTests = viewNetworkTests;
 const deleteNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     try {
         const testId = req.query.id;
         const networkTest = yield networkTest_1.default.findById(testId);
@@ -108,11 +107,14 @@ const deleteNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, functi
             clearInterval(intervalId);
             activeTestIntervals.delete(testId);
         }
-        // Delete the network test and related responses
-        const response = yield httpService_1.httpService.delete("networktest/delete", {
-            params: { testid: req.query.id, centre: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() },
-        });
-        res.status(response.status).send(response.data);
+        yield networkTest_1.default.findByIdAndDelete(testId);
+        yield networkTestResponse_1.default.deleteMany({ networkTest: testId });
+        res.send("Network test deleted successfully");
+        // // Delete the network test and related responses
+        // const response = await httpService.delete("networktest/delete", {
+        //   params: { testid: req.query.id, centre: req.centre?._id.toString() },
+        // });
+        // res.status(response.status).send(response.data);
     }
     catch (error) {
         console.error("Delete network test error:", error);
@@ -376,7 +378,11 @@ const uploadNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.uploadNetworkTest = uploadNetworkTest;
-const networkPing = (req, res) => {
+const networkPing = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const activeTest = yield networkTest_1.default.findOne({ active: true });
+    if (!activeTest) {
+        return res.sendStatus(404);
+    }
     res.send("pong");
-};
+});
 exports.networkPing = networkPing;

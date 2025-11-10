@@ -136,6 +136,12 @@ const responseQueue = new ConcurrentJobQueue({
 
 export const sendResponses = async (req: Request, res: Response) => {
   try {
+    const activeTest = await NetworkTestModel.findOne({ active: true });
+
+    if (!activeTest) {
+      return res.sendStatus(404);
+    }
+
     await responseQueue.enqueue(async () => {
       const { computer, networktest, timeLeft } = req.body;
 

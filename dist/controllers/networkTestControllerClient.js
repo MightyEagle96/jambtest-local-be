@@ -125,6 +125,10 @@ const responseQueue = new DataQueue_1.ConcurrentJobQueue({
 });
 const sendResponses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const activeTest = yield networkTest_1.default.findOne({ active: true });
+        if (!activeTest) {
+            return res.sendStatus(404);
+        }
         yield responseQueue.enqueue(() => __awaiter(void 0, void 0, void 0, function* () {
             const { computer, networktest, timeLeft } = req.body;
             const networkTestData = yield networkTest_1.default.findById(networktest);

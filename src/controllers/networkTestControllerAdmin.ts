@@ -121,12 +121,17 @@ export const deleteNetworkTest = async (
       activeTestIntervals.delete(testId);
     }
 
-    // Delete the network test and related responses
-    const response = await httpService.delete("networktest/delete", {
-      params: { testid: req.query.id, centre: req.centre?._id.toString() },
-    });
+    await NetworkTestModel.findByIdAndDelete(testId);
+    await NetworkTestResponseModel.deleteMany({ networkTest: testId });
 
-    res.status(response.status).send(response.data);
+    res.send("Network test deleted successfully");
+
+    // // Delete the network test and related responses
+    // const response = await httpService.delete("networktest/delete", {
+    //   params: { testid: req.query.id, centre: req.centre?._id.toString() },
+    // });
+
+    // res.status(response.status).send(response.data);
   } catch (error) {
     console.error("Delete network test error:", error);
     res.status(500).send("Internal server error");
@@ -462,6 +467,10 @@ export const uploadNetworkTest = async (
   }
 };
 
-export const networkPing = (req: Request, res: Response) => {
+export const networkPing = async (req: Request, res: Response) => {
+  const activeTest = await NetworkTestModel.findOne({ active: true });
+  if (!activeTest) {
+    return res.sendStatus(404);
+  }
   res.send("pong");
 };
