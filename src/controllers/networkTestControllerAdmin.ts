@@ -461,3 +461,7 @@ export const uploadNetworkTest = async (
     res.status(500).send("Internal server error");
   }
 };
+
+export const networkPing = (req: Request, res: Response) => {
+  res.send("pong");
+};

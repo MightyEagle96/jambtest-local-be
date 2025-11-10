@@ -12,11 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.computerListUnderNetworkTest = exports.networkTestDashboard = exports.endNetworkTestForAdmin = exports.toggleActivation = exports.deleteNetworkTest = exports.viewNetworkTests = exports.createNetworkTest = void 0;
+exports.networkPing = exports.uploadNetworkTest = exports.computerListUnderNetworkTest = exports.networkTestDashboard = exports.endNetworkTestForAdmin = exports.toggleActivation = exports.deleteNetworkTest = exports.viewNetworkTests = exports.createNetworkTest = void 0;
 const httpService_1 = require("../httpService");
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const networkTestResponse_1 = __importDefault(require("../models/networkTestResponse"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const computerModel_1 = __importDefault(require("../models/computerModel"));
+const uuid_1 = require("uuid");
 const activeTestIntervals = new Map();
 const checkLastActive = (networkTest) => __awaiter(void 0, void 0, void 0, function* () {
     // Find computers not updated in the last 1 minute
@@ -34,47 +36,69 @@ const checkLastActive = (networkTest) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 const createNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    /**
+     * Check for uploaded computers
+     * Check for not uploaded test
+     */
     var _a;
-    const response = yield httpService_1.httpService.post("networktest/create", req.body, {
-        headers: { centreid: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() },
+    const notUploadedTest = yield networkTest_1.default.findOne({
+        status: { $ne: "uploaded" },
     });
-    res.status(response.status).send(response.data);
+    if (notUploadedTest) {
+        return res.status(400).send("A test is yet to be uploaded");
+    }
+    const [computers, uploadedComputers] = yield Promise.all([
+        computerModel_1.default.countDocuments(),
+        computerModel_1.default.countDocuments({ status: "uploaded" }),
+    ]);
+    if (uploadedComputers === 0) {
+        return res.status(400).send("No computers uploaded");
+    }
+    if (computers !== uploadedComputers) {
+        return res
+            .status(400)
+            .send("All computers must be uploaded before creating a test");
+    }
+    const examId = (0, uuid_1.v4)();
+    req.body.duration = Number(req.body.duration * 60 * 1000);
+    req.body.centre = (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString();
+    req.body.examId = examId;
+    yield networkTest_1.default.create(req.body);
+    res.send("New network test created");
 });
 exports.createNetworkTest = createNetworkTest;
 const viewNetworkTests = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _b;
+    var _a, _b;
     try {
-        const response = yield httpService_1.httpService.get("networktest/viewcentretests", {
-            headers: { centreid: (_b = req.centre) === null || _b === void 0 ? void 0 : _b._id.toString() },
+        const page = (req.query.page || 1);
+        const limit = (req.query.limit || 50);
+        const networkTests = yield networkTest_1.default.find({
+            centre: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString(),
+        })
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .lean();
+        const total = yield networkTest_1.default.countDocuments({
+            centre: (_b = req.centre) === null || _b === void 0 ? void 0 : _b._id.toString(),
         });
-        if (response.status === 200) {
-            for (const test of response.data) {
-                yield networkTest_1.default.updateOne({ _id: test._id }, // or testId if different
-                { $set: test }, { upsert: true });
-            }
-            const remoteIds = response.data.map((t) => t._id);
-            yield networkTest_1.default.deleteMany({ _id: { $nin: remoteIds } });
-            return res.send(response.data);
-        }
-        return res.status(response.status).send(response.data);
+        const mappedNetworkTests = networkTests.map((networkTest, i) => {
+            return Object.assign(Object.assign({}, networkTest), { id: (page - 1) * limit + i + 1 });
+        });
+        res.send({ total, networkTests: mappedNetworkTests });
     }
-    catch (err) {
-        console.error("Error viewing network tests:", err.message);
-        return res.status(500).send({ error: "Failed to fetch network tests" });
+    catch (error) {
+        res.status(500).send("Internal server error");
     }
 });
 exports.viewNetworkTests = viewNetworkTests;
 const deleteNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _c;
+    var _a;
     try {
         const testId = req.query.id;
         const networkTest = yield networkTest_1.default.findById(testId);
         if (!networkTest) {
             return res.status(404).send("Network test not found");
         }
-        // if (!networkTest.ended) {
-        //   return res.status(400).send("Please end this test before you delete it");
-        // }
         if (networkTest.active) {
             return res.status(400).send("Please end this test before you delete it");
         }
@@ -86,7 +110,7 @@ const deleteNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, functi
         }
         // Delete the network test and related responses
         const response = yield httpService_1.httpService.delete("networktest/delete", {
-            params: { testid: req.query.id, centre: (_c = req.centre) === null || _c === void 0 ? void 0 : _c._id.toString() },
+            params: { testid: req.query.id, centre: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() },
         });
         res.status(response.status).send(response.data);
     }
@@ -99,30 +123,31 @@ exports.deleteNetworkTest = deleteNetworkTest;
 const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const testId = req.query.id;
+        if (!testId) {
+            return res.status(400).send("Invalid test ID");
+        }
         const test = yield networkTest_1.default.findById(testId);
+        console.log(test);
         if (!test) {
             return res.status(404).send("Test not found");
         }
-        // If the test is currently active — deactivate it
+        // 🔴 Deactivate if active
         if (test.active) {
             if (!test.ended) {
-                return res
-                    .status(400)
-                    .send("Cannot deactivate this test — it has not been ended.");
+                return res.status(400).send("Cannot deactivate — test not ended yet.");
             }
-            // Clear the interval for this test
             const intervalId = activeTestIntervals.get(testId);
             if (intervalId) {
                 clearInterval(intervalId);
                 activeTestIntervals.delete(testId);
             }
             test.active = false;
-            test.timeEnded = new Date();
             test.ended = true;
+            test.timeEnded = new Date();
             yield test.save();
             return res.send("Test deactivated successfully.");
         }
-        // Check for other active tests
+        // 🟢 Activate new test
         const ongoingTest = yield networkTest_1.default.findOne({
             active: true,
             ended: false,
@@ -130,22 +155,24 @@ const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, functio
         if (ongoingTest) {
             return res
                 .status(400)
-                .send("Another test is currently active and has not been ended.");
+                .send("Another test is currently active and not yet ended.");
         }
-        // Activate the test and start background check
+        // Clear any residual interval (safety)
+        if (activeTestIntervals.has(testId)) {
+            clearInterval(activeTestIntervals.get(testId));
+            activeTestIntervals.delete(testId);
+        }
+        yield networkTest_1.default.updateOne({ _id: testId }, { $set: { active: true, ended: false, timeActivated: new Date() } });
         test.active = true;
         test.ended = false;
-        //test.timeEnded = ;
         test.timeActivated = new Date();
         yield test.save();
-        // Start the interval for checkLastActive (e.g., every 10 seconds)
         const intervalId = setInterval(() => {
             checkLastActive(testId);
-            console.log("Background check for test", testId);
-        }, 10 * 1000); // Adjust interval as needed (10 seconds here)
-        // Store the interval ID
+            console.log(`[${new Date().toISOString()}] Background check for ${testId}`);
+        }, 10 * 1000);
         activeTestIntervals.set(testId, intervalId);
-        res.send("Test activated successfully.");
+        return res.send("Test activated successfully.");
     }
     catch (error) {
         console.error("Toggle activation error:", error);
@@ -154,7 +181,7 @@ const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.toggleActivation = toggleActivation;
 const endNetworkTestForAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _d, _e;
+    var _a, _b;
     try {
         const testId = req.query.id;
         const networkTest = yield networkTest_1.default.findById(testId);
@@ -219,12 +246,12 @@ const endNetworkTestForAdmin = (req, res) => __awaiter(void 0, void 0, void 0, f
                 active: false,
                 ended: true,
                 timeEnded: new Date(),
-                totalNetworkLosses: ((_d = totalNetworkLosses[0]) === null || _d === void 0 ? void 0 : _d.total) || 0,
+                totalNetworkLosses: ((_a = totalNetworkLosses[0]) === null || _a === void 0 ? void 0 : _a.total) || 0,
                 computersWithNetworkLosses: computersWithNetworkLosses,
                 connectedComputers: totalComputers,
                 endedComputers: ended,
                 lostInTransport: disconnected + connected,
-                responseThroughput: (((((_e = totalResponses[0]) === null || _e === void 0 ? void 0 : _e.total) || 0) /
+                responseThroughput: (((((_b = totalResponses[0]) === null || _b === void 0 ? void 0 : _b.total) || 0) /
                     ((totalComputers * (networkTest === null || networkTest === void 0 ? void 0 : networkTest.duration)) / 1000 / 60)) *
                     100).toFixed(2),
             },
@@ -238,7 +265,7 @@ const endNetworkTestForAdmin = (req, res) => __awaiter(void 0, void 0, void 0, f
 });
 exports.endNetworkTestForAdmin = endNetworkTestForAdmin;
 const networkTestDashboard = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _f, _g, _h, _j, _k;
+    var _a, _b, _c, _d, _e;
     try {
         const networkTest = yield networkTest_1.default.findById(req.query.id);
         if (!networkTest) {
@@ -262,7 +289,7 @@ const networkTestDashboard = (req, res) => __awaiter(void 0, void 0, void 0, fun
             networkTestResponse_1.default.aggregate([
                 {
                     $match: {
-                        networkTest: new mongoose_1.default.Types.ObjectId((_f = req.query.id) === null || _f === void 0 ? void 0 : _f.toString()),
+                        networkTest: new mongoose_1.default.Types.ObjectId((_a = req.query.id) === null || _a === void 0 ? void 0 : _a.toString()),
                     },
                 },
                 {
@@ -283,7 +310,7 @@ const networkTestDashboard = (req, res) => __awaiter(void 0, void 0, void 0, fun
             networkTestResponse_1.default.aggregate([
                 {
                     $match: {
-                        networkTest: new mongoose_1.default.Types.ObjectId((_g = req.query.id) === null || _g === void 0 ? void 0 : _g.toString()),
+                        networkTest: new mongoose_1.default.Types.ObjectId((_b = req.query.id) === null || _b === void 0 ? void 0 : _b.toString()),
                     },
                 },
                 {
@@ -298,12 +325,12 @@ const networkTestDashboard = (req, res) => __awaiter(void 0, void 0, void 0, fun
             totalComputers,
             connected,
             computersWithNetworkLosses,
-            totalNetworkLosses: ((_h = totalNetworkLosses[0]) === null || _h === void 0 ? void 0 : _h.total) || 0,
+            totalNetworkLosses: ((_c = totalNetworkLosses[0]) === null || _c === void 0 ? void 0 : _c.total) || 0,
             ended,
             disconnected,
-            totalResponses: ((_j = totalResponses[0]) === null || _j === void 0 ? void 0 : _j.total) || 0,
+            totalResponses: ((_d = totalResponses[0]) === null || _d === void 0 ? void 0 : _d.total) || 0,
             expected: (totalComputers * (networkTest === null || networkTest === void 0 ? void 0 : networkTest.duration)) / 1000 / 60,
-            responseThroughput: (((((_k = totalResponses[0]) === null || _k === void 0 ? void 0 : _k.total) || 0) /
+            responseThroughput: (((((_e = totalResponses[0]) === null || _e === void 0 ? void 0 : _e.total) || 0) /
                 ((totalComputers * (networkTest === null || networkTest === void 0 ? void 0 : networkTest.duration)) / 1000 / 60)) *
                 100).toFixed(2),
         });
@@ -332,3 +359,24 @@ const computerListUnderNetworkTest = (req, res) => __awaiter(void 0, void 0, voi
     res.send({ total, computers: mappedComputerList });
 });
 exports.computerListUnderNetworkTest = computerListUnderNetworkTest;
+const uploadNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    try {
+        //upload the network test and the participating computers
+        const testId = req.query.id;
+        const networkTest = yield networkTest_1.default.findById(testId);
+        const responses = yield networkTestResponse_1.default.find({
+            networkTest: testId,
+        });
+        const response = yield httpService_1.httpService.post("networktest/uploadtest", { networkTest, responses }, { params: { centre: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() } });
+        res.status(response.status).send(response.data);
+    }
+    catch (error) {
+        res.status(500).send("Internal server error");
+    }
+});
+exports.uploadNetworkTest = uploadNetworkTest;
+const networkPing = (req, res) => {
+    res.send("pong");
+};
+exports.networkPing = networkPing;

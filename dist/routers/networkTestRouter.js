@@ -8,18 +8,20 @@ const jwtController_1 = require("../controllers/jwtController");
 const networkTestRouter = (0, express_1.Router)();
 exports.networkTestRouter = networkTestRouter;
 networkTestRouter
-    .use(jwtController_1.authenticateToken)
-    .post("/create", networkTestControllerAdmin_1.createNetworkTest)
-    .get("/view", networkTestControllerAdmin_1.viewNetworkTests)
-    .delete("/delete", networkTestControllerAdmin_1.deleteNetworkTest)
     .get("/toggleactivation", networkTestControllerAdmin_1.toggleActivation)
     .get("/view/:id", networkTestControllerClient_1.viewNetworkTest)
     .post("/begintest", networkTestControllerClient_1.networkTestValidation, networkTestControllerClient_1.beginNetworkTest)
     .get("/computerlist/:id", networkTestControllerAdmin_1.computerListUnderNetworkTest)
     .get("/dashboard", networkTestControllerAdmin_1.networkTestDashboard)
     .post("/sendresponses", networkTestControllerClient_1.sendResponses)
+    .get("/ping", networkTestControllerAdmin_1.networkPing)
     .post("/questionandresponsecount", networkTestControllerClient_1.questionAndResponseCount)
     .post("/endnetworktest", networkTestControllerClient_1.endNetworkTest)
     .get("/myresponse", networkTestControllerClient_1.viewMyComputerResponse)
     .get("/delete", networkTestControllerAdmin_1.deleteNetworkTest)
-    .get("/endnetworktestadmin", networkTestControllerAdmin_1.endNetworkTestForAdmin);
+    .get("/endnetworktestadmin", networkTestControllerAdmin_1.endNetworkTestForAdmin)
+    .use(jwtController_1.authenticateToken)
+    .post("/create", networkTestControllerAdmin_1.createNetworkTest)
+    .get("/view", networkTestControllerAdmin_1.viewNetworkTests)
+    .delete("/delete", networkTestControllerAdmin_1.deleteNetworkTest)
+    .get("/upload", networkTestControllerAdmin_1.uploadNetworkTest);

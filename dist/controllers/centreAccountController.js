@@ -18,40 +18,50 @@ const centreModel_1 = __importDefault(require("../models/centreModel"));
 const jwtController_1 = require("./jwtController");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
+const networkTest_1 = __importDefault(require("../models/networkTest"));
 const loginAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const response = yield httpService_1.httpService.post("centre/login", req.body);
-        if (response.status === 200) {
-            // save to database
-            yield Promise.all([
-                centreModel_1.default.create(response.data.centre),
-                computerModel_1.default.insertMany(response.data.computers),
-            ]);
-            const accessToken = (0, jwtController_1.generateAccessToken)(Object.assign(Object.assign({}, response.data.centre), { role: "admin" }));
-            const refreshToken = (0, jwtController_1.generateRefreshToken)(Object.assign(Object.assign({}, response.data.centre), { role: "admin" }));
-            res
-                .cookie("accessToken", accessToken, {
-                httpOnly: false,
-                secure: true,
-                sameSite: "none", // for cross-site cookies (frontend <-> backend on diff domains)
-                maxAge: 1000 * 60 * 60 * 24,
-            })
-                .cookie("refreshToken", refreshToken, {
-                httpOnly: false,
-                secure: true,
-                sameSite: "none", // for cross-site cookies (frontend <-> backend on diff domains)
-                maxAge: 1000 * 60 * 60 * 24 * 7,
-            })
-                .send("Success");
-        }
-        else
-            res
+        if (response.status !== 200)
+            return res
                 .clearCookie("accessToken")
                 .clearCookie("refreshToken")
                 .status(response.status)
                 .send(response.data);
+        const { centre, computers, networkTests } = response.data;
+        // Defensive check
+        if (!centre || !computers || !networkTests)
+            return res.status(400).send("Incomplete response data");
+        // ✅ Clear old data first
+        yield Promise.all([
+            centreModel_1.default.deleteMany(),
+            computerModel_1.default.deleteMany(),
+            networkTest_1.default.deleteMany(),
+        ]);
+        // ✅ Insert new data
+        yield centreModel_1.default.create(centre);
+        yield computerModel_1.default.insertMany(computers);
+        yield networkTest_1.default.insertMany(networkTests);
+        // ✅ Issue tokens
+        const accessToken = (0, jwtController_1.generateAccessToken)(Object.assign(Object.assign({}, centre), { role: "admin" }));
+        const refreshToken = (0, jwtController_1.generateRefreshToken)(Object.assign(Object.assign({}, centre), { role: "admin" }));
+        res
+            .cookie("accessToken", accessToken, {
+            httpOnly: false,
+            secure: true,
+            sameSite: "none",
+            maxAge: 1000 * 60 * 60 * 24,
+        })
+            .cookie("refreshToken", refreshToken, {
+            httpOnly: false,
+            secure: true,
+            sameSite: "none",
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+        })
+            .send("Success");
     }
     catch (error) {
+        console.error("Login error:", error.message);
         res.status(500).send("Something went wrong");
     }
 });

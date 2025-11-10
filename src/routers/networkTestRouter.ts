@@ -22,6 +22,7 @@ import {
   endNetworkTestForAdmin,
   toggleActivation,
   uploadNetworkTest,
+  networkPing,
 } from "../controllers/networkTestControllerAdmin";
 import { authenticateToken } from "../controllers/jwtController";
 
@@ -36,6 +37,7 @@ networkTestRouter
   .get("/dashboard", networkTestDashboard)
 
   .post("/sendresponses", sendResponses)
+  .get("/ping", networkPing)
   .post("/questionandresponsecount", questionAndResponseCount)
   .post("/endnetworktest", endNetworkTest)
   .get("/myresponse", viewMyComputerResponse)

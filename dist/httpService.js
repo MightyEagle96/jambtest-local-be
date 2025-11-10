@@ -8,7 +8,7 @@ const axios_1 = __importDefault(require("axios"));
 exports.baseURL = process.env.NODE_ENV === "production"
     ? "https://miniautotestcentral-be.onrender.com/api"
     : //
-        "http://192.168.2.1:4000/api";
+        "http://192.168.16.70:4000/api";
 const httpService = axios_1.default.create({
     baseURL: exports.baseURL,
     withCredentials: true, // always send cookies
