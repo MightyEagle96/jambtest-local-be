@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.viewMyComputerResponse = exports.endNetworkTest = exports.questionAndResponseCount = exports.sendResponses = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = void 0;
-const uuid_1 = require("uuid");
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
 const centreModel_1 = __importDefault(require("../models/centreModel"));
@@ -21,7 +20,6 @@ const DataQueue_1 = require("./DataQueue");
 const networkTestResponse_1 = __importDefault(require("../models/networkTestResponse"));
 const questions_1 = __importDefault(require("./questions"));
 const activeTestIntervals = new Map();
-const id = (0, uuid_1.v4)();
 const viewNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const test = yield networkTest_1.default.findById(req.params.id);
     if (!test) {

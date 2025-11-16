@@ -18,7 +18,7 @@ const networkTest_1 = __importDefault(require("../models/networkTest"));
 const networkTestResponse_1 = __importDefault(require("../models/networkTestResponse"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
-const uuid_1 = require("uuid");
+const generateId_1 = require("./generateId");
 const activeTestIntervals = new Map();
 const checkLastActive = (networkTest) => __awaiter(void 0, void 0, void 0, function* () {
     // Find computers not updated in the last 1 minute
@@ -59,7 +59,7 @@ const createNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, functi
             .status(400)
             .send("All computers must be uploaded before creating a test");
     }
-    const examId = (0, uuid_1.v4)();
+    const examId = (0, generateId_1.generateId)();
     req.body.duration = Number(req.body.duration * 60 * 1000);
     req.body.centre = (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString();
     req.body.examId = examId;

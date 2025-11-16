@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { v4 as uuidv4 } from "uuid";
+
 import NetworkTestModel, { INetworkTest } from "../models/networkTest";
 import ComputerModel from "../models/computerModel";
 import CentreModel from "../models/centreModel";
@@ -9,8 +9,6 @@ import mongoose from "mongoose";
 import testQuestions from "./questions";
 
 const activeTestIntervals = new Map<string, NodeJS.Timeout>();
-
-const id = uuidv4();
 
 export const viewNetworkTest = async (req: Request, res: Response) => {
   const test = await NetworkTestModel.findById(req.params.id);

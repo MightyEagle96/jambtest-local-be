@@ -5,6 +5,8 @@ dotenv.config();
 
 const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/jambtest";
 
+console.log(mongoUri);
+
 export const ConnectDatabase = () => {
   mongoose
     .connect(mongoUri, {

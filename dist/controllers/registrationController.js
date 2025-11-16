@@ -23,6 +23,12 @@ const registerComputer = (req, res) => __awaiter(void 0, void 0, void 0, functio
         if (!centre)
             return res.status(400).send("Centre not found");
         const body = req.body;
+        // Check if all required fields are present
+        if (!body.serialNumber ||
+            !body.processorId ||
+            !body.macAddresses ||
+            body.macAddresses.length === 0)
+            return res.status(400).send("Missing required fields");
         // Normalize for consistent comparison
         const serialNumber = (_a = body.serialNumber) === null || _a === void 0 ? void 0 : _a.toLowerCase();
         const processorId = (_b = body.processorId) === null || _b === void 0 ? void 0 : _b.toLowerCase();

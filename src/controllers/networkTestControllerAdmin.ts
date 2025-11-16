@@ -5,7 +5,8 @@ import NetworkTestModel, { INetworkTest } from "../models/networkTest";
 import NetworkTestResponseModel from "../models/networkTestResponse";
 import mongoose from "mongoose";
 import ComputerModel from "../models/computerModel";
-import { v4 as uuidv4 } from "uuid";
+
+import { generateId } from "./generateId";
 
 const activeTestIntervals = new Map<string, NodeJS.Timeout>();
 
@@ -57,7 +58,7 @@ export const createNetworkTest = async (
       .send("All computers must be uploaded before creating a test");
   }
 
-  const examId = uuidv4();
+  const examId = generateId();
 
   req.body.duration = Number(req.body.duration * 60 * 1000);
   req.body.centre = req.centre?._id.toString();

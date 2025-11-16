@@ -10,6 +10,15 @@ export const registerComputer = async (req: Request, res: Response) => {
 
     const body = req.body;
 
+    // Check if all required fields are present
+    if (
+      !body.serialNumber ||
+      !body.processorId ||
+      !body.macAddresses ||
+      body.macAddresses.length === 0
+    )
+      return res.status(400).send("Missing required fields");
+
     // Normalize for consistent comparison
     const serialNumber = body.serialNumber?.toLowerCase();
     const processorId = body.processorId?.toLowerCase();
