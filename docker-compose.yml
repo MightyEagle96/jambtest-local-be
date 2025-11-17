@@ -1,8 +1,32 @@
-version: "3.9"
+# services:
+#   app:
+#     #build: .
+#     image: mightyeagle7/jambtest:2.0.0
+#     container_name: jambtest
 
+#     restart: always
+#     ports:
+#       - "4000:4000"
+#     environment:
+#       - NODE_ENV=production
+#       - MONGO_URI=mongodb://mongo:27017/mydb
+#     depends_on:
+#       - mongo
+
+#   mongo:
+#     image: mongo:6
+#     container_name: jambtest_mongo
+#     restart: always
+#     ports:
+#       - "27018:27017" # host:container mapping
+#     volumes:
+#       - mongo_data:/data/db
+
+# volumes:
+#   mongo_data:
+# FINAL docker-compose.yml — 100% secure, real IPs, Compass on demand
 services:
   app:
-    #build: .
     image: mightyeagle7/jambtest:2.0.0
     container_name: jambtest
     restart: always
@@ -13,17 +37,26 @@ services:
       - MONGO_URI=mongodb://mongo:27017/mydb
     depends_on:
       - mongo
-    volumes:
-      - .:/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - jambtest_net
 
   mongo:
     image: mongo:6
     container_name: jambtest_mongo
     restart: always
-    ports:
-      - "27018:27017" # host:container mapping
+    environment:
+      - MONGO_INITDB_DATABASE=mydb
     volumes:
       - mongo_data:/data/db
+    networks:
+      - jambtest_net
+    # NO PORTS EXPOSED → completely isolated!
+
+networks:
+  jambtest_net:
+    driver: bridge
 
 volumes:
   mongo_data:

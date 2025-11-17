@@ -40,6 +40,7 @@ const networkTestValidation = (req, res, next) => __awaiter(void 0, void 0, void
     var _a, _b;
     const centre = yield centreModel_1.default.findOne();
     const body = req.body;
+    const ipAddress = body.ipAddress;
     // Normalize for consistent comparison
     const serialNumber = (_a = body.serialNumber) === null || _a === void 0 ? void 0 : _a.toLowerCase();
     const processorId = (_b = body.processorId) === null || _b === void 0 ? void 0 : _b.toLowerCase();
@@ -79,6 +80,7 @@ const networkTestValidation = (req, res, next) => __awaiter(void 0, void 0, void
     }
     req.headers.computer = computer._id.toString();
     req.headers.networktest = activeTest._id.toString();
+    req.headers.ipAddress = ipAddress;
     next();
     //res.send("Success");
 });
@@ -105,7 +107,7 @@ const beginNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, functio
             yield networkTestResponse_1.default.create({
                 computer: req.headers.computer,
                 networkTest: req.headers.networktest,
-                ipAddress: req.ip,
+                ipAddress: req.headers.ipAddress,
                 responses: 0,
                 timeLeft: networkTest.duration,
                 loggedInAt: new Date(),

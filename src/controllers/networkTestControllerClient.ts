@@ -36,6 +36,8 @@ export const networkTestValidation = async (
 
   const body = req.body;
 
+  const ipAddress = body.ipAddress;
+
   // Normalize for consistent comparison
   const serialNumber = body.serialNumber?.toLowerCase();
   const processorId = body.processorId?.toLowerCase();
@@ -84,6 +86,8 @@ export const networkTestValidation = async (
   }
   req.headers.computer = computer._id.toString();
   req.headers.networktest = activeTest._id.toString();
+  req.headers.ipAddress = ipAddress;
+
   next();
 
   //res.send("Success");
@@ -115,7 +119,7 @@ export const beginNetworkTest = async (req: Request, res: Response) => {
       await NetworkTestResponseModel.create({
         computer: req.headers.computer,
         networkTest: req.headers.networktest,
-        ipAddress: req.ip,
+        ipAddress: req.headers.ipAddress,
         responses: 0,
         timeLeft: networkTest.duration,
         loggedInAt: new Date(),
