@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { httpService } from "../httpService";
+import { httpService } from "../appNetwork";
 import CentreModel, { AuthenticatedCentre } from "../models/centreModel";
 import NetworkTestModel, { INetworkTest } from "../models/networkTest";
 import NetworkTestResponseModel from "../models/networkTestResponse";
@@ -461,6 +461,13 @@ export const uploadNetworkTest = async (
       { networkTest, responses },
       { params: { centre: req.centre?._id.toString() } }
     );
+
+    if (response.status === 200) {
+      await NetworkTestModel.updateOne(
+        { _id: testId },
+        { status: "uploaded", timeUploaded: new Date() }
+      );
+    }
 
     res.status(response.status).send(response.data);
   } catch (error) {

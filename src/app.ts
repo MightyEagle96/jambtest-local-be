@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import cors, { CorsOptions } from "cors";
-import { ConnectDatabase } from "./database";
+import { ConnectDatabase } from "./appData";
 import appRouter from "./routers/appRouter";
 import path from "path";
 
@@ -11,24 +11,6 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
-
-// const corsOptions: CorsOptions = {
-//   origin: (origin, callback) => {
-//     if (
-//       !origin ||
-//       /^http:\/\/(localhost|127\.0\.0\.1):3000$/.test(origin) ||
-//       /^http:\/\/192\.168\.\d+\.\d+(:\d+)?$/.test(origin) ||
-//       /^http:\/\/172\.16\.\d+\.\d+(:\d+)?$/.test(origin) ||
-//       /^http:\/\/10\.\d+\.\d+\.\d+(:\d+)?$/.test(origin) ||
-//       "http://localhost:4000"
-//     ) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   credentials: true,
-// };
 
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {

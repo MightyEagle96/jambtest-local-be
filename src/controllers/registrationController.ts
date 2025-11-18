@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import ComputerModel, { IComputer } from "../models/computerModel";
 import CentreModel, { AuthenticatedCentre } from "../models/centreModel";
-import { httpService } from "../httpService";
+import { httpService } from "../appNetwork";
 
 export const registerComputer = async (req: Request, res: Response) => {
   try {
