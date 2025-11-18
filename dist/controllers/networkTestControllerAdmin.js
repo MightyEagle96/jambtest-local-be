@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.retrieveNetworkTestSummary = exports.networkPing = exports.uploadNetworkTest = exports.computerListUnderNetworkTest = exports.networkTestDashboard = exports.endNetworkTestForAdmin = exports.toggleActivation = exports.deleteNetworkTest = exports.viewNetworkTests = exports.createNetworkTest = void 0;
-const appNetwork_1 = require("../appNetwork");
+const httpService_1 = require("../httpService");
 const centreModel_1 = __importDefault(require("../models/centreModel"));
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const networkTestResponse_1 = __importDefault(require("../models/networkTestResponse"));
@@ -371,7 +371,7 @@ const uploadNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const responses = yield networkTestResponse_1.default.find({
             networkTest: testId,
         });
-        const response = yield appNetwork_1.httpService.post("networktest/uploadtest", { networkTest, responses }, { params: { centre: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() } });
+        const response = yield httpService_1.httpService.post("networktest/uploadtest", { networkTest, responses }, { params: { centre: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() } });
         if (response.status === 200) {
             yield networkTest_1.default.updateOne({ _id: testId }, { status: "uploaded", timeUploaded: new Date() });
         }

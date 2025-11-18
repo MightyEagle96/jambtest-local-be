@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.centreDetail = exports.centreDashboard = exports.getRefreshToken = exports.centreProfile = exports.logoutAccount = exports.loginAccount = void 0;
-const appNetwork_1 = require("../appNetwork");
+const httpService_1 = require("../httpService");
 const centreModel_1 = __importDefault(require("../models/centreModel"));
 const jwtController_1 = require("./jwtController");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -21,7 +21,7 @@ const computerModel_1 = __importDefault(require("../models/computerModel"));
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const loginAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield appNetwork_1.httpService.post("centre/login", req.body);
+        const response = yield httpService_1.httpService.post("centre/login", req.body);
         if (response.status !== 200)
             return res
                 .clearCookie("accessToken")
@@ -111,7 +111,7 @@ const getRefreshToken = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.getRefreshToken = getRefreshToken;
 const centreDashboard = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const response = yield (0, appNetwork_1.httpService)("centre/dashboard", {
+    const response = yield (0, httpService_1.httpService)("centre/dashboard", {
         headers: { centreid: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() },
     });
     res.status(response.status).send(response.data);

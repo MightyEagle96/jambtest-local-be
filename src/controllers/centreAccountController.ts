@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { httpService } from "../appNetwork";
+import { httpService } from "../httpService";
 import CentreModel, { AuthenticatedCentre } from "../models/centreModel";
 import {
   generateAccessToken,

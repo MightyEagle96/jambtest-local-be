@@ -3,7 +3,7 @@ import esbuild from "esbuild";
 esbuild
   .build({
     entryPoints: ["dist/app.js"], // your main compiled JS
-    outfile: "dist/bundle.js",
+    outfile: "bundle.js",
     bundle: true,
     platform: "node",
     target: "node18",

@@ -5,14 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon src/app.ts",
-    "start": "cross-env NODE_ENV=production node dist/app.js",
-    "start:prod": "cross-env NODE_ENV=production node bundle.js",
     "build": "tsc -p .",
-    "watch": "tsc --watch",
-    "obfuscate": "javascript-obfuscator dist --output dist",
-    "prod:build": "npm run build && npm run obfuscate",
     "bundle": "node scripts/bundle.js",
-    "prod": "npm run build && npm run bundle"
+    "prod:bundle": "npm run build && npm run bundle",
+    "start": "node dist/bundle.js"
   },
   "keywords": [],
   "author": "",
