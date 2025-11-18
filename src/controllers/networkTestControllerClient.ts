@@ -158,10 +158,6 @@ export const sendResponses = async (req: Request, res: Response) => {
       });
 
       if (!response) {
-        console.log("No matching response found for:", {
-          computer,
-          networktest,
-        });
         // Explicitly return 404 so frontend can act accordingly
         return res.status(404).send({ message: "No matching response found" });
       }
@@ -222,19 +218,43 @@ const endQueue = new ConcurrentJobQueue({
 });
 
 export const endNetworkTest = async (req: Request, res: Response) => {
+  const activeTest = await NetworkTestModel.findOne({ active: true });
+
+  if (!activeTest) {
+    return res.sendStatus(404);
+  }
+
   endQueue.enqueue(async () => {
-    const response = await NetworkTestResponseModel.findOne({
-      computer: req.body.computer,
-      networkTest: req.body.networktest,
-    });
-    if (response) {
-      response.timeLeft = 0;
-      response.endedAt = new Date();
-      response.status = "ended";
-      await response.save();
+    const { computer, networktest } = req.body;
+
+    const networkTestData = await NetworkTestModel.findById(networktest);
+
+    if (!networkTestData) {
+      console.log("No matching test found for:", networktest);
+      // Explicitly return 404 so frontend can act accordingly
+      return res.sendStatus(404);
     }
+
+    const response = await NetworkTestResponseModel.findOne({
+      computer,
+      networkTest: networktest,
+    });
+
+    if (!response) {
+      // Explicitly return 404 so frontend can act accordingly
+      return res.sendStatus(404);
+    }
+
+    if (response.responses + 1 <= networkTestData.maxResponses) {
+      response.responses += 1;
+    }
+
+    response.timeLeft = 0;
+    response.status = "ended";
+    await response.save();
+
+    res.send("Success");
   });
-  res.send("Success");
 };
 
 export const viewMyComputerResponse = async (req: Request, res: Response) => {

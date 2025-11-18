@@ -12,16 +12,35 @@ dotenv.config();
 
 const app = express();
 
+// const corsOptions: CorsOptions = {
+//   origin: (origin, callback) => {
+//     if (
+//       !origin ||
+//       /^http:\/\/(localhost|127\.0\.0\.1):3000$/.test(origin) ||
+//       /^http:\/\/192\.168\.\d+\.\d+(:\d+)?$/.test(origin) ||
+//       /^http:\/\/172\.16\.\d+\.\d+(:\d+)?$/.test(origin) ||
+//       /^http:\/\/10\.\d+\.\d+\.\d+(:\d+)?$/.test(origin) ||
+//       "http://localhost:4000"
+//     ) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true,
+// };
+
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
-    if (
-      !origin ||
-      /^http:\/\/(localhost|127\.0\.0\.1):3000$/.test(origin) ||
-      /^http:\/\/192\.168\.\d+\.\d+(:\d+)?$/.test(origin) ||
-      /^http:\/\/172\.16\.\d+\.\d+(:\d+)?$/.test(origin) ||
-      /^http:\/\/10\.\d+\.\d+\.\d+(:\d+)?$/.test(origin) ||
-      "http://localhost:4000"
-    ) {
+    const allowed = [
+      /^http:\/\/(localhost|127\.0\.0\.1):3000$/,
+      /^http:\/\/localhost:4000$/,
+      /^http:\/\/192\.168\.\d+\.\d+(:\d+)?$/,
+      /^http:\/\/172\.16\.\d+\.\d+(:\d+)?$/,
+      /^http:\/\/10\.\d+\.\d+\.\d+(:\d+)?$/,
+    ];
+
+    if (!origin || allowed.some((regex) => regex.test(origin))) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -31,16 +50,42 @@ const corsOptions: CorsOptions = {
 };
 
 ConnectDatabase();
-app
+// app
 
+//   .use(cookieParser())
+
+//   .use(morgan("dev"))
+//   .use(express.json({ limit: "50mb" }))
+
+//   .use(express.static(path.join(__dirname, "build")))
+
+//   .use(cors(corsOptions))
+
+//   .use("/api", appRouter)
+
+//   .get("*", (req: Request, res: Response) => {
+//     res.sendFile(path.join(__dirname, "build", "index.html"));
+//   })
+
+//   .listen(4000, "0.0.0.0", () => {
+//     console.log("server started on http://localhost:4000");
+//   });
+
+app
   .use(cookieParser())
 
-  .use(morgan("dev"))
+  // Only log in development
+  .use(
+    process.env.NODE_ENV === "development"
+      ? morgan("dev")
+      : (req, res, next) => next()
+  )
+
   .use(express.json({ limit: "50mb" }))
 
-  .use(express.static(path.join(__dirname, "build")))
-
   .use(cors(corsOptions))
+
+  .use(express.static(path.join(__dirname, "build")))
 
   .use("/api", appRouter)
 

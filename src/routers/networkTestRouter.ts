@@ -1,12 +1,7 @@
 import { Router } from "express";
 import {
   beginNetworkTest,
-  //computerListUnderNetworkTest,
-  // createNetworkTest,
-  // deleteNetworkTest,
   endNetworkTest,
-  // endNetworkTestForAdmin,
-  // networkTestDashboard,
   networkTestValidation,
   questionAndResponseCount,
   sendResponses,

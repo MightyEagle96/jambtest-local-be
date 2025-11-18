@@ -143,8 +143,6 @@ export const getComputers = async (req: AuthenticatedCentre, res: Response) => {
       params: { centre: req.centre?._id.toString() },
     });
 
-    console.log(response.data);
-
     if (response.status === 200) {
       await ComputerModel.deleteMany();
       await ComputerModel.insertMany(response.data);
