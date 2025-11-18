@@ -1,1 +1,43 @@
-'use strict';const a9_0x55568e=a9_0x9b73;(function(_0x5c25d9,_0x3c7fc2){const _0x57e3c6=a9_0x9b73,_0x4ef02f=_0x5c25d9();while(!![]){try{const _0x559645=parseInt(_0x57e3c6(0x7d))/0x1*(parseInt(_0x57e3c6(0x76))/0x2)+-parseInt(_0x57e3c6(0x8b))/0x3+-parseInt(_0x57e3c6(0x81))/0x4*(-parseInt(_0x57e3c6(0x75))/0x5)+-parseInt(_0x57e3c6(0x78))/0x6+parseInt(_0x57e3c6(0x7a))/0x7*(parseInt(_0x57e3c6(0x71))/0x8)+parseInt(_0x57e3c6(0x88))/0x9*(-parseInt(_0x57e3c6(0x79))/0xa)+-parseInt(_0x57e3c6(0x84))/0xb*(-parseInt(_0x57e3c6(0x7b))/0xc);if(_0x559645===_0x3c7fc2)break;else _0x4ef02f['push'](_0x4ef02f['shift']());}catch(_0x51d7e2){_0x4ef02f['push'](_0x4ef02f['shift']());}}}(a9_0x2b31,0x632ab));var __importDefault=this&&this['__importDefault']||function(_0x5497c5){const _0x14f6f3=a9_0x9b73;return _0x5497c5&&_0x5497c5[_0x14f6f3(0x80)]?_0x5497c5:{'default':_0x5497c5};};function a9_0x2b31(){const _0x502b67=['1434459wUMFxI','sign','1980936KhAaoI','../utils/authToken','config','defineProperty','5luNvJp','88606aMOgjI','dotenv','2836452qlqddT','10eRMaIy','7qNeshn','9084QsWXAk','authenticateToken','7DBxTYr','verify','generateAccessToken','__esModule','419304MAJaUO','centre','default','21153ijSsHk','tokens','sendStatus','ACCESS_TOKEN','6850737wErTLq','accessToken','generateRefreshToken'];a9_0x2b31=function(){return _0x502b67;};return a9_0x2b31();}Object[a9_0x55568e(0x74)](exports,a9_0x55568e(0x80),{'value':!![]}),exports[a9_0x55568e(0x7c)]=exports[a9_0x55568e(0x8a)]=exports[a9_0x55568e(0x7f)]=exports[a9_0x55568e(0x85)]=void 0x0;const jsonwebtoken_1=__importDefault(require('jsonwebtoken')),dotenv_1=__importDefault(require(a9_0x55568e(0x77))),authToken_1=require(a9_0x55568e(0x72));dotenv_1[a9_0x55568e(0x83)][a9_0x55568e(0x73)](),exports['tokens']={'accessToken':a9_0x55568e(0x89),'refreshToken':'refreshToken'};function a9_0x9b73(_0x53fb07,_0x32863b){const _0x2b313b=a9_0x2b31();return a9_0x9b73=function(_0x9b73f0,_0x50ea8d){_0x9b73f0=_0x9b73f0-0x71;let _0x2f6a3d=_0x2b313b[_0x9b73f0];return _0x2f6a3d;},a9_0x9b73(_0x53fb07,_0x32863b);}const generateAccessToken=_0x23fef1=>{const _0xb03947=a9_0x55568e;return jsonwebtoken_1[_0xb03947(0x83)][_0xb03947(0x8c)](_0x23fef1,authToken_1[_0xb03947(0x87)],{'expiresIn':'1d'});};exports[a9_0x55568e(0x7f)]=generateAccessToken;const generateRefreshToken=_0x60c33f=>{const _0x331f19=a9_0x55568e;return jsonwebtoken_1[_0x331f19(0x83)][_0x331f19(0x8c)](_0x60c33f,authToken_1['REFRESH_TOKEN'],{'expiresIn':'7d'});};exports[a9_0x55568e(0x8a)]=generateRefreshToken;const authenticateToken=(_0x1e6492,_0x21c36a,_0x4a3d8f)=>{const _0x8cb11b=a9_0x55568e;try{const _0x215e67=_0x1e6492['cookies'][_0x8cb11b(0x89)];if(!_0x215e67)return _0x21c36a[_0x8cb11b(0x86)](0x191);const _0x12a8d8=jsonwebtoken_1[_0x8cb11b(0x83)][_0x8cb11b(0x7e)](_0x215e67,authToken_1[_0x8cb11b(0x87)]);_0x12a8d8&&(_0x1e6492[_0x8cb11b(0x82)]=_0x12a8d8),_0x4a3d8f();}catch(_0x6c9c9d){_0x21c36a[_0x8cb11b(0x86)](0x191);}};exports[a9_0x55568e(0x7c)]=authenticateToken;
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.authenticateToken = exports.generateRefreshToken = exports.generateAccessToken = exports.tokens = void 0;
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const authToken_1 = require("../utils/authToken");
+dotenv_1.default.config();
+exports.tokens = {
+    accessToken: "accessToken",
+    refreshToken: "refreshToken",
+};
+const generateAccessToken = (payload) => {
+    return jsonwebtoken_1.default.sign(payload, authToken_1.ACCESS_TOKEN, {
+        expiresIn: "1d",
+    });
+};
+exports.generateAccessToken = generateAccessToken;
+const generateRefreshToken = (payload) => {
+    return jsonwebtoken_1.default.sign(payload, authToken_1.REFRESH_TOKEN, {
+        expiresIn: "7d",
+    });
+};
+exports.generateRefreshToken = generateRefreshToken;
+const authenticateToken = (req, res, next) => {
+    try {
+        const token = req.cookies.accessToken;
+        if (!token) {
+            return res.sendStatus(401);
+        }
+        const decoded = jsonwebtoken_1.default.verify(token, authToken_1.ACCESS_TOKEN);
+        if (decoded) {
+            req.centre = decoded;
+        }
+        next();
+    }
+    catch (error) {
+        res.sendStatus(401);
+    }
+};
+exports.authenticateToken = authenticateToken;

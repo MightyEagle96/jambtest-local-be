@@ -1,1 +1,231 @@
-'use strict';const a11_0x56ac90=a11_0x9373;(function(_0x2d745c,_0x299bc1){const _0x47acf4=a11_0x9373,_0xd2015c=_0x2d745c();while(!![]){try{const _0x4d1313=-parseInt(_0x47acf4(0x108))/0x1*(parseInt(_0x47acf4(0x117))/0x2)+parseInt(_0x47acf4(0x120))/0x3*(-parseInt(_0x47acf4(0x11f))/0x4)+-parseInt(_0x47acf4(0x114))/0x5+parseInt(_0x47acf4(0x113))/0x6+parseInt(_0x47acf4(0x122))/0x7+-parseInt(_0x47acf4(0xfc))/0x8+parseInt(_0x47acf4(0xe9))/0x9;if(_0x4d1313===_0x299bc1)break;else _0xd2015c['push'](_0xd2015c['shift']());}catch(_0x3b7829){_0xd2015c['push'](_0xd2015c['shift']());}}}(a11_0xf730,0xbad26));var __awaiter=this&&this['__awaiter']||function(_0x140b0d,_0x1f7bb1,_0x40b563,_0x46915d){function _0x5b630f(_0x1b9a31){return _0x1b9a31 instanceof _0x40b563?_0x1b9a31:new _0x40b563(function(_0x589e73){_0x589e73(_0x1b9a31);});}return new(_0x40b563||(_0x40b563=Promise))(function(_0x36103a,_0x36eb11){const _0x3df63f=a11_0x9373;function _0x5bf578(_0x220fa4){const _0x26096a=a11_0x9373;try{_0x26c4d0(_0x46915d[_0x26096a(0x112)](_0x220fa4));}catch(_0x1a16fc){_0x36eb11(_0x1a16fc);}}function _0x171051(_0x493b61){const _0x48983c=a11_0x9373;try{_0x26c4d0(_0x46915d[_0x48983c(0x10d)](_0x493b61));}catch(_0x3b0bf0){_0x36eb11(_0x3b0bf0);}}function _0x26c4d0(_0x249ea8){const _0x5a68b5=a11_0x9373;_0x249ea8[_0x5a68b5(0x110)]?_0x36103a(_0x249ea8[_0x5a68b5(0xec)]):_0x5b630f(_0x249ea8[_0x5a68b5(0xec)])[_0x5a68b5(0xf4)](_0x5bf578,_0x171051);}_0x26c4d0((_0x46915d=_0x46915d[_0x3df63f(0xe4)](_0x140b0d,_0x1f7bb1||[]))[_0x3df63f(0x112)]());});},__importDefault=this&&this[a11_0x56ac90(0x11e)]||function(_0x223df7){return _0x223df7&&_0x223df7['__esModule']?_0x223df7:{'default':_0x223df7};};function a11_0xf730(){const _0x16dbca=['This\x20computer\x20is\x20not\x20yet\x20registered\x20on\x20the\x20JAMB\x20test\x20network','487767nCMppo','beginNetworkTest','__esModule','log','Response\x20not\x20found','./DataQueue','body','toLowerCase','noActiveTest','findOne','length','maxResponses','findById','No\x20matching\x20response\x20found','apply','computerFlagged','params','assign','../models/computerModel','44603568uvhawQ','No\x20centre\x20found,\x20contact\x20administrator','serialNumber','value','default','ended','Computer\x20not\x20yet\x20registered','error','send','macAddresses','duration','then','responses','enqueue','flagged','networkTest','../models/networkTestResponse','ConcurrentJobQueue','defineProperty','4320712oaxoTN','uploaded','save','questionAndResponseCount','../models/networkTest','sendStatus','computer','populate','headers','Server\x20error','networktest','No\x20matching\x20test\x20found\x20for:','5707oukYbb','alreadyTested','No\x20matching\x20test\x20found','Success','random','throw','viewNetworkTest','sendResponses','done','status','next','287148EjVfBY','6071680AgKAxF','_id','all','380ABfWHP','map','noCentre','networkTestValidation','./questions','Test\x20not\x20found','toString','__importDefault','57628HOzaBB','306OxMSKV'];a11_0xf730=function(){return _0x16dbca;};return a11_0xf730();}Object[a11_0x56ac90(0xfb)](exports,a11_0x56ac90(0x124),{'value':!![]}),exports['viewMyComputerResponse']=exports['endNetworkTest']=exports[a11_0x56ac90(0xff)]=exports['sendResponses']=exports[a11_0x56ac90(0x123)]=exports['networkTestValidation']=exports[a11_0x56ac90(0x10e)]=void 0x0;const networkTest_1=__importDefault(require(a11_0x56ac90(0x100))),computerModel_1=__importDefault(require(a11_0x56ac90(0xe8))),centreModel_1=__importDefault(require('../models/centreModel')),DataQueue_1=require(a11_0x56ac90(0xdb)),networkTestResponse_1=__importDefault(require(a11_0x56ac90(0xf9))),questions_1=__importDefault(require(a11_0x56ac90(0x11b))),activeTestIntervals=new Map(),viewNetworkTest=(_0x735077,_0x5a8837)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x2e69cc=a11_0x56ac90,_0x3b3e6f=yield networkTest_1['default']['findById'](_0x735077[_0x2e69cc(0xe6)]['id']);if(!_0x3b3e6f)return _0x5a8837[_0x2e69cc(0x111)](0x190)[_0x2e69cc(0xf1)](_0x2e69cc(0x11c));_0x5a8837[_0x2e69cc(0xf1)](_0x3b3e6f);});exports['viewNetworkTest']=viewNetworkTest;const errorMessages={'noCentre':a11_0x56ac90(0xea),'noComputer':a11_0x56ac90(0xef),'noActiveTest':'There\x20is\x20no\x20active\x20network\x20test','computerFlagged':'This\x20computer\x20has\x20been\x20flagged\x20for\x20an\x20infraction','notUploaded':a11_0x56ac90(0x121),'alreadyTested':'This\x20computer\x20has\x20already\x20been\x20tested'},networkTestValidation=(_0x33747f,_0x57cb62,_0x8ce973)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x220191=a11_0x56ac90;var _0x276cf8,_0x462a96;const _0x46e3fd=yield centreModel_1[_0x220191(0xed)][_0x220191(0xdf)](),_0x3039f9=_0x33747f[_0x220191(0xdc)],_0xfb4db7=(_0x276cf8=_0x3039f9[_0x220191(0xeb)])===null||_0x276cf8===void 0x0?void 0x0:_0x276cf8['toLowerCase'](),_0x1e9238=(_0x462a96=_0x3039f9['processorId'])===null||_0x462a96===void 0x0?void 0x0:_0x462a96[_0x220191(0xdd)](),_0x530dfe=(_0x3039f9[_0x220191(0xf2)]||[])[_0x220191(0x118)](_0x50f3f4=>_0x50f3f4['toLowerCase']());if(!_0x46e3fd)return _0x57cb62['status'](0x190)[_0x220191(0xf1)](errorMessages[_0x220191(0x119)]);const _0x59619d=yield computerModel_1[_0x220191(0xed)][_0x220191(0xdf)]({'$and':[{'serialNumber':_0xfb4db7},{'processorId':_0x1e9238},{'macAddresses':{'$in':_0x530dfe}}]});if(!_0x59619d)return _0x57cb62[_0x220191(0x111)](0x190)[_0x220191(0xf1)](errorMessages['noComputer']);if(_0x59619d[_0x220191(0x111)]!==_0x220191(0xfd))return _0x57cb62['status'](0x190)[_0x220191(0xf1)](errorMessages['notUploaded']);if(_0x59619d[_0x220191(0xf7)])return _0x57cb62[_0x220191(0x111)](0x190)[_0x220191(0xf1)](errorMessages[_0x220191(0xe5)]);const _0x43fc38=yield networkTest_1[_0x220191(0xed)][_0x220191(0xdf)]({'active':!![]});if(!_0x43fc38)return _0x57cb62[_0x220191(0x111)](0x190)[_0x220191(0xf1)](errorMessages[_0x220191(0xde)]);if(_0x43fc38){const _0x5e7975=yield networkTestResponse_1[_0x220191(0xed)][_0x220191(0xdf)]({'computer':_0x59619d['_id'][_0x220191(0x11d)](),'networkTest':_0x43fc38[_0x220191(0x115)]['toString'](),'status':_0x220191(0xee)});if(_0x5e7975)return _0x57cb62[_0x220191(0x111)](0x190)['send'](errorMessages[_0x220191(0x109)]);}_0x33747f[_0x220191(0x104)][_0x220191(0x102)]=_0x59619d['_id']['toString'](),_0x33747f[_0x220191(0x104)]['networktest']=_0x43fc38['_id']['toString'](),_0x8ce973();});exports[a11_0x56ac90(0x11a)]=networkTestValidation;const dataQueue=new DataQueue_1[(a11_0x56ac90(0xfa))]({'concurrency':0x1,'maxQueueSize':0x64,'retries':0x0,'retryDelay':0xbb8,'shutdownTimeout':0x7530}),beginNetworkTest=(_0x330f51,_0x4cdebf)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x4c5359=a11_0x56ac90;_0x4cdebf[_0x4c5359(0xf1)]({'networkTest':_0x330f51[_0x4c5359(0x104)]['networktest'],'computer':_0x330f51[_0x4c5359(0x104)][_0x4c5359(0x102)]}),dataQueue[_0x4c5359(0xf6)](()=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0xf44b60=_0x4c5359,_0x5ba78e=yield networkTest_1[_0xf44b60(0xed)][_0xf44b60(0xe2)](_0x330f51['headers']['networktest']),_0x581f82=yield networkTestResponse_1[_0xf44b60(0xed)][_0xf44b60(0xdf)]({'computer':_0x330f51[_0xf44b60(0x104)]['computer'],'networkTest':_0x330f51[_0xf44b60(0x104)][_0xf44b60(0x106)]});!_0x581f82&&_0x5ba78e&&(yield networkTestResponse_1[_0xf44b60(0xed)]['create']({'computer':_0x330f51[_0xf44b60(0x104)]['computer'],'networkTest':_0x330f51[_0xf44b60(0x104)][_0xf44b60(0x106)],'ipAddress':_0x330f51['ip'],'responses':0x0,'timeLeft':_0x5ba78e[_0xf44b60(0xf3)],'loggedInAt':new Date()}));}));});exports[a11_0x56ac90(0x123)]=beginNetworkTest;const responseQueue=new DataQueue_1['ConcurrentJobQueue']({'concurrency':0x1,'maxQueueSize':0x64,'retries':0x0,'retryDelay':0xbb8,'shutdownTimeout':0x7530}),sendResponses=(_0xee3763,_0x57ad7e)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x29d6a1=a11_0x56ac90;try{const _0x4f1629=yield networkTest_1[_0x29d6a1(0xed)]['findOne']({'active':!![]});if(!_0x4f1629)return _0x57ad7e['sendStatus'](0x194);yield responseQueue[_0x29d6a1(0xf6)](()=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x673bcb=_0x29d6a1,{computer:_0x25ea91,networktest:_0xf8c53,timeLeft:_0x9c25af}=_0xee3763[_0x673bcb(0xdc)],_0xac7f4e=yield networkTest_1[_0x673bcb(0xed)][_0x673bcb(0xe2)](_0xf8c53);if(!_0xac7f4e)return console[_0x673bcb(0x125)]('No\x20matching\x20test\x20found\x20for:',_0xf8c53),_0x57ad7e[_0x673bcb(0x111)](0x194)[_0x673bcb(0xf1)](_0x673bcb(0x10a));const _0x385388=yield networkTestResponse_1[_0x673bcb(0xed)][_0x673bcb(0xdf)]({'computer':_0x25ea91,'networkTest':_0xf8c53});if(!_0x385388)return _0x57ad7e[_0x673bcb(0x111)](0x194)['send']({'message':_0x673bcb(0xe3)});_0x385388[_0x673bcb(0xf5)]+0x1<=_0xac7f4e[_0x673bcb(0xe1)]&&(_0x385388[_0x673bcb(0xf5)]+=0x1),_0x385388['timeLeft']=_0x9c25af,_0x385388[_0x673bcb(0x111)]='connected',yield _0x385388[_0x673bcb(0xfe)](),_0x57ad7e[_0x673bcb(0xf1)](_0x673bcb(0x10b));}));}catch(_0x2d46f1){console[_0x29d6a1(0xf0)]('Error\x20in\x20sendResponses:',_0x2d46f1),_0x57ad7e[_0x29d6a1(0x111)](0x1f4)['send']({'message':_0x29d6a1(0x105)});}});function a11_0x9373(_0x15f38f,_0x5bcab9){const _0xf73043=a11_0xf730();return a11_0x9373=function(_0x937327,_0x295da8){_0x937327=_0x937327-0xdb;let _0x408efe=_0xf73043[_0x937327];return _0x408efe;},a11_0x9373(_0x15f38f,_0x5bcab9);}exports[a11_0x56ac90(0x10f)]=sendResponses;const questionAndResponseCount=(_0x1026b0,_0x2b0d24)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x2e1e25=a11_0x56ac90,[_0x36b0df,_0x16e85a]=yield Promise[_0x2e1e25(0x116)]([networkTestResponse_1[_0x2e1e25(0xed)]['findOne']({'computer':_0x1026b0[_0x2e1e25(0xdc)][_0x2e1e25(0x102)],'networkTest':_0x1026b0[_0x2e1e25(0xdc)][_0x2e1e25(0x106)]}),networkTest_1['default'][_0x2e1e25(0xe2)](_0x1026b0[_0x2e1e25(0xdc)]['networktest'])]);if(!_0x36b0df)return _0x2b0d24[_0x2e1e25(0x111)](0x194)['send'](_0x2e1e25(0x126));if(!_0x16e85a)return _0x2b0d24[_0x2e1e25(0x111)](0x194)[_0x2e1e25(0xf1)](_0x2e1e25(0x11c));function _0x511760(){const _0x43da32=_0x2e1e25,_0x2f6749=Math['floor'](Math[_0x43da32(0x10c)]()*questions_1[_0x43da32(0xed)][_0x43da32(0xe0)]);return questions_1['default'][_0x2f6749];}_0x2b0d24['send'](Object['assign'](Object[_0x2e1e25(0xe7)]({},_0x511760()),{'responses':_0x36b0df['responses'],'maxResponses':_0x16e85a[_0x2e1e25(0xe1)]}));});exports['questionAndResponseCount']=questionAndResponseCount;const endQueue=new DataQueue_1['ConcurrentJobQueue']({'concurrency':0x1,'maxQueueSize':0x64,'retries':0x0,'retryDelay':0xbb8,'shutdownTimeout':0x7530}),endNetworkTest=(_0x4fd005,_0x32c70e)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x26dbff=a11_0x56ac90,_0x403c75=yield networkTest_1['default'][_0x26dbff(0xdf)]({'active':!![]});if(!_0x403c75)return _0x32c70e[_0x26dbff(0x101)](0x194);endQueue[_0x26dbff(0xf6)](()=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x34b963=_0x26dbff,{computer:_0x1508b6,networktest:_0x4f5b5f}=_0x4fd005[_0x34b963(0xdc)],_0x259bb2=yield networkTest_1[_0x34b963(0xed)][_0x34b963(0xe2)](_0x4f5b5f);if(!_0x259bb2)return console[_0x34b963(0x125)](_0x34b963(0x107),_0x4f5b5f),_0x32c70e[_0x34b963(0x101)](0x194);const _0x531142=yield networkTestResponse_1['default'][_0x34b963(0xdf)]({'computer':_0x1508b6,'networkTest':_0x4f5b5f});if(!_0x531142)return _0x32c70e[_0x34b963(0x101)](0x194);_0x531142[_0x34b963(0xf5)]+0x1<=_0x259bb2[_0x34b963(0xe1)]&&(_0x531142['responses']+=0x1),_0x531142['timeLeft']=0x0,_0x531142[_0x34b963(0x111)]=_0x34b963(0xee),yield _0x531142[_0x34b963(0xfe)](),_0x32c70e[_0x34b963(0xf1)](_0x34b963(0x10b));}));});exports['endNetworkTest']=endNetworkTest;const viewMyComputerResponse=(_0x261e78,_0xd238cd)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x456c40=a11_0x56ac90,_0x2e1023=yield networkTestResponse_1['default'][_0x456c40(0xdf)]({'computer':_0x261e78[_0x456c40(0x104)]['computer'],'networkTest':_0x261e78[_0x456c40(0x104)][_0x456c40(0x106)]})[_0x456c40(0x103)]([_0x456c40(0xf8),_0x456c40(0x102)]);if(!_0x2e1023)return _0xd238cd[_0x456c40(0x111)](0x194)['send'](_0x456c40(0x126));_0xd238cd[_0x456c40(0xf1)](_0x2e1023);});exports['viewMyComputerResponse']=viewMyComputerResponse;
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.viewMyComputerResponse = exports.endNetworkTest = exports.questionAndResponseCount = exports.sendResponses = exports.beginNetworkTest = exports.networkTestValidation = exports.viewNetworkTest = void 0;
+const networkTest_1 = __importDefault(require("../models/networkTest"));
+const computerModel_1 = __importDefault(require("../models/computerModel"));
+const centreModel_1 = __importDefault(require("../models/centreModel"));
+const DataQueue_1 = require("./DataQueue");
+const networkTestResponse_1 = __importDefault(require("../models/networkTestResponse"));
+const questions_1 = __importDefault(require("./questions"));
+const activeTestIntervals = new Map();
+const viewNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const test = yield networkTest_1.default.findById(req.params.id);
+    if (!test) {
+        return res.status(400).send("Test not found");
+    }
+    res.send(test);
+});
+exports.viewNetworkTest = viewNetworkTest;
+const errorMessages = {
+    noCentre: "No centre found, contact administrator",
+    noComputer: "Computer not yet registered",
+    noActiveTest: "There is no active network test",
+    computerFlagged: "This computer has been flagged for an infraction",
+    notUploaded: "This computer is not yet registered on the JAMB test network",
+    alreadyTested: "This computer has already been tested",
+};
+const networkTestValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
+    const centre = yield centreModel_1.default.findOne();
+    const body = req.body;
+    // Normalize for consistent comparison
+    const serialNumber = (_a = body.serialNumber) === null || _a === void 0 ? void 0 : _a.toLowerCase();
+    const processorId = (_b = body.processorId) === null || _b === void 0 ? void 0 : _b.toLowerCase();
+    const macAddresses = (body.macAddresses || []).map((m) => m.toLowerCase());
+    if (!centre) {
+        return res.status(400).send(errorMessages.noCentre);
+    }
+    const computer = yield computerModel_1.default.findOne({
+        $and: [
+            { serialNumber },
+            { processorId },
+            { macAddresses: { $in: macAddresses } },
+        ],
+    });
+    if (!computer) {
+        return res.status(400).send(errorMessages.noComputer);
+    }
+    if (computer.status !== "uploaded") {
+        return res.status(400).send(errorMessages.notUploaded);
+    }
+    if (computer.flagged) {
+        return res.status(400).send(errorMessages.computerFlagged);
+    }
+    const activeTest = yield networkTest_1.default.findOne({ active: true });
+    if (!activeTest) {
+        return res.status(400).send(errorMessages.noActiveTest);
+    }
+    if (activeTest) {
+        const response = yield networkTestResponse_1.default.findOne({
+            computer: computer._id.toString(),
+            networkTest: activeTest._id.toString(),
+            status: "ended",
+        });
+        if (response) {
+            return res.status(400).send(errorMessages.alreadyTested);
+        }
+    }
+    req.headers.computer = computer._id.toString();
+    req.headers.networktest = activeTest._id.toString();
+    next();
+    //res.send("Success");
+});
+exports.networkTestValidation = networkTestValidation;
+const dataQueue = new DataQueue_1.ConcurrentJobQueue({
+    concurrency: 1,
+    maxQueueSize: 100,
+    retries: 0,
+    retryDelay: 3000,
+    shutdownTimeout: 30000,
+});
+const beginNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send({
+        networkTest: req.headers.networktest,
+        computer: req.headers.computer,
+    });
+    dataQueue.enqueue(() => __awaiter(void 0, void 0, void 0, function* () {
+        const networkTest = yield networkTest_1.default.findById(req.headers.networktest);
+        const response = yield networkTestResponse_1.default.findOne({
+            computer: req.headers.computer,
+            networkTest: req.headers.networktest,
+        });
+        if (!response && networkTest) {
+            yield networkTestResponse_1.default.create({
+                computer: req.headers.computer,
+                networkTest: req.headers.networktest,
+                ipAddress: req.ip,
+                responses: 0,
+                timeLeft: networkTest.duration,
+                loggedInAt: new Date(),
+            });
+        }
+    }));
+});
+exports.beginNetworkTest = beginNetworkTest;
+const responseQueue = new DataQueue_1.ConcurrentJobQueue({
+    concurrency: 1,
+    maxQueueSize: 100,
+    retries: 0,
+    retryDelay: 3000,
+    shutdownTimeout: 30000,
+});
+const sendResponses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const activeTest = yield networkTest_1.default.findOne({ active: true });
+        if (!activeTest) {
+            return res.sendStatus(404);
+        }
+        yield responseQueue.enqueue(() => __awaiter(void 0, void 0, void 0, function* () {
+            const { computer, networktest, timeLeft } = req.body;
+            const networkTestData = yield networkTest_1.default.findById(networktest);
+            if (!networkTestData) {
+                console.log("No matching test found for:", networktest);
+                // Explicitly return 404 so frontend can act accordingly
+                return res.status(404).send("No matching test found");
+            }
+            const response = yield networkTestResponse_1.default.findOne({
+                computer,
+                networkTest: networktest,
+            });
+            if (!response) {
+                // Explicitly return 404 so frontend can act accordingly
+                return res.status(404).send({ message: "No matching response found" });
+            }
+            // Update existing record
+            if (response.responses + 1 <= networkTestData.maxResponses) {
+                response.responses += 1;
+            }
+            response.timeLeft = timeLeft;
+            response.status = "connected";
+            yield response.save();
+            res.send("Success");
+        }));
+    }
+    catch (error) {
+        console.error("Error in sendResponses:", error);
+        res.status(500).send({ message: "Server error" });
+    }
+});
+exports.sendResponses = sendResponses;
+const questionAndResponseCount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const [response, networkTest] = yield Promise.all([
+        networkTestResponse_1.default.findOne({
+            computer: req.body.computer,
+            networkTest: req.body.networktest,
+        }),
+        networkTest_1.default.findById(req.body.networktest),
+    ]);
+    if (!response) {
+        return res.status(404).send("Response not found");
+    }
+    if (!networkTest) {
+        return res.status(404).send("Test not found");
+    }
+    function selectRandomQuestion() {
+        const randomIndex = Math.floor(Math.random() * questions_1.default.length);
+        return questions_1.default[randomIndex];
+    }
+    res.send(Object.assign(Object.assign({}, selectRandomQuestion()), { responses: response.responses, maxResponses: networkTest.maxResponses }));
+});
+exports.questionAndResponseCount = questionAndResponseCount;
+const endQueue = new DataQueue_1.ConcurrentJobQueue({
+    concurrency: 1,
+    maxQueueSize: 100,
+    retries: 0,
+    retryDelay: 3000,
+    shutdownTimeout: 30000,
+});
+const endNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const activeTest = yield networkTest_1.default.findOne({ active: true });
+    if (!activeTest) {
+        return res.sendStatus(404);
+    }
+    endQueue.enqueue(() => __awaiter(void 0, void 0, void 0, function* () {
+        const { computer, networktest } = req.body;
+        const networkTestData = yield networkTest_1.default.findById(networktest);
+        if (!networkTestData) {
+            console.log("No matching test found for:", networktest);
+            // Explicitly return 404 so frontend can act accordingly
+            return res.sendStatus(404);
+        }
+        const response = yield networkTestResponse_1.default.findOne({
+            computer,
+            networkTest: networktest,
+        });
+        if (!response) {
+            // Explicitly return 404 so frontend can act accordingly
+            return res.sendStatus(404);
+        }
+        if (response.responses + 1 <= networkTestData.maxResponses) {
+            response.responses += 1;
+        }
+        response.timeLeft = 0;
+        response.status = "ended";
+        yield response.save();
+        res.send("Success");
+    }));
+});
+exports.endNetworkTest = endNetworkTest;
+const viewMyComputerResponse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const response = yield networkTestResponse_1.default.findOne({
+        computer: req.headers.computer,
+        networkTest: req.headers.networktest,
+    }).populate(["networkTest", "computer"]);
+    if (!response) {
+        return res.status(404).send("Response not found");
+    }
+    res.send(response);
+});
+exports.viewMyComputerResponse = viewMyComputerResponse;

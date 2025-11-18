@@ -1,1 +1,17 @@
-'use strict';function a20_0x5233(_0x106433,_0x41ca2c){const _0x2a4ddb=a20_0x2a4d();return a20_0x5233=function(_0x523364,_0x5cc4db){_0x523364=_0x523364-0x165;let _0x525053=_0x2a4ddb[_0x523364];return _0x525053;},a20_0x5233(_0x106433,_0x41ca2c);}const a20_0x3f14f4=a20_0x5233;(function(_0x485be2,_0x408de4){const _0x35df70=a20_0x5233,_0x3a1658=_0x485be2();while(!![]){try{const _0x2bc940=-parseInt(_0x35df70(0x168))/0x1*(-parseInt(_0x35df70(0x16a))/0x2)+parseInt(_0x35df70(0x181))/0x3+-parseInt(_0x35df70(0x174))/0x4*(-parseInt(_0x35df70(0x16b))/0x5)+parseInt(_0x35df70(0x17c))/0x6*(parseInt(_0x35df70(0x180))/0x7)+parseInt(_0x35df70(0x173))/0x8*(parseInt(_0x35df70(0x17f))/0x9)+parseInt(_0x35df70(0x171))/0xa+-parseInt(_0x35df70(0x177))/0xb;if(_0x2bc940===_0x408de4)break;else _0x3a1658['push'](_0x3a1658['shift']());}catch(_0x592ce7){_0x3a1658['push'](_0x3a1658['shift']());}}}(a20_0x2a4d,0xd22af));Object[a20_0x3f14f4(0x16e)](exports,'__esModule',{'value':!![]}),exports['computerRouter']=void 0x0;const express_1=require(a20_0x3f14f4(0x169)),registrationController_1=require('../controllers/registrationController'),jwtController_1=require('../controllers/jwtController'),computerRouter=(0x0,express_1[a20_0x3f14f4(0x17e)])();exports[a20_0x3f14f4(0x17b)]=computerRouter,computerRouter['post'](a20_0x3f14f4(0x16d),registrationController_1[a20_0x3f14f4(0x16c)])[a20_0x3f14f4(0x166)](a20_0x3f14f4(0x175),registrationController_1[a20_0x3f14f4(0x167)])[a20_0x3f14f4(0x183)]('/uploadcomputer',jwtController_1[a20_0x3f14f4(0x178)],registrationController_1['uploadComputers'])['get'](a20_0x3f14f4(0x17a),jwtController_1[a20_0x3f14f4(0x178)],registrationController_1[a20_0x3f14f4(0x179)])['get'](a20_0x3f14f4(0x17d),jwtController_1[a20_0x3f14f4(0x178)],registrationController_1['getComputers'])[a20_0x3f14f4(0x172)](a20_0x3f14f4(0x16f),registrationController_1[a20_0x3f14f4(0x165)])['get'](a20_0x3f14f4(0x176),registrationController_1['viewCleanedComputers'])[a20_0x3f14f4(0x166)](a20_0x3f14f4(0x182),registrationController_1[a20_0x3f14f4(0x170)]);function a20_0x2a4d(){const _0x286a57=['12595780zVxfVA','delete','7680BmpmjK','488zVKfkL','/view','/cleanedcomputers','72702916ZWsPIi','authenticateToken','fetchInfractionReports','/infractionreports','computerRouter','34080mwFRba','/getcomputers','Router','10386whSXqp','1904VUftfc','4322289BNGFVO','/viewcomputer/:id','post','deleteComputer','get','viewRegisteredComputers','250689KUWeOb','express','12kAIuyS','25120FuFrNV','registerComputer','/register','defineProperty','/delete/:id','viewComputer'];a20_0x2a4d=function(){return _0x286a57;};return a20_0x2a4d();}
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.computerRouter = void 0;
+const express_1 = require("express");
+const registrationController_1 = require("../controllers/registrationController");
+const jwtController_1 = require("../controllers/jwtController");
+const computerRouter = (0, express_1.Router)();
+exports.computerRouter = computerRouter;
+computerRouter
+    .post("/register", registrationController_1.registerComputer)
+    .get("/view", registrationController_1.viewRegisteredComputers)
+    .post("/uploadcomputer", jwtController_1.authenticateToken, registrationController_1.uploadComputers)
+    .get("/infractionreports", jwtController_1.authenticateToken, registrationController_1.fetchInfractionReports)
+    .get("/getcomputers", jwtController_1.authenticateToken, registrationController_1.getComputers)
+    .delete("/delete/:id", registrationController_1.deleteComputer)
+    .get("/cleanedcomputers", registrationController_1.viewCleanedComputers)
+    .get("/viewcomputer/:id", registrationController_1.viewComputer);

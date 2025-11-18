@@ -1,1 +1,12 @@
-'use strict';const a8_0x40b0ed=a8_0x56d2;(function(_0x556cca,_0x5484a9){const _0x3f373e=a8_0x56d2,_0x2d7103=_0x556cca();while(!![]){try{const _0x22796a=-parseInt(_0x3f373e(0xd5))/0x1*(parseInt(_0x3f373e(0xdc))/0x2)+parseInt(_0x3f373e(0xd9))/0x3*(-parseInt(_0x3f373e(0xd7))/0x4)+parseInt(_0x3f373e(0xd1))/0x5+-parseInt(_0x3f373e(0xd0))/0x6*(-parseInt(_0x3f373e(0xcb))/0x7)+-parseInt(_0x3f373e(0xcd))/0x8+-parseInt(_0x3f373e(0xd4))/0x9+parseInt(_0x3f373e(0xd8))/0xa*(parseInt(_0x3f373e(0xca))/0xb);if(_0x22796a===_0x5484a9)break;else _0x2d7103['push'](_0x2d7103['shift']());}catch(_0x107937){_0x2d7103['push'](_0x2d7103['shift']());}}}(a8_0xcccb,0x68aff));function a8_0xcccb(){const _0x2e9085=['crypto','42906TkSFFf','3076450NgoJIj','generateId','__esModule','1482516gIPjXU','19fZOkAd','toString','44ALYIKY','10agvooe','72003FjLDlU','defineProperty','slice','89098dujZIN','7841614XuudvV','413aYRQYW','__importDefault','368864xTtewh','randomBytes'];a8_0xcccb=function(){return _0x2e9085;};return a8_0xcccb();}var __importDefault=this&&this[a8_0x40b0ed(0xcc)]||function(_0x281640){return _0x281640&&_0x281640['__esModule']?_0x281640:{'default':_0x281640};};Object[a8_0x40b0ed(0xda)](exports,a8_0x40b0ed(0xd3),{'value':!![]}),exports[a8_0x40b0ed(0xd2)]=void 0x0;const crypto_1=__importDefault(require(a8_0x40b0ed(0xcf))),generateId=()=>{const _0x490577=a8_0x40b0ed,_0x513ab0=crypto_1['default'][_0x490577(0xce)](0x10)[_0x490577(0xd6)]('hex');return _0x513ab0[_0x490577(0xdb)](0x0,0x8)+'-'+_0x513ab0['slice'](0x8,0xc)+'-'+_0x513ab0[_0x490577(0xdb)](0xc,0x10)+'-'+_0x513ab0['slice'](0x10);};function a8_0x56d2(_0xf8144b,_0x155942){const _0xcccb67=a8_0xcccb();return a8_0x56d2=function(_0x56d2d4,_0x55991d){_0x56d2d4=_0x56d2d4-0xca;let _0x42d4ac=_0xcccb67[_0x56d2d4];return _0x42d4ac;},a8_0x56d2(_0xf8144b,_0x155942);}exports[a8_0x40b0ed(0xd2)]=generateId;
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateId = void 0;
+const crypto_1 = __importDefault(require("crypto"));
+const generateId = () => {
+    const h = crypto_1.default.randomBytes(16).toString("hex");
+    return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16)}`;
+};
+exports.generateId = generateId;

@@ -1,1 +1,20 @@
-'use strict';function a14_0x289e(_0x19c6a8,_0x1d8fb3){const _0x168c09=a14_0x168c();return a14_0x289e=function(_0x289ee8,_0x126a26){_0x289ee8=_0x289ee8-0x1c9;let _0x4a4de7=_0x168c09[_0x289ee8];return _0x4a4de7;},a14_0x289e(_0x19c6a8,_0x1d8fb3);}const a14_0x575dee=a14_0x289e;function a14_0x168c(){const _0x4b9a0e=['save','5saIgxj','DateCreated','4904XNXeLr','24teulbC','1071YyylQI','__esModule','model','10gmxjoV','7299639NOGxcV','8986351ZyazqX','2WmqIZc','3365973JfsNVC','2336116RBcwxI','default','3036510HbosNk','1009471BKXxoz'];a14_0x168c=function(){return _0x4b9a0e;};return a14_0x168c();}(function(_0x6ef5e7,_0x4e1a09){const _0x46e8a9=a14_0x289e,_0x52f7b6=_0x6ef5e7();while(!![]){try{const _0x592620=parseInt(_0x46e8a9(0x1d5))/0x1+-parseInt(_0x46e8a9(0x1d0))/0x2*(-parseInt(_0x46e8a9(0x1d1))/0x3)+parseInt(_0x46e8a9(0x1d2))/0x4+parseInt(_0x46e8a9(0x1d7))/0x5*(parseInt(_0x46e8a9(0x1d4))/0x6)+parseInt(_0x46e8a9(0x1ca))/0x7*(-parseInt(_0x46e8a9(0x1d9))/0x8)+parseInt(_0x46e8a9(0x1ce))/0x9*(-parseInt(_0x46e8a9(0x1cd))/0xa)+parseInt(_0x46e8a9(0x1cf))/0xb*(-parseInt(_0x46e8a9(0x1c9))/0xc);if(_0x592620===_0x4e1a09)break;else _0x52f7b6['push'](_0x52f7b6['shift']());}catch(_0x27df98){_0x52f7b6['push'](_0x52f7b6['shift']());}}}(a14_0x168c,0xa6b52));Object['defineProperty'](exports,a14_0x575dee(0x1cb),{'value':!![]});const mongoose_1=require('mongoose'),schema=new mongoose_1['Schema']({'ReferenceNumber':{'type':String,'lowercase':!![]},'TempReferenceNumber':{'type':String,'lowercase':!![]},'CentreName':{'type':String,'lowercase':!![]},'State':{'type':String,'lowercase':!![]},'CentreCapacity':Number,'AdminName':{'type':String,'lowercase':!![]},'AdminPhone':{'type':String,'lowercase':!![]},'AdminEmail':{'type':String,'lowercase':!![]},'DateCreated':Date});schema['pre'](a14_0x575dee(0x1d6),function(_0x4be12e){const _0x4f07a4=a14_0x575dee;this[_0x4f07a4(0x1d8)]=new Date(),_0x4be12e();});const CentreModel=(0x0,mongoose_1[a14_0x575dee(0x1cc)])('Centre',schema);exports[a14_0x575dee(0x1d3)]=CentreModel;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
+const schema = new mongoose_1.Schema({
+    ReferenceNumber: { type: String, lowercase: true },
+    TempReferenceNumber: { type: String, lowercase: true },
+    CentreName: { type: String, lowercase: true },
+    State: { type: String, lowercase: true },
+    CentreCapacity: Number,
+    AdminName: { type: String, lowercase: true },
+    AdminPhone: { type: String, lowercase: true },
+    AdminEmail: { type: String, lowercase: true },
+    DateCreated: Date,
+});
+schema.pre("save", function (next) {
+    this.DateCreated = new Date();
+    next();
+});
+const CentreModel = (0, mongoose_1.model)("Centre", schema);
+exports.default = CentreModel;

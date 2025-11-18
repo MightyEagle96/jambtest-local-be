@@ -1,1 +1,51 @@
-'use strict';function a15_0x19a7(_0x5badcc,_0x184b10){var _0x15dff1=a15_0x15df();return a15_0x19a7=function(_0x19a7c3,_0x505326){_0x19a7c3=_0x19a7c3-0x16d;var _0xcbd154=_0x15dff1[_0x19a7c3];return _0xcbd154;},a15_0x19a7(_0x5badcc,_0x184b10);}var a15_0x360e68=a15_0x19a7;(function(_0x37cc3f,_0x3063fa){var _0x28121c=a15_0x19a7,_0x2e5e18=_0x37cc3f();while(!![]){try{var _0x13d358=-parseInt(_0x28121c(0x173))/0x1*(-parseInt(_0x28121c(0x188))/0x2)+parseInt(_0x28121c(0x182))/0x3+-parseInt(_0x28121c(0x177))/0x4+parseInt(_0x28121c(0x16e))/0x5*(parseInt(_0x28121c(0x170))/0x6)+parseInt(_0x28121c(0x184))/0x7+-parseInt(_0x28121c(0x16f))/0x8*(parseInt(_0x28121c(0x171))/0x9)+-parseInt(_0x28121c(0x174))/0xa;if(_0x13d358===_0x3063fa)break;else _0x2e5e18['push'](_0x2e5e18['shift']());}catch(_0x1cfb05){_0x2e5e18['push'](_0x2e5e18['shift']());}}}(a15_0x15df,0x2f87d));var __createBinding=this&&this[a15_0x360e68(0x185)]||(Object[a15_0x360e68(0x17a)]?function(_0x2c6668,_0xe9f9d2,_0x6c7ca6,_0x4c7533){var _0x148bf3=a15_0x360e68;if(_0x4c7533===undefined)_0x4c7533=_0x6c7ca6;var _0x20dbda=Object[_0x148bf3(0x17e)](_0xe9f9d2,_0x6c7ca6);(!_0x20dbda||(_0x148bf3(0x189)in _0x20dbda?!_0xe9f9d2[_0x148bf3(0x179)]:_0x20dbda[_0x148bf3(0x18a)]||_0x20dbda[_0x148bf3(0x180)]))&&(_0x20dbda={'enumerable':!![],'get':function(){return _0xe9f9d2[_0x6c7ca6];}}),Object[_0x148bf3(0x183)](_0x2c6668,_0x4c7533,_0x20dbda);}:function(_0xfc2cbc,_0x3ffc0e,_0x589e1b,_0xb1dd37){if(_0xb1dd37===undefined)_0xb1dd37=_0x589e1b;_0xfc2cbc[_0xb1dd37]=_0x3ffc0e[_0x589e1b];}),__setModuleDefault=this&&this['__setModuleDefault']||(Object['create']?function(_0x29619f,_0x21c7b0){var _0x1d6b67=a15_0x360e68;Object[_0x1d6b67(0x183)](_0x29619f,_0x1d6b67(0x16d),{'enumerable':!![],'value':_0x21c7b0});}:function(_0x29be35,_0x1aba45){_0x29be35['default']=_0x1aba45;}),__importStar=this&&this[a15_0x360e68(0x187)]||(function(){var _0x4d5f60=function(_0x53edbc){var _0x209d01=a15_0x19a7;return _0x4d5f60=Object[_0x209d01(0x175)]||function(_0x46694d){var _0x55460e=_0x209d01,_0x301e7c=[];for(var _0x3f0af1 in _0x46694d)if(Object[_0x55460e(0x172)]['hasOwnProperty'][_0x55460e(0x176)](_0x46694d,_0x3f0af1))_0x301e7c[_0x301e7c['length']]=_0x3f0af1;return _0x301e7c;},_0x4d5f60(_0x53edbc);};return function(_0x39141c){var _0xb3c7f=a15_0x19a7;if(_0x39141c&&_0x39141c[_0xb3c7f(0x179)])return _0x39141c;var _0x5d554f={};if(_0x39141c!=null){for(var _0x3ba141=_0x4d5f60(_0x39141c),_0x2203a7=0x0;_0x2203a7<_0x3ba141[_0xb3c7f(0x17d)];_0x2203a7++)if(_0x3ba141[_0x2203a7]!==_0xb3c7f(0x16d))__createBinding(_0x5d554f,_0x39141c,_0x3ba141[_0x2203a7]);}return __setModuleDefault(_0x5d554f,_0x39141c),_0x5d554f;};}());Object[a15_0x360e68(0x183)](exports,'__esModule',{'value':!![]});const mongoose_1=__importStar(require(a15_0x360e68(0x181))),computerSchema=new mongoose_1['Schema']({'serialNumber':{'type':String,'lowercase':!![]},'macAddresses':{'type':[String],'lowercase':!![]},'ramMB':Number,'operatingSystem':{'type':String,'lowercase':!![]},'processorId':{'type':String,'lowercase':!![]},'cpuModel':{'type':String,'lowercase':!![]},'model':{'type':String,'lowercase':!![]},'manufacturer':{'type':String,'lowercase':!![]},'centre':{'type':mongoose_1['Schema'][a15_0x360e68(0x17c)][a15_0x360e68(0x17f)],'ref':a15_0x360e68(0x178),'required':!![]},'flagged':{'type':Boolean,'default':![]},'status':{'type':String,'default':'not\x20uploaded'}},{'timestamps':!![]}),ComputerModel=mongoose_1[a15_0x360e68(0x16d)][a15_0x360e68(0x17b)](a15_0x360e68(0x186),computerSchema);exports[a15_0x360e68(0x16d)]=ComputerModel;function a15_0x15df(){var _0x1234e6=['Centre','__esModule','create','model','Types','length','getOwnPropertyDescriptor','ObjectId','configurable','mongoose','246042GpGqyY','defineProperty','2415945bGeoOQ','__createBinding','Computer','__importStar','6NhwAxh','get','writable','default','286795HQMyWs','392GjKVWO','30VUYHqW','19134umWKtG','prototype','13063kUrIOD','1921690gkBjwn','getOwnPropertyNames','call','1048420WWGUVB'];a15_0x15df=function(){return _0x1234e6;};return a15_0x15df();}
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = __importStar(require("mongoose"));
+const computerSchema = new mongoose_1.Schema({
+    serialNumber: { type: String, lowercase: true },
+    macAddresses: { type: [String], lowercase: true },
+    ramMB: Number,
+    operatingSystem: { type: String, lowercase: true },
+    processorId: { type: String, lowercase: true },
+    cpuModel: { type: String, lowercase: true },
+    model: { type: String, lowercase: true },
+    manufacturer: { type: String, lowercase: true },
+    centre: { type: mongoose_1.Schema.Types.ObjectId, ref: "Centre", required: true },
+    flagged: { type: Boolean, default: false },
+    status: { type: String, default: "not uploaded" },
+}, { timestamps: true });
+const ComputerModel = mongoose_1.default.model("Computer", computerSchema);
+exports.default = ComputerModel;

@@ -1,1 +1,28 @@
-'use strict';const a16_0x2f45af=a16_0x4499;(function(_0x42ec4e,_0xe1e630){const _0x227f52=a16_0x4499,_0x2a66dd=_0x42ec4e();while(!![]){try{const _0x36d9d9=parseInt(_0x227f52(0x131))/0x1+parseInt(_0x227f52(0x136))/0x2*(parseInt(_0x227f52(0x13c))/0x3)+parseInt(_0x227f52(0x138))/0x4*(-parseInt(_0x227f52(0x12e))/0x5)+parseInt(_0x227f52(0x12c))/0x6*(-parseInt(_0x227f52(0x13b))/0x7)+parseInt(_0x227f52(0x12f))/0x8*(-parseInt(_0x227f52(0x12a))/0x9)+parseInt(_0x227f52(0x130))/0xa*(-parseInt(_0x227f52(0x137))/0xb)+-parseInt(_0x227f52(0x139))/0xc*(-parseInt(_0x227f52(0x128))/0xd);if(_0x36d9d9===_0xe1e630)break;else _0x2a66dd['push'](_0x2a66dd['shift']());}catch(_0x2d77fd){_0x2a66dd['push'](_0x2a66dd['shift']());}}}(a16_0x44c0,0xc8083));Object[a16_0x2f45af(0x13f)](exports,a16_0x2f45af(0x12b),{'value':!![]});function a16_0x44c0(){const _0x1d36c5=['29836nmELAc','NetworkTest','Types','maxResponses','model','8DzpCpW','4620044jlMbpr','308tIZHSL','300BrBlnq','ObjectId','7lOpdqT','53877irxBXr','pre','Schema','defineProperty','2732704iybNCo','default','12663FExRIR','__esModule','5166186QPNofC','not\x20taken','53035NDgIrT','9096EKrzYg','30nlSweo'];a16_0x44c0=function(){return _0x1d36c5;};return a16_0x44c0();}const mongoose_1=require('mongoose'),schema=new mongoose_1[(a16_0x2f45af(0x13e))]({'duration':Number,'examId':{'type':String,'lowercase':!![]},'connectedComputers':{'type':Number,'default':0x0},'active':{'type':Boolean,'default':![]},'dateCreated':{'type':Date,'default':new Date()},'maxResponses':{'type':Number,'default':0x0},'ended':{'type':Boolean,'default':![]},'totalNetworkLosses':{'type':Number,'default':0x0},'computersWithNetworkLosses':{'type':Number,'default':0x0},'endedComputers':{'type':Number,'default':0x0},'lostInTransport':{'type':Number,'default':0x0},'responseThroughput':String,'centre':{'type':mongoose_1['Schema'][a16_0x2f45af(0x133)][a16_0x2f45af(0x13a)],'ref':'Centre'},'status':{'type':String,'default':a16_0x2f45af(0x12d)},'timeActivated':{'type':Date,'default':null},'timeEnded':{'type':Date,'default':null},'timeUploaded':{'type':Date,'default':null}},{'timestamps':!![]});function a16_0x4499(_0x93fdc9,_0x3c03b5){const _0x44c0cd=a16_0x44c0();return a16_0x4499=function(_0x4499a7,_0x488fa2){_0x4499a7=_0x4499a7-0x128;let _0x480653=_0x44c0cd[_0x4499a7];return _0x480653;},a16_0x4499(_0x93fdc9,_0x3c03b5);}schema[a16_0x2f45af(0x13d)]('save',function(_0x55cae0){const _0x54c31b=a16_0x2f45af;this[_0x54c31b(0x134)]=this['duration']/0x3e8/0x3c,_0x55cae0();});const NetworkTestModel=(0x0,mongoose_1[a16_0x2f45af(0x135)])(a16_0x2f45af(0x132),schema);exports[a16_0x2f45af(0x129)]=NetworkTestModel;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
+const schema = new mongoose_1.Schema({
+    duration: Number,
+    examId: { type: String, lowercase: true },
+    connectedComputers: { type: Number, default: 0 },
+    active: { type: Boolean, default: false },
+    dateCreated: { type: Date, default: new Date() },
+    maxResponses: { type: Number, default: 0 },
+    ended: { type: Boolean, default: false },
+    totalNetworkLosses: { type: Number, default: 0 },
+    computersWithNetworkLosses: { type: Number, default: 0 },
+    endedComputers: { type: Number, default: 0 },
+    lostInTransport: { type: Number, default: 0 },
+    responseThroughput: String,
+    centre: { type: mongoose_1.Schema.Types.ObjectId, ref: "Centre" },
+    status: { type: String, default: "not taken" },
+    timeActivated: { type: Date, default: null },
+    timeEnded: { type: Date, default: null },
+    timeUploaded: { type: Date, default: null },
+}, { timestamps: true });
+schema.pre("save", function (next) {
+    this.maxResponses = this.duration / 1000 / 60;
+    next();
+});
+const NetworkTestModel = (0, mongoose_1.model)("NetworkTest", schema);
+exports.default = NetworkTestModel;

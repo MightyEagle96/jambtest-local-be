@@ -1,1 +1,29 @@
-'use strict';const a2_0x29b71d=a2_0x3927;function a2_0x4805(){const _0x3ea719=['create','__esModule','baseURL','http://192.168.16.75:4000/api','status','2769784jJKnxn','NODE_ENV','6904EMJzNX','Cannot\x20connect\x20to\x20the\x20central\x20server','interceptors','data','80yAcUrE','948yzmLwf','httpService','14nbcHJv','1315415EVGpLh','response','7816779ZQOoRT','production','3319199LEKoVG','1QRtWXJ','48iVQFyK','2655638CsUfzg','2113177hTDpUM','__importDefault','defineProperty','6dUelxR'];a2_0x4805=function(){return _0x3ea719;};return a2_0x4805();}(function(_0x55acfe,_0xe752a3){const _0x1bd5ee=a2_0x3927,_0x3c5999=_0x55acfe();while(!![]){try{const _0x1716e4=-parseInt(_0x1bd5ee(0x109))/0x1*(-parseInt(_0x1bd5ee(0x10b))/0x2)+-parseInt(_0x1bd5ee(0x11c))/0x3*(parseInt(_0x1bd5ee(0x117))/0x4)+parseInt(_0x1bd5ee(0x11f))/0x5*(-parseInt(_0x1bd5ee(0x10f))/0x6)+parseInt(_0x1bd5ee(0x11e))/0x7*(parseInt(_0x1bd5ee(0x115))/0x8)+-parseInt(_0x1bd5ee(0x121))/0x9+-parseInt(_0x1bd5ee(0x11b))/0xa*(-parseInt(_0x1bd5ee(0x10c))/0xb)+parseInt(_0x1bd5ee(0x10a))/0xc*(-parseInt(_0x1bd5ee(0x108))/0xd);if(_0x1716e4===_0xe752a3)break;else _0x3c5999['push'](_0x3c5999['shift']());}catch(_0x42f200){_0x3c5999['push'](_0x3c5999['shift']());}}}(a2_0x4805,0xd1aaf));function a2_0x3927(_0x1dc84a,_0x3267cc){const _0x4805ca=a2_0x4805();return a2_0x3927=function(_0x392744,_0x236555){_0x392744=_0x392744-0x107;let _0x4d89e1=_0x4805ca[_0x392744];return _0x4d89e1;},a2_0x3927(_0x1dc84a,_0x3267cc);}var __importDefault=this&&this[a2_0x29b71d(0x10d)]||function(_0x4c6783){const _0x4b575f=a2_0x29b71d;return _0x4c6783&&_0x4c6783[_0x4b575f(0x111)]?_0x4c6783:{'default':_0x4c6783};};Object[a2_0x29b71d(0x10e)](exports,'__esModule',{'value':!![]}),exports[a2_0x29b71d(0x11d)]=exports['baseURL']=void 0x0;const axios_1=__importDefault(require('axios'));exports[a2_0x29b71d(0x112)]=process['env'][a2_0x29b71d(0x116)]===a2_0x29b71d(0x107)?'https://miniautotestcentral-be.onrender.com/api':a2_0x29b71d(0x113);const httpService=axios_1['default'][a2_0x29b71d(0x110)]({'baseURL':exports[a2_0x29b71d(0x112)],'withCredentials':!![],'timeout':0xc350,'headers':{'Content-Type':'application/json'}});exports[a2_0x29b71d(0x11d)]=httpService,httpService[a2_0x29b71d(0x119)]['response']['use'](_0x3c5a5c=>{return _0x3c5a5c;},_0x5a784a=>{const _0x189f68=a2_0x29b71d;if(_0x5a784a[_0x189f68(0x120)])return{'data':_0x5a784a['response'][_0x189f68(0x11a)],'status':_0x5a784a[_0x189f68(0x120)][_0x189f68(0x114)]};return{'data':_0x189f68(0x118),'status':0x1f4};});
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.httpService = exports.baseURL = void 0;
+const axios_1 = __importDefault(require("axios"));
+exports.baseURL = process.env.NODE_ENV === "production"
+    ? "https://miniautotestcentral-be.onrender.com/api"
+    : //
+        "http://192.168.16.75:4000/api";
+const httpService = axios_1.default.create({
+    baseURL: exports.baseURL,
+    withCredentials: true, // always send cookies
+    timeout: 50000,
+    headers: {
+        "Content-Type": "application/json",
+        //adminid: loggedInAdmin ? loggedInAdmin._id : "",
+    },
+});
+exports.httpService = httpService;
+httpService.interceptors.response.use((response) => {
+    return response;
+}, (error) => {
+    if (error.response) {
+        return { data: error.response.data, status: error.response.status };
+    }
+    return { data: "Cannot connect to the central server", status: 500 };
+});

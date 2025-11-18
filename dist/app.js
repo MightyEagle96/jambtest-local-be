@@ -1,1 +1,63 @@
-'use strict';const a0_0x25d084=a0_0xcce0;function a0_0x13c6(){const _0x2c3110=['10vdGYPe','test','log','3097362YRrzmH','use','defineProperty','get','join','morgan','45244PViqTm','server\x20started\x20on\x20http://localhost:4000','build','express','index.html','static','182469fueJhO','50mb','development','328lHpcvP','default','62157vVJMiV','cors','0.0.0.0','__importDefault','NODE_ENV','11053870sohgXK','dotenv','20CvrBtM','1348074ZdNfZy','/api','./routers/appRouter','11hVMIlI','997776iVTqpd','sendFile','./appData','__esModule'];a0_0x13c6=function(){return _0x2c3110;};return a0_0x13c6();}function a0_0xcce0(_0x1d8c07,_0x5bd9d9){const _0x13c611=a0_0x13c6();return a0_0xcce0=function(_0xcce06a,_0x307b22){_0xcce06a=_0xcce06a-0x1b3;let _0x9c4755=_0x13c611[_0xcce06a];return _0x9c4755;},a0_0xcce0(_0x1d8c07,_0x5bd9d9);}(function(_0x1ecf08,_0x23e839){const _0x210a2e=a0_0xcce0,_0x32ba25=_0x1ecf08();while(!![]){try{const _0x1757a8=parseInt(_0x210a2e(0x1b9))/0x1+-parseInt(_0x210a2e(0x1d0))/0x2+-parseInt(_0x210a2e(0x1c4))/0x3*(-parseInt(_0x210a2e(0x1cb))/0x4)+parseInt(_0x210a2e(0x1d4))/0x5*(parseInt(_0x210a2e(0x1b3))/0x6)+-parseInt(_0x210a2e(0x1bf))/0x7*(parseInt(_0x210a2e(0x1c2))/0x8)+-parseInt(_0x210a2e(0x1cc))/0x9+parseInt(_0x210a2e(0x1c9))/0xa*(parseInt(_0x210a2e(0x1cf))/0xb);if(_0x1757a8===_0x23e839)break;else _0x32ba25['push'](_0x32ba25['shift']());}catch(_0x5402f1){_0x32ba25['push'](_0x32ba25['shift']());}}}(a0_0x13c6,0x8afab));var __importDefault=this&&this[a0_0x25d084(0x1c7)]||function(_0x389ccf){return _0x389ccf&&_0x389ccf['__esModule']?_0x389ccf:{'default':_0x389ccf};};Object[a0_0x25d084(0x1b5)](exports,a0_0x25d084(0x1d3),{'value':!![]});const express_1=__importDefault(require(a0_0x25d084(0x1bc))),morgan_1=__importDefault(require(a0_0x25d084(0x1b8))),dotenv_1=__importDefault(require(a0_0x25d084(0x1ca))),cors_1=__importDefault(require(a0_0x25d084(0x1c5))),appData_1=require(a0_0x25d084(0x1d2)),appRouter_1=__importDefault(require(a0_0x25d084(0x1ce))),path_1=__importDefault(require('path')),cookie_parser_1=__importDefault(require('cookie-parser'));dotenv_1[a0_0x25d084(0x1c3)]['config']();const app=(0x0,express_1[a0_0x25d084(0x1c3)])(),corsOptions={'origin':(_0x13c9d7,_0x2d2113)=>{const _0x23f0f6=a0_0x25d084,_0x39644e=[/^http:\/\/(localhost|127\.0\.0\.1):3000$/,/^http:\/\/localhost:4000$/,/^http:\/\/192\.168\.\d+\.\d+(:\d+)?$/,/^http:\/\/172\.16\.\d+\.\d+(:\d+)?$/,/^http:\/\/10\.\d+\.\d+\.\d+(:\d+)?$/];!_0x13c9d7||_0x39644e['some'](_0x34259d=>_0x34259d[_0x23f0f6(0x1d5)](_0x13c9d7))?_0x2d2113(null,!![]):_0x2d2113(new Error('Not\x20allowed\x20by\x20CORS'));},'credentials':!![]};(0x0,appData_1['ConnectDatabase'])(),app[a0_0x25d084(0x1b4)]((0x0,cookie_parser_1[a0_0x25d084(0x1c3)])())[a0_0x25d084(0x1b4)](process['env'][a0_0x25d084(0x1c8)]===a0_0x25d084(0x1c1)?(0x0,morgan_1[a0_0x25d084(0x1c3)])('dev'):(_0x530010,_0xedd75e,_0x3e34ea)=>_0x3e34ea())['use'](express_1[a0_0x25d084(0x1c3)]['json']({'limit':a0_0x25d084(0x1c0)}))[a0_0x25d084(0x1b4)]((0x0,cors_1[a0_0x25d084(0x1c3)])(corsOptions))[a0_0x25d084(0x1b4)](express_1[a0_0x25d084(0x1c3)][a0_0x25d084(0x1be)](path_1[a0_0x25d084(0x1c3)]['join'](__dirname,a0_0x25d084(0x1bb))))[a0_0x25d084(0x1b4)](a0_0x25d084(0x1cd),appRouter_1['default'])[a0_0x25d084(0x1b6)]('*',(_0x449725,_0x5780de)=>{const _0x49313b=a0_0x25d084;_0x5780de[_0x49313b(0x1d1)](path_1['default'][_0x49313b(0x1b7)](__dirname,'build',_0x49313b(0x1bd)));})['listen'](0xfa0,a0_0x25d084(0x1c6),()=>{const _0x381a91=a0_0x25d084;console[_0x381a91(0x1d6)](_0x381a91(0x1ba));});
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const morgan_1 = __importDefault(require("morgan"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const cors_1 = __importDefault(require("cors"));
+const appData_1 = require("./appData");
+const appRouter_1 = __importDefault(require("./routers/appRouter"));
+const path_1 = __importDefault(require("path"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
+dotenv_1.default.config();
+const app = (0, express_1.default)();
+const corsOptions = {
+    origin: (origin, callback) => {
+        const allowed = [
+            /^http:\/\/(localhost|127\.0\.0\.1):3000$/,
+            /^http:\/\/localhost:4000$/,
+            /^http:\/\/192\.168\.\d+\.\d+(:\d+)?$/,
+            /^http:\/\/172\.16\.\d+\.\d+(:\d+)?$/,
+            /^http:\/\/10\.\d+\.\d+\.\d+(:\d+)?$/,
+        ];
+        if (!origin || allowed.some((regex) => regex.test(origin))) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
+};
+(0, appData_1.ConnectDatabase)();
+// app
+//   .use(cookieParser())
+//   .use(morgan("dev"))
+//   .use(express.json({ limit: "50mb" }))
+//   .use(express.static(path.join(__dirname, "build")))
+//   .use(cors(corsOptions))
+//   .use("/api", appRouter)
+//   .get("*", (req: Request, res: Response) => {
+//     res.sendFile(path.join(__dirname, "build", "index.html"));
+//   })
+//   .listen(4000, "0.0.0.0", () => {
+//     console.log("server started on http://localhost:4000");
+//   });
+app
+    .use((0, cookie_parser_1.default)())
+    // Only log in development
+    .use(process.env.NODE_ENV === "development"
+    ? (0, morgan_1.default)("dev")
+    : (req, res, next) => next())
+    .use(express_1.default.json({ limit: "50mb" }))
+    .use((0, cors_1.default)(corsOptions))
+    .use(express_1.default.static(path_1.default.join(__dirname, "build")))
+    .use("/api", appRouter_1.default)
+    .get("*", (req, res) => {
+    res.sendFile(path_1.default.join(__dirname, "build", "index.html"));
+})
+    .listen(4000, "0.0.0.0", () => {
+    console.log("server started on http://localhost:4000");
+});

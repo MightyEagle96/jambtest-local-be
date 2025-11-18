@@ -1,1 +1,47 @@
-'use strict';const a1_0x40a8fb=a1_0x4417;(function(_0x1c7267,_0x565adf){const _0x3c0a1b=a1_0x4417,_0x1b487c=_0x1c7267();while(!![]){try{const _0x366c27=-parseInt(_0x3c0a1b(0x96))/0x1*(-parseInt(_0x3c0a1b(0xae))/0x2)+parseInt(_0x3c0a1b(0xac))/0x3+-parseInt(_0x3c0a1b(0xab))/0x4*(-parseInt(_0x3c0a1b(0xa4))/0x5)+-parseInt(_0x3c0a1b(0x92))/0x6*(parseInt(_0x3c0a1b(0x9a))/0x7)+parseInt(_0x3c0a1b(0x98))/0x8*(-parseInt(_0x3c0a1b(0x93))/0x9)+-parseInt(_0x3c0a1b(0xad))/0xa+-parseInt(_0x3c0a1b(0xaf))/0xb*(parseInt(_0x3c0a1b(0x95))/0xc);if(_0x366c27===_0x565adf)break;else _0x1b487c['push'](_0x1b487c['shift']());}catch(_0x3828dd){_0x1b487c['push'](_0x1b487c['shift']());}}}(a1_0x4581,0x575d4));function a1_0x4581(){const _0x1b180e=['127.0.0.1','create','value','__awaiter','mongodb-memory-server','apply','11810cRZDyL','defineProperty','MongoMemoryServer','__esModule','throw','Database\x20connected\x20successfully','log','1076kYSTlE','1962870imfdPn','3649770SxxPLF','1934vwEGkP','3274777KLgxjz','187854EWLRaE','9495NrqFQP','connect','12cwklQo','197mSMQrX','__importDefault','3248UwAGbc','default','7GwBFPq','ConnectDatabase','next','done'];a1_0x4581=function(){return _0x1b180e;};return a1_0x4581();}var __awaiter=this&&this[a1_0x40a8fb(0xa1)]||function(_0xdee48a,_0x44868a,_0x2b0f84,_0x2f538e){function _0x56dd6f(_0x1d92ae){return _0x1d92ae instanceof _0x2b0f84?_0x1d92ae:new _0x2b0f84(function(_0x1b33cc){_0x1b33cc(_0x1d92ae);});}return new(_0x2b0f84||(_0x2b0f84=Promise))(function(_0x15da3b,_0x182d78){const _0x222c93=a1_0x4417;function _0x105af7(_0x39a474){const _0x4c31d8=a1_0x4417;try{_0x4a937e(_0x2f538e[_0x4c31d8(0x9c)](_0x39a474));}catch(_0x537e0c){_0x182d78(_0x537e0c);}}function _0x22000c(_0xf9ccf1){const _0x23e62f=a1_0x4417;try{_0x4a937e(_0x2f538e[_0x23e62f(0xa8)](_0xf9ccf1));}catch(_0x1b3f3a){_0x182d78(_0x1b3f3a);}}function _0x4a937e(_0x2250a8){const _0x39229a=a1_0x4417;_0x2250a8[_0x39229a(0x9d)]?_0x15da3b(_0x2250a8[_0x39229a(0xa0)]):_0x56dd6f(_0x2250a8[_0x39229a(0xa0)])['then'](_0x105af7,_0x22000c);}_0x4a937e((_0x2f538e=_0x2f538e[_0x222c93(0xa3)](_0xdee48a,_0x44868a||[]))['next']());});},__importDefault=this&&this[a1_0x40a8fb(0x97)]||function(_0x4209ff){const _0x393657=a1_0x40a8fb;return _0x4209ff&&_0x4209ff[_0x393657(0xa7)]?_0x4209ff:{'default':_0x4209ff};};Object[a1_0x40a8fb(0xa5)](exports,'__esModule',{'value':!![]}),exports[a1_0x40a8fb(0x9b)]=ConnectDatabase;const mongoose_1=__importDefault(require('mongoose')),mongodb_memory_server_1=require(a1_0x40a8fb(0xa2));function a1_0x4417(_0x2146d7,_0x2d11f9){const _0x458167=a1_0x4581();return a1_0x4417=function(_0x44179e,_0x51bb4f){_0x44179e=_0x44179e-0x92;let _0x43ef36=_0x458167[_0x44179e];return _0x43ef36;},a1_0x4417(_0x2146d7,_0x2d11f9);}function ConnectDatabase(){return __awaiter(this,void 0x0,void 0x0,function*(){const _0x41cf5d=a1_0x4417,_0x13059d=yield mongodb_memory_server_1[_0x41cf5d(0xa6)][_0x41cf5d(0x9f)]({'instance':{'ip':_0x41cf5d(0x9e),'port':0x0}}),_0x3540e7=_0x13059d['getUri']();yield mongoose_1[_0x41cf5d(0x99)][_0x41cf5d(0x94)](_0x3540e7),console[_0x41cf5d(0xaa)](_0x41cf5d(0xa9));});}
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConnectDatabase = ConnectDatabase;
+const mongoose_1 = __importDefault(require("mongoose"));
+const mongodb_memory_server_1 = require("mongodb-memory-server");
+// dotenv.config();
+// const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/jambtest";
+// const ConnectDatabase = () => {
+//   mongoose
+//     .connect("mongodb://localhost:27017/jambtest", {
+//       connectTimeoutMS: 60000,
+//       serverSelectionTimeoutMS: 60000,
+//     })
+//     .then(() => {
+//       console.log("Database connected successfully");
+//     })
+//     .catch((e) => {
+//       console.log(e);
+//       console.log("DB could not connect at this time. Shutting down");
+//       process.exit(1);
+//     });
+// };
+function ConnectDatabase() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const mongoServer = yield mongodb_memory_server_1.MongoMemoryServer.create({
+            instance: {
+                ip: "127.0.0.1",
+                port: 0, // random port
+            },
+        });
+        const uri = mongoServer.getUri();
+        yield mongoose_1.default.connect(uri);
+        console.log("Database connected successfully");
+    });
+}

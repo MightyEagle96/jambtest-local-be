@@ -1,1 +1,14 @@
-'use strict';const a19_0x2f9620=a19_0x4236;(function(_0x3f4cc8,_0x5c20be){const _0x1c9185=a19_0x4236,_0x4c3a12=_0x3f4cc8();while(!![]){try{const _0x933a96=parseInt(_0x1c9185(0xa2))/0x1*(parseInt(_0x1c9185(0xa8))/0x2)+-parseInt(_0x1c9185(0xac))/0x3+parseInt(_0x1c9185(0xa4))/0x4*(parseInt(_0x1c9185(0xa0))/0x5)+-parseInt(_0x1c9185(0xa7))/0x6+-parseInt(_0x1c9185(0xa1))/0x7*(parseInt(_0x1c9185(0xa3))/0x8)+-parseInt(_0x1c9185(0x9b))/0x9*(-parseInt(_0x1c9185(0xa5))/0xa)+parseInt(_0x1c9185(0x9a))/0xb;if(_0x933a96===_0x5c20be)break;else _0x4c3a12['push'](_0x4c3a12['shift']());}catch(_0x4162fb){_0x4c3a12['push'](_0x4c3a12['shift']());}}}(a19_0x4a1b,0xaa4e7));function a19_0x4a1b(){const _0x106247=['112614UFjqog','getRefreshToken','/profile','/dashboard','Router','/refresh','centreProfile','get','../controllers/jwtController','11904343DeFOCs','1572255eLsUHj','post','/login','centreDashboard','loginAccount','5DUfChF','21BtyCXh','22Vdnjfc','2994392PiXLBe','2495188tmEoiH','10wgVXlf','/logout','2054262ofGlVn','29062syWRwj','__esModule','authenticateToken','authRouter'];a19_0x4a1b=function(){return _0x106247;};return a19_0x4a1b();}function a19_0x4236(_0x48a937,_0x583f3c){const _0x4a1b67=a19_0x4a1b();return a19_0x4236=function(_0x423642,_0x94317b){_0x423642=_0x423642-0x93;let _0x49ab00=_0x4a1b67[_0x423642];return _0x49ab00;},a19_0x4236(_0x48a937,_0x583f3c);}Object['defineProperty'](exports,a19_0x2f9620(0xa9),{'value':!![]}),exports[a19_0x2f9620(0xab)]=void 0x0;const express_1=require('express'),centreAccountController_1=require('../controllers/centreAccountController'),jwtController_1=require(a19_0x2f9620(0x99)),authRouter=(0x0,express_1[a19_0x2f9620(0x95)])();exports[a19_0x2f9620(0xab)]=authRouter,authRouter[a19_0x2f9620(0x9c)](a19_0x2f9620(0x9d),centreAccountController_1[a19_0x2f9620(0x9f)])[a19_0x2f9620(0x98)](a19_0x2f9620(0x93),jwtController_1[a19_0x2f9620(0xaa)],centreAccountController_1[a19_0x2f9620(0x97)])['get'](a19_0x2f9620(0xa6),centreAccountController_1['logoutAccount'])[a19_0x2f9620(0x98)](a19_0x2f9620(0x94),jwtController_1[a19_0x2f9620(0xaa)],centreAccountController_1[a19_0x2f9620(0x9e)])['get'](a19_0x2f9620(0x96),centreAccountController_1[a19_0x2f9620(0xad)]);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.authRouter = void 0;
+const express_1 = require("express");
+const centreAccountController_1 = require("../controllers/centreAccountController");
+const jwtController_1 = require("../controllers/jwtController");
+const authRouter = (0, express_1.Router)();
+exports.authRouter = authRouter;
+authRouter
+    .post("/login", centreAccountController_1.loginAccount)
+    .get("/profile", jwtController_1.authenticateToken, centreAccountController_1.centreProfile)
+    .get("/logout", centreAccountController_1.logoutAccount)
+    .get("/dashboard", jwtController_1.authenticateToken, centreAccountController_1.centreDashboard)
+    .get("/refresh", centreAccountController_1.getRefreshToken);

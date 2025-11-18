@@ -1,1 +1,124 @@
-'use strict';const a6_0x57d306=a6_0x36b5;(function(_0x32fd87,_0x1e5c6f){const _0x4dd33a=a6_0x36b5,_0x47818c=_0x32fd87();while(!![]){try{const _0x1e63bf=parseInt(_0x4dd33a(0x9a))/0x1*(parseInt(_0x4dd33a(0x8e))/0x2)+parseInt(_0x4dd33a(0x88))/0x3*(parseInt(_0x4dd33a(0x82))/0x4)+parseInt(_0x4dd33a(0x86))/0x5+parseInt(_0x4dd33a(0x99))/0x6+parseInt(_0x4dd33a(0xb7))/0x7+parseInt(_0x4dd33a(0x96))/0x8*(parseInt(_0x4dd33a(0x8d))/0x9)+-parseInt(_0x4dd33a(0xa5))/0xa*(parseInt(_0x4dd33a(0x92))/0xb);if(_0x1e63bf===_0x1e5c6f)break;else _0x47818c['push'](_0x47818c['shift']());}catch(_0x3f1705){_0x47818c['push'](_0x47818c['shift']());}}}(a6_0x52e2,0x97e2e));var __awaiter=this&&this[a6_0x57d306(0xa9)]||function(_0x1ad46c,_0x1268b6,_0x109d5e,_0x241134){function _0x524b87(_0x2ab229){return _0x2ab229 instanceof _0x109d5e?_0x2ab229:new _0x109d5e(function(_0x226850){_0x226850(_0x2ab229);});}return new(_0x109d5e||(_0x109d5e=Promise))(function(_0x21a27c,_0x5ccaa6){const _0x166351=a6_0x36b5;function _0x335ed4(_0x292182){const _0x16b88b=a6_0x36b5;try{_0xadcf05(_0x241134[_0x16b88b(0xb1)](_0x292182));}catch(_0x16c7ef){_0x5ccaa6(_0x16c7ef);}}function _0x3d39e6(_0x223144){const _0x40cdf3=a6_0x36b5;try{_0xadcf05(_0x241134[_0x40cdf3(0x89)](_0x223144));}catch(_0x1df921){_0x5ccaa6(_0x1df921);}}function _0xadcf05(_0x36aba4){const _0x3e8a19=a6_0x36b5;_0x36aba4[_0x3e8a19(0xb3)]?_0x21a27c(_0x36aba4['value']):_0x524b87(_0x36aba4['value'])[_0x3e8a19(0x7a)](_0x335ed4,_0x3d39e6);}_0xadcf05((_0x241134=_0x241134[_0x166351(0x94)](_0x1ad46c,_0x1268b6||[]))[_0x166351(0xb1)]());});},__importDefault=this&&this[a6_0x57d306(0x87)]||function(_0x2a8a78){return _0x2a8a78&&_0x2a8a78['__esModule']?_0x2a8a78:{'default':_0x2a8a78};};Object[a6_0x57d306(0xa3)](exports,'__esModule',{'value':!![]}),exports[a6_0x57d306(0x9e)]=exports['centreDashboard']=exports[a6_0x57d306(0xaa)]=exports[a6_0x57d306(0xb8)]=exports[a6_0x57d306(0x95)]=exports[a6_0x57d306(0x85)]=void 0x0;const appNetwork_1=require('../appNetwork'),centreModel_1=__importDefault(require('../models/centreModel')),jwtController_1=require(a6_0x57d306(0x9d)),jsonwebtoken_1=__importDefault(require(a6_0x57d306(0xac))),computerModel_1=__importDefault(require('../models/computerModel')),networkTest_1=__importDefault(require('../models/networkTest')),loginAccount=(_0x562141,_0x13a2fd)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x5e2221=a6_0x57d306;try{const _0x14d5c9=yield appNetwork_1[_0x5e2221(0x9c)]['post'](_0x5e2221(0x8b),_0x562141[_0x5e2221(0x9f)]);if(_0x14d5c9['status']!==0xc8)return _0x13a2fd[_0x5e2221(0xa6)](_0x5e2221(0x7f))[_0x5e2221(0xa6)](_0x5e2221(0x91))[_0x5e2221(0xa8)](_0x14d5c9[_0x5e2221(0xa8)])[_0x5e2221(0xae)](_0x14d5c9['data']);const {centre:_0x42b59e,computers:_0x1efeda,networkTests:_0x445609}=_0x14d5c9[_0x5e2221(0x97)];if(!_0x42b59e||!_0x1efeda||!_0x445609)return _0x13a2fd['status'](0x190)[_0x5e2221(0xae)](_0x5e2221(0xb6));yield Promise[_0x5e2221(0xad)]([centreModel_1[_0x5e2221(0x98)]['deleteMany'](),computerModel_1[_0x5e2221(0x98)][_0x5e2221(0xb4)](),networkTest_1[_0x5e2221(0x98)][_0x5e2221(0xb4)]()]),yield centreModel_1['default']['create'](_0x42b59e),yield computerModel_1[_0x5e2221(0x98)][_0x5e2221(0xb0)](_0x1efeda),yield networkTest_1[_0x5e2221(0x98)][_0x5e2221(0xb0)](_0x445609);const _0x50596f=(0x0,jwtController_1[_0x5e2221(0x84)])(Object[_0x5e2221(0x90)](Object['assign']({},_0x42b59e),{'role':'admin'})),_0x467d6a=(0x0,jwtController_1[_0x5e2221(0xb2)])(Object['assign'](Object[_0x5e2221(0x90)]({},_0x42b59e),{'role':'admin'}));_0x13a2fd[_0x5e2221(0x8c)](_0x5e2221(0x7f),_0x50596f,{'httpOnly':![],'secure':!![],'sameSite':'none','maxAge':0x3e8*0x3c*0x3c*0x18})['cookie'](_0x5e2221(0x91),_0x467d6a,{'httpOnly':![],'secure':!![],'sameSite':_0x5e2221(0x7b),'maxAge':0x3e8*0x3c*0x3c*0x18*0x7})[_0x5e2221(0xae)](_0x5e2221(0x7c));}catch(_0x1b4693){console[_0x5e2221(0x7e)](_0x5e2221(0xa2),_0x1b4693['message']),_0x13a2fd[_0x5e2221(0xa8)](0x1f4)[_0x5e2221(0xae)](_0x5e2221(0x93));}});exports[a6_0x57d306(0x85)]=loginAccount;const logoutAccount=(_0x390150,_0x4e1145)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x2694f2=a6_0x57d306;yield Promise['all']([centreModel_1['default']['deleteMany'](),computerModel_1[_0x2694f2(0x98)][_0x2694f2(0xb4)]()]),_0x4e1145[_0x2694f2(0xa6)](_0x2694f2(0x7f))[_0x2694f2(0xa6)](_0x2694f2(0x91))[_0x2694f2(0xae)](_0x2694f2(0x7c));});exports[a6_0x57d306(0x95)]=logoutAccount;function a6_0x52e2(){const _0x52cd29=['done','deleteMany','cookies','Incomplete\x20response\x20data','3691625BJGPxM','centreProfile','tokens','then','none','Success','sendStatus','error','accessToken','_id','findOne','1641812NZqaAI','REFRESH_TOKEN','generateAccessToken','loginAccount','3974990PQLCSB','__importDefault','3HKhSjF','throw','centreDashboard','centre/login','cookie','9EHHreP','398YSUhhq','Invalid\x20refresh\x20token','assign','refreshToken','55ubjWJo','Something\x20went\x20wrong','apply','logoutAccount','8530960tlRpJN','data','default','7265808yisunJ','4703NIxumT','admin','httpService','./jwtController','centreDetail','body','findById','env','Login\x20error:','defineProperty','centre','8647870yXfQtA','clearCookie','centre/dashboard','status','__awaiter','getRefreshToken','toString','jsonwebtoken','all','send','lean','insertMany','next','generateRefreshToken'];a6_0x52e2=function(){return _0x52cd29;};return a6_0x52e2();}const centreProfile=(_0x5bbf3f,_0x3123d)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x109550=a6_0x57d306;_0x3123d['send'](_0x5bbf3f[_0x109550(0xa4)]);});exports[a6_0x57d306(0xb8)]=centreProfile;const getRefreshToken=(_0x14e66d,_0x5d96bb)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x26a77b=a6_0x57d306,_0x2de587=_0x14e66d[_0x26a77b(0xb5)][jwtController_1[_0x26a77b(0x79)][_0x26a77b(0x91)]];if(!_0x2de587)return _0x5d96bb[_0x26a77b(0x7d)](0x191);try{const _0x37cdf3=jsonwebtoken_1[_0x26a77b(0x98)]['verify'](_0x2de587,process[_0x26a77b(0xa1)][_0x26a77b(0x83)]),_0x343b7e=yield centreModel_1[_0x26a77b(0x98)][_0x26a77b(0xa0)](_0x37cdf3[_0x26a77b(0x80)])[_0x26a77b(0xaf)]();if(!_0x343b7e)return _0x5d96bb[_0x26a77b(0x7d)](0x191);const _0x2ed330=(0x0,jwtController_1[_0x26a77b(0x84)])(Object[_0x26a77b(0x90)](Object[_0x26a77b(0x90)]({},_0x343b7e),{'role':_0x26a77b(0x9b)})),_0x38f2fa=(0x0,jwtController_1[_0x26a77b(0xb2)])(Object[_0x26a77b(0x90)](Object[_0x26a77b(0x90)]({},_0x343b7e),{'role':_0x26a77b(0x9b)}));_0x5d96bb[_0x26a77b(0x8c)](_0x26a77b(0x7f),_0x2ed330,{'httpOnly':![],'secure':!![],'sameSite':_0x26a77b(0x7b),'maxAge':0x3e8*0x3c*0x3c*0x18})['cookie'](_0x26a77b(0x91),_0x38f2fa,{'httpOnly':![],'secure':!![],'sameSite':_0x26a77b(0x7b),'maxAge':0x3e8*0x3c*0x3c*0x18*0x7})[_0x26a77b(0xae)](_0x26a77b(0x7c));}catch(_0x128d6e){_0x5d96bb[_0x26a77b(0xa8)](0x191)[_0x26a77b(0xae)](_0x26a77b(0x8f));}});exports[a6_0x57d306(0xaa)]=getRefreshToken;const centreDashboard=(_0x54e475,_0x470964)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x53f3d0=a6_0x57d306;var _0xe8cb8b;const _0x2bd9e9=yield(0x0,appNetwork_1[_0x53f3d0(0x9c)])(_0x53f3d0(0xa7),{'headers':{'centreid':(_0xe8cb8b=_0x54e475[_0x53f3d0(0xa4)])===null||_0xe8cb8b===void 0x0?void 0x0:_0xe8cb8b['_id'][_0x53f3d0(0xab)]()}});_0x470964[_0x53f3d0(0xa8)](_0x2bd9e9[_0x53f3d0(0xa8)])[_0x53f3d0(0xae)](_0x2bd9e9['data']);});exports[a6_0x57d306(0x8a)]=centreDashboard;function a6_0x36b5(_0x59b851,_0x3ac327){const _0x52e216=a6_0x52e2();return a6_0x36b5=function(_0x36b527,_0x45021a){_0x36b527=_0x36b527-0x79;let _0x559ecd=_0x52e216[_0x36b527];return _0x559ecd;},a6_0x36b5(_0x59b851,_0x3ac327);}const centreDetail=(_0x351bc0,_0x565f3a)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x1937bc=a6_0x57d306,_0x7d67f1=yield centreModel_1[_0x1937bc(0x98)][_0x1937bc(0x81)]();_0x565f3a[_0x1937bc(0xae)](_0x7d67f1);});exports[a6_0x57d306(0x9e)]=centreDetail;
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.centreDetail = exports.centreDashboard = exports.getRefreshToken = exports.centreProfile = exports.logoutAccount = exports.loginAccount = void 0;
+const appNetwork_1 = require("../appNetwork");
+const centreModel_1 = __importDefault(require("../models/centreModel"));
+const jwtController_1 = require("./jwtController");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const computerModel_1 = __importDefault(require("../models/computerModel"));
+const networkTest_1 = __importDefault(require("../models/networkTest"));
+const loginAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const response = yield appNetwork_1.httpService.post("centre/login", req.body);
+        if (response.status !== 200)
+            return res
+                .clearCookie("accessToken")
+                .clearCookie("refreshToken")
+                .status(response.status)
+                .send(response.data);
+        const { centre, computers, networkTests } = response.data;
+        // Defensive check
+        if (!centre || !computers || !networkTests)
+            return res.status(400).send("Incomplete response data");
+        // ✅ Clear old data first
+        yield Promise.all([
+            centreModel_1.default.deleteMany(),
+            computerModel_1.default.deleteMany(),
+            networkTest_1.default.deleteMany(),
+        ]);
+        // ✅ Insert new data
+        yield centreModel_1.default.create(centre);
+        yield computerModel_1.default.insertMany(computers);
+        yield networkTest_1.default.insertMany(networkTests);
+        // ✅ Issue tokens
+        const accessToken = (0, jwtController_1.generateAccessToken)(Object.assign(Object.assign({}, centre), { role: "admin" }));
+        const refreshToken = (0, jwtController_1.generateRefreshToken)(Object.assign(Object.assign({}, centre), { role: "admin" }));
+        res
+            .cookie("accessToken", accessToken, {
+            httpOnly: false,
+            secure: true,
+            sameSite: "none",
+            maxAge: 1000 * 60 * 60 * 24,
+        })
+            .cookie("refreshToken", refreshToken, {
+            httpOnly: false,
+            secure: true,
+            sameSite: "none",
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+        })
+            .send("Success");
+    }
+    catch (error) {
+        console.error("Login error:", error.message);
+        res.status(500).send("Something went wrong");
+    }
+});
+exports.loginAccount = loginAccount;
+const logoutAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield Promise.all([centreModel_1.default.deleteMany(), computerModel_1.default.deleteMany()]);
+    res.clearCookie("accessToken").clearCookie("refreshToken").send("Success");
+});
+exports.logoutAccount = logoutAccount;
+const centreProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(req.centre);
+});
+exports.centreProfile = centreProfile;
+const getRefreshToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const refreshToken = req.cookies[jwtController_1.tokens.refreshToken];
+    if (!refreshToken) {
+        return res.sendStatus(401);
+    }
+    try {
+        const decoded = jsonwebtoken_1.default.verify(refreshToken, process.env.REFRESH_TOKEN);
+        const centre = yield centreModel_1.default.findById(decoded._id).lean();
+        if (!centre) {
+            return res.sendStatus(401);
+        }
+        const newAccessToken = (0, jwtController_1.generateAccessToken)(Object.assign(Object.assign({}, centre), { role: "admin" }));
+        const newRefreshToken = (0, jwtController_1.generateRefreshToken)(Object.assign(Object.assign({}, centre), { role: "admin" }));
+        res
+            .cookie("accessToken", newAccessToken, {
+            httpOnly: false,
+            secure: true,
+            sameSite: "none", // for cross-site cookies (frontend <-> backend on diff domains)
+            maxAge: 1000 * 60 * 60 * 24,
+        })
+            .cookie("refreshToken", newRefreshToken, {
+            httpOnly: false,
+            secure: true,
+            sameSite: "none", // for cross-site cookies (frontend <-> backend on diff domains)
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+        })
+            .send("Success");
+    }
+    catch (error) {
+        res.status(401).send("Invalid refresh token");
+    }
+    //  res.send(req.cookies[tokens.refresh_token]);
+});
+exports.getRefreshToken = getRefreshToken;
+const centreDashboard = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const response = yield (0, appNetwork_1.httpService)("centre/dashboard", {
+        headers: { centreid: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() },
+    });
+    res.status(response.status).send(response.data);
+});
+exports.centreDashboard = centreDashboard;
+const centreDetail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const centre = yield centreModel_1.default.findOne();
+    res.send(centre);
+});
+exports.centreDetail = centreDetail;

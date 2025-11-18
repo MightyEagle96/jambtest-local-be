@@ -1,1 +1,330 @@
-'use strict';const a12_0x3b781d=a12_0x58f7;function a12_0x58f7(_0x2caa86,_0x5e091c){const _0x5ecc22=a12_0x5ecc();return a12_0x58f7=function(_0x58f7da,_0x6c8732){_0x58f7da=_0x58f7da-0xcd;let _0x359138=_0x5ecc22[_0x58f7da];return _0x359138;},a12_0x58f7(_0x2caa86,_0x5e091c);}function a12_0x5ecc(){const _0x4a7a8f=['Meiosis','How\x20many\x20justices\x20serve\x20on\x20the\x20U.S.\x20Supreme\x20Court?','Republican\x20Party','What\x20is\x20the\x20term\x20for\x20an\x20organism\x20that\x20can\x20produce\x20its\x20own\x20food?','Who\x20is\x20the\x20current\x20Speaker\x20of\x20the\x20U.S.\x20House\x20of\x20Representatives\x20as\x20of\x20October\x202025?','What\x20is\x20the\x20Electoral\x20College\x27s\x20role\x20in\x20U.S.\x20presidential\x20elections?','Which\x20company\x20developed\x20the\x20Android\x20operating\x20system?','IMAP','Olusegun\x20Obasanjo','System\x20Query\x20Logic','David\x20Hume','Officially\x20Electing\x20the\x20President','Oyo\x20Empire','Which\x20amendment\x20to\x20the\x20U.S.\x20Constitution\x20guarantees\x20the\x20right\x20to\x20free\x20speech?','How\x20many\x20years\x20is\x20a\x20U.S.\x20presidential\x20term?','1979','Individual\x20Existence\x20and\x20Freedom','Hybrid\x20Text\x20Transfer\x20Program','Wuraola\x20Esan','Friedrich\x20Nietzsche','Timber','2442224ELhRFk','In\x20what\x20year\x20did\x20Nigeria\x20gain\x20independence\x20from\x20British\x20colonial\x20rule?','Immanuel\x20Kant','Nancy\x20Pelosi','Python','Existentialism','Which\x20U.S.\x20president\x20signed\x20the\x20Affordable\x20Care\x20Act\x20into\x20law?','Network\x20Communication','Democratic\x20Party','Igbo-Ukwu','2\x20years','Which\x20pre-colonial\x20empire\x20was\x20known\x20for\x20its\x20bronze\x20plaques\x20and\x20sculptures\x20in\x20Nigeria?','What\x20is\x20the\x20primary\x20source\x20of\x20energy\x20for\x20Earth\x27s\x20climate\x20system?','Who\x20developed\x20the\x20concept\x20of\x20the\x20\x27Will\x20to\x20Power\x27?','Data\x20Encryption','Helium','Cerebrum','Which\x20year\x20marked\x20the\x20transition\x20to\x20Nigeria\x27s\x20Second\x20Republic?','Hormone\x20Production','File\x20Compression','Which\x20philosophy\x20emphasizes\x20living\x20in\x20harmony\x20with\x20nature?','Quantum\x20Computing','Albert\x20Camus','Geothermal\x20Heat','Google','282915JUCDKx','Ibrahim\x20Babangida','Which\x20company\x20is\x20known\x20for\x20developing\x20the\x20TensorFlow\x20framework?','Funmilayo\x20Ransome-Kuti','John\x20Locke','Which\x20technology\x20underpins\x20cryptocurrencies\x20like\x20Bitcoin?','Vacuole','Standardized\x20Query\x20Loop','SMTP','Which\x20organelle\x20is\x20known\x20as\x20the\x20powerhouse\x20of\x20the\x20cell?','Duty\x20and\x20Obligation','1999','DNA','Atmospheric\x20Pressure','Samsung','Autotroph','Artificial\x20Intelligence','Fifth\x20Amendment','Blockchain','1608545HtMwlI','University\x20of\x20Lagos','Network\x20Configuration','Ethics','Metaphysics','Stoicism','Cloud\x20Computing','Obafemi\x20Awolowo\x20University','Oil','Data\x20Visualization','What\x20was\x20the\x20name\x20of\x20the\x20first\x20Nigerian\x20university,\x20established\x20in\x201948?','Microsoft','Apple','Flora\x20Azikiwe','15gCQxOH','1440YsBkVJ','Which\x20programming\x20language\x20is\x20primarily\x20used\x20for\x20web\x20development\x20and\x20is\x20known\x20for\x20its\x20asynchronous\x20capabilities?','What\x20type\x20of\x20cell\x20division\x20produces\x20gametes\x20in\x20animals?','Baruch\x20Spinoza','Lagos\x20Riots','Plato','Medulla\x20Oblongata','Jean-Jacques\x20Rousseau','Oil\x20Boom','University\x20of\x20Ibadan','High\x20Throughput\x20Technology\x20Protocol','What\x20is\x20the\x20primary\x20function\x20of\x20red\x20blood\x20cells\x20in\x20humans?','Counting\x20Popular\x20Votes','Cerebellum','Oxygen','Traffic\x20Monitoring\x20and\x20Filtering','Ribosome','Carbon\x20Dioxide','Absolute\x20Truth','RNA','Nutrient\x20Storage','1975','Which\x20part\x20of\x20the\x20brain\x20regulates\x20basic\x20bodily\x20functions\x20like\x20breathing\x20and\x20heart\x20rate?','Who\x20is\x20considered\x20the\x20father\x20of\x20Western\x20philosophy?','Rationalism','Bill\x20Clinton','Vetting\x20Candidates','8\x20years','Sequential\x20Query\x20Layer','Universal\x20Truths','Logic\x20and\x20Reason','Which\x20ancient\x20Greek\x20philosopher\x20wrote\x20\x27The\x20Republic\x27?','Nnamdi\x20Azikiwe','Hakeem\x20Jeffries','Shehu\x20Shagari','1960','Amazon','ATP','Aesthetics','1510417sFGjOW','Nucleus','1963','483704kSKspa','What\x20was\x20the\x20primary\x20export\x20commodity\x20of\x20Nigeria\x20during\x20the\x20colonial\x20era?','Kanem-Bornu','Which\x20molecule\x20carries\x20genetic\x20information\x20in\x20most\x20living\x20organisms?','Sani\x20Abacha','Fermentation','Søren\x20Kierkegaard','What\x20is\x20the\x20term\x20length\x20for\x20a\x20U.S.\x20Senator?','Epicurus','Photosynthesis','John\x20Stuart\x20Mill','Who\x20is\x20known\x20for\x20the\x20philosophical\x20concept\x20of\x20the\x20\x27Categorical\x20Imperative\x27?','Predictive\x20Modeling','Which\x20protocol\x20is\x20used\x20for\x20secure\x20email\x20communication?','Hypothalamus','Aristotle','Budding','Executive','Nihilism','What\x20is\x20the\x20main\x20purpose\x20of\x20a\x20firewall\x20in\x20network\x20security?','Structured\x20Query\x20Language','What\x20is\x20the\x20primary\x20function\x20of\x20a\x20GPU\x20in\x20a\x20computer\x20system?','default','Knowledge\x20and\x20Belief','4\x20years','Mitochondrion','Tafawa\x20Balewa','6gJGVxm','Ahmadu\x20Bello\x20University','JavaScript','Chloroplast','Ernest\x20Shonekan','POP3','7127960RRUufc','What\x20is\x20the\x20primary\x20concern\x20of\x20epistemology?','Martin\x20Heidegger','Socrates','Which\x20branch\x20of\x20the\x20U.S.\x20government\x20is\x20responsible\x20for\x20making\x20laws?','Solar\x20Radiation','Individual\x20Rights','Which\x20structure\x20in\x20plant\x20cells\x20is\x20responsible\x20for\x20storing\x20water\x20and\x20nutrients?','Data\x20Storage','Social\x20Contracts','Margaret\x20Ekpo','Biafra\x20Declaration','Groundnuts','General\x20Processing','Tenth\x20Amendment','1970','Decomposer','11252224wXihLn','Administrative','Cell\x20Wall','Nitrogen'];a12_0x5ecc=function(){return _0x4a7a8f;};return a12_0x5ecc();}(function(_0x727921,_0xe861a8){const _0x52fdc0=a12_0x58f7,_0x340976=_0x727921();while(!![]){try{const _0x52f752=parseInt(_0x52fdc0(0x131))/0x1+parseInt(_0x52fdc0(0x134))/0x2*(parseInt(_0x52fdc0(0x109))/0x3)+parseInt(_0x52fdc0(0xcf))/0x4+-parseInt(_0x52fdc0(0xfb))/0x5*(parseInt(_0x52fdc0(0x14f))/0x6)+parseInt(_0x52fdc0(0x155))/0x7+parseInt(_0x52fdc0(0x166))/0x8+parseInt(_0x52fdc0(0xe8))/0x9*(-parseInt(_0x52fdc0(0x10a))/0xa);if(_0x52f752===_0xe861a8)break;else _0x340976['push'](_0x340976['shift']());}catch(_0x37abc2){_0x340976['push'](_0x340976['shift']());}}}(a12_0x5ecc,0xdd5c4));Object['defineProperty'](exports,'__esModule',{'value':!![]});const testQuestions=[{'question':'Who\x20was\x20the\x20first\x20Governor-General\x20of\x20Nigeria?','options':[a12_0x3b781d(0x12a),'Ahmadu\x20Bello',a12_0x3b781d(0x14e),'Herbert\x20Macaulay']},{'question':a12_0x3b781d(0xd0),'options':['1957',a12_0x3b781d(0x12d),a12_0x3b781d(0x133),a12_0x3b781d(0x164)]},{'question':'Which\x20event\x20marked\x20the\x20beginning\x20of\x20the\x20Nigerian\x20Civil\x20War?','options':[a12_0x3b781d(0x160),'First\x20Military\x20Coup',a12_0x3b781d(0x112),a12_0x3b781d(0x10e)]},{'question':'Who\x20was\x20the\x20leader\x20of\x20the\x20Biafran\x20secessionist\x20movement?','options':['Yakubu\x20Gowon','Odumegwu\x20Ojukwu','Murtala\x20Mohammed',a12_0x3b781d(0x172)]},{'question':a12_0x3b781d(0x105),'options':[a12_0x3b781d(0xfc),a12_0x3b781d(0x113),a12_0x3b781d(0x150),a12_0x3b781d(0x102)]},{'question':'Which\x20Nigerian\x20leader\x20introduced\x20the\x20Structural\x20Adjustment\x20Programme\x20(SAP)\x20in\x201986?','options':[a12_0x3b781d(0xe9),a12_0x3b781d(0x138),a12_0x3b781d(0x12c),a12_0x3b781d(0x153)]},{'question':a12_0x3b781d(0x135),'options':[a12_0x3b781d(0x103),'Cocoa',a12_0x3b781d(0x161),a12_0x3b781d(0xce)]},{'question':a12_0x3b781d(0xda),'options':[a12_0x3b781d(0x176),'Benin\x20Kingdom',a12_0x3b781d(0x136),a12_0x3b781d(0xd8)]},{'question':'Who\x20was\x20the\x20first\x20female\x20Nigerian\x20senator,\x20elected\x20in\x201960?','options':[a12_0x3b781d(0xeb),a12_0x3b781d(0x15f),a12_0x3b781d(0x17c),a12_0x3b781d(0x108)]},{'question':a12_0x3b781d(0xe0),'options':[a12_0x3b781d(0x11f),a12_0x3b781d(0x179),'1983',a12_0x3b781d(0xf3)]},{'question':'What\x20does\x20the\x20acronym\x20HTTP\x20stand\x20for\x20in\x20web\x20technology?','options':['HyperText\x20Transfer\x20Protocol',a12_0x3b781d(0x114),'Hyperlink\x20Text\x20Transmission\x20Process',a12_0x3b781d(0x17b)]},{'question':a12_0x3b781d(0x10b),'options':[a12_0x3b781d(0xd3),a12_0x3b781d(0x151),'Java','Ruby']},{'question':a12_0x3b781d(0x149),'options':[a12_0x3b781d(0x162),'Graphics\x20Rendering',a12_0x3b781d(0x15d),a12_0x3b781d(0xd6)]},{'question':a12_0x3b781d(0x170),'options':[a12_0x3b781d(0x107),a12_0x3b781d(0x106),a12_0x3b781d(0xe7),a12_0x3b781d(0xf6)]},{'question':a12_0x3b781d(0x147),'options':[a12_0x3b781d(0xdd),a12_0x3b781d(0x119),a12_0x3b781d(0xe2),'User\x20Authentication']},{'question':a12_0x3b781d(0xed),'options':[a12_0x3b781d(0xfa),a12_0x3b781d(0x101),a12_0x3b781d(0xf8),a12_0x3b781d(0xe4)]},{'question':'What\x20does\x20SQL\x20stand\x20for\x20in\x20database\x20management?','options':[a12_0x3b781d(0x148),a12_0x3b781d(0x173),a12_0x3b781d(0x126),a12_0x3b781d(0xef)]},{'question':a12_0x3b781d(0x141),'options':[a12_0x3b781d(0xf0),a12_0x3b781d(0x171),a12_0x3b781d(0x154),'SMTPS']},{'question':'What\x20is\x20the\x20primary\x20goal\x20of\x20machine\x20learning?','options':['Hardware\x20Optimization',a12_0x3b781d(0x104),a12_0x3b781d(0x140),a12_0x3b781d(0xfd)]},{'question':a12_0x3b781d(0xea),'options':['Microsoft','Google',a12_0x3b781d(0x12e),'Facebook']},{'question':a12_0x3b781d(0x178),'options':['2\x20years',a12_0x3b781d(0x14c),'6\x20years',a12_0x3b781d(0x125)]},{'question':a12_0x3b781d(0x177),'options':['First\x20Amendment','Second\x20Amendment',a12_0x3b781d(0xf9),a12_0x3b781d(0x163)]},{'question':a12_0x3b781d(0x16e),'options':[a12_0x3b781d(0xd2),'Kevin\x20McCarthy','Mike\x20Johnson',a12_0x3b781d(0x12b)]},{'question':'What\x20is\x20the\x20minimum\x20age\x20requirement\x20to\x20run\x20for\x20President\x20of\x20the\x20United\x20States?','options':['25','30','35','40']},{'question':'Which\x20political\x20party\x20is\x20associated\x20with\x20the\x20color\x20blue\x20in\x20the\x20U.S.?','options':[a12_0x3b781d(0x16c),a12_0x3b781d(0xd7),'Libertarian\x20Party','Green\x20Party']},{'question':a12_0x3b781d(0x16f),'options':[a12_0x3b781d(0x124),a12_0x3b781d(0x116),a12_0x3b781d(0x175),'Regulating\x20Campaign\x20Funds']},{'question':a12_0x3b781d(0xd5),'options':['George\x20W.\x20Bush','Barack\x20Obama',a12_0x3b781d(0x123),'Donald\x20Trump']},{'question':a12_0x3b781d(0x16b),'options':['7','9','11','13']},{'question':a12_0x3b781d(0x159),'options':[a12_0x3b781d(0x145),'Legislative','Judicial',a12_0x3b781d(0x167)]},{'question':a12_0x3b781d(0x13b),'options':[a12_0x3b781d(0xd9),'4\x20years','6\x20years',a12_0x3b781d(0x125)]},{'question':a12_0x3b781d(0xdb),'options':[a12_0x3b781d(0xe6),a12_0x3b781d(0x15a),'Ocean\x20Currents',a12_0x3b781d(0xf5)]},{'question':a12_0x3b781d(0x137),'options':[a12_0x3b781d(0x11d),a12_0x3b781d(0xf4),a12_0x3b781d(0x12f),'Proteins']},{'question':'What\x20is\x20the\x20process\x20by\x20which\x20plants\x20convert\x20sunlight\x20into\x20energy?','options':['Respiration',a12_0x3b781d(0x13d),a12_0x3b781d(0x139),'Transpiration']},{'question':a12_0x3b781d(0xf1),'options':[a12_0x3b781d(0x132),a12_0x3b781d(0x14d),a12_0x3b781d(0x11a),'Golgi\x20Apparatus']},{'question':a12_0x3b781d(0x10c),'options':['Mitosis',a12_0x3b781d(0x16a),'Binary\x20Fission',a12_0x3b781d(0x144)]},{'question':'Which\x20gas\x20is\x20primarily\x20responsible\x20for\x20the\x20greenhouse\x20effect\x20in\x20Earth\x27s\x20atmosphere?','options':[a12_0x3b781d(0x118),a12_0x3b781d(0x169),a12_0x3b781d(0x11b),a12_0x3b781d(0xde)]},{'question':a12_0x3b781d(0x115),'options':['Immune\x20Defense','Oxygen\x20Transport',a12_0x3b781d(0x11e),a12_0x3b781d(0xe1)]},{'question':a12_0x3b781d(0x120),'options':[a12_0x3b781d(0xdf),a12_0x3b781d(0x117),a12_0x3b781d(0x110),a12_0x3b781d(0x142)]},{'question':a12_0x3b781d(0x16d),'options':['Heterotroph',a12_0x3b781d(0xf7),a12_0x3b781d(0x165),'Carnivore']},{'question':a12_0x3b781d(0x15c),'options':[a12_0x3b781d(0xee),a12_0x3b781d(0x152),a12_0x3b781d(0x168),a12_0x3b781d(0x132)]},{'question':a12_0x3b781d(0x13f),'options':[a12_0x3b781d(0x13e),a12_0x3b781d(0xd1),a12_0x3b781d(0xcd),a12_0x3b781d(0x13a)]},{'question':a12_0x3b781d(0x129),'options':[a12_0x3b781d(0x143),'Socrates',a12_0x3b781d(0x10f),a12_0x3b781d(0x13c)]},{'question':'What\x20is\x20the\x20main\x20focus\x20of\x20existentialism?','options':[a12_0x3b781d(0x128),a12_0x3b781d(0x17a),a12_0x3b781d(0x15e),a12_0x3b781d(0x127)]},{'question':'Which\x20philosopher\x20is\x20associated\x20with\x20the\x20phrase\x20\x27I\x20think,\x20therefore\x20I\x20am\x27?','options':['René\x20Descartes',a12_0x3b781d(0x174),a12_0x3b781d(0x111),a12_0x3b781d(0x10d)]},{'question':'What\x20is\x20utilitarianism\x20primarily\x20concerned\x20with?','options':[a12_0x3b781d(0xf2),'Maximizing\x20Happiness',a12_0x3b781d(0x15b),a12_0x3b781d(0x11c)]},{'question':a12_0x3b781d(0xdc),'options':[a12_0x3b781d(0xd1),a12_0x3b781d(0xcd),a12_0x3b781d(0xec),'Thomas\x20Hobbes']},{'question':a12_0x3b781d(0xe3),'options':[a12_0x3b781d(0x100),a12_0x3b781d(0xd4),a12_0x3b781d(0x146),a12_0x3b781d(0x122)]},{'question':a12_0x3b781d(0x121),'options':[a12_0x3b781d(0x10f),a12_0x3b781d(0x158),a12_0x3b781d(0x143),'Heraclitus']},{'question':a12_0x3b781d(0x156),'options':[a12_0x3b781d(0xfe),a12_0x3b781d(0x14b),a12_0x3b781d(0x130),a12_0x3b781d(0xff)]},{'question':'Which\x20philosopher\x20wrote\x20\x27Thus\x20Spoke\x20Zarathustra\x27?','options':['Jean-Paul\x20Sartre','Friedrich\x20Nietzsche',a12_0x3b781d(0x157),a12_0x3b781d(0xe5)]}];exports[a12_0x3b781d(0x14a)]=testQuestions;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const testQuestions = [
+    // Nigerian History
+    {
+        question: "Who was the first Governor-General of Nigeria?",
+        options: [
+            "Nnamdi Azikiwe",
+            "Ahmadu Bello",
+            "Tafawa Balewa",
+            "Herbert Macaulay",
+        ],
+    },
+    {
+        question: "In what year did Nigeria gain independence from British colonial rule?",
+        options: ["1957", "1960", "1963", "1970"],
+    },
+    {
+        question: "Which event marked the beginning of the Nigerian Civil War?",
+        options: [
+            "Biafra Declaration",
+            "First Military Coup",
+            "Oil Boom",
+            "Lagos Riots",
+        ],
+    },
+    {
+        question: "Who was the leader of the Biafran secessionist movement?",
+        options: [
+            "Yakubu Gowon",
+            "Odumegwu Ojukwu",
+            "Murtala Mohammed",
+            "Olusegun Obasanjo",
+        ],
+    },
+    {
+        question: "What was the name of the first Nigerian university, established in 1948?",
+        options: [
+            "University of Lagos",
+            "University of Ibadan",
+            "Ahmadu Bello University",
+            "Obafemi Awolowo University",
+        ],
+    },
+    {
+        question: "Which Nigerian leader introduced the Structural Adjustment Programme (SAP) in 1986?",
+        options: [
+            "Ibrahim Babangida",
+            "Sani Abacha",
+            "Shehu Shagari",
+            "Ernest Shonekan",
+        ],
+    },
+    {
+        question: "What was the primary export commodity of Nigeria during the colonial era?",
+        options: ["Oil", "Cocoa", "Groundnuts", "Timber"],
+    },
+    {
+        question: "Which pre-colonial empire was known for its bronze plaques and sculptures in Nigeria?",
+        options: ["Oyo Empire", "Benin Kingdom", "Kanem-Bornu", "Igbo-Ukwu"],
+    },
+    {
+        question: "Who was the first female Nigerian senator, elected in 1960?",
+        options: [
+            "Funmilayo Ransome-Kuti",
+            "Margaret Ekpo",
+            "Wuraola Esan",
+            "Flora Azikiwe",
+        ],
+    },
+    {
+        question: "Which year marked the transition to Nigeria's Second Republic?",
+        options: ["1975", "1979", "1983", "1999"],
+    },
+    // Technology
+    {
+        question: "What does the acronym HTTP stand for in web technology?",
+        options: [
+            "HyperText Transfer Protocol",
+            "High Throughput Technology Protocol",
+            "Hyperlink Text Transmission Process",
+            "Hybrid Text Transfer Program",
+        ],
+    },
+    {
+        question: "Which programming language is primarily used for web development and is known for its asynchronous capabilities?",
+        options: ["Python", "JavaScript", "Java", "Ruby"],
+    },
+    {
+        question: "What is the primary function of a GPU in a computer system?",
+        options: [
+            "General Processing",
+            "Graphics Rendering",
+            "Data Storage",
+            "Network Communication",
+        ],
+    },
+    {
+        question: "Which company developed the Android operating system?",
+        options: ["Apple", "Microsoft", "Google", "Samsung"],
+    },
+    {
+        question: "What is the main purpose of a firewall in network security?",
+        options: [
+            "Data Encryption",
+            "Traffic Monitoring and Filtering",
+            "File Compression",
+            "User Authentication",
+        ],
+    },
+    {
+        question: "Which technology underpins cryptocurrencies like Bitcoin?",
+        options: [
+            "Blockchain",
+            "Cloud Computing",
+            "Artificial Intelligence",
+            "Quantum Computing",
+        ],
+    },
+    {
+        question: "What does SQL stand for in database management?",
+        options: [
+            "Structured Query Language",
+            "System Query Logic",
+            "Sequential Query Layer",
+            "Standardized Query Loop",
+        ],
+    },
+    {
+        question: "Which protocol is used for secure email communication?",
+        options: ["SMTP", "IMAP", "POP3", "SMTPS"],
+    },
+    {
+        question: "What is the primary goal of machine learning?",
+        options: [
+            "Hardware Optimization",
+            "Data Visualization",
+            "Predictive Modeling",
+            "Network Configuration",
+        ],
+    },
+    {
+        question: "Which company is known for developing the TensorFlow framework?",
+        options: ["Microsoft", "Google", "Amazon", "Facebook"],
+    },
+    // US Politics
+    {
+        question: "How many years is a U.S. presidential term?",
+        options: ["2 years", "4 years", "6 years", "8 years"],
+    },
+    {
+        question: "Which amendment to the U.S. Constitution guarantees the right to free speech?",
+        options: [
+            "First Amendment",
+            "Second Amendment",
+            "Fifth Amendment",
+            "Tenth Amendment",
+        ],
+    },
+    {
+        question: "Who is the current Speaker of the U.S. House of Representatives as of October 2025?",
+        options: [
+            "Nancy Pelosi",
+            "Kevin McCarthy",
+            "Mike Johnson",
+            "Hakeem Jeffries",
+        ],
+    },
+    {
+        question: "What is the minimum age requirement to run for President of the United States?",
+        options: ["25", "30", "35", "40"],
+    },
+    {
+        question: "Which political party is associated with the color blue in the U.S.?",
+        options: [
+            "Republican Party",
+            "Democratic Party",
+            "Libertarian Party",
+            "Green Party",
+        ],
+    },
+    {
+        question: "What is the Electoral College's role in U.S. presidential elections?",
+        options: [
+            "Vetting Candidates",
+            "Counting Popular Votes",
+            "Officially Electing the President",
+            "Regulating Campaign Funds",
+        ],
+    },
+    {
+        question: "Which U.S. president signed the Affordable Care Act into law?",
+        options: ["George W. Bush", "Barack Obama", "Bill Clinton", "Donald Trump"],
+    },
+    {
+        question: "How many justices serve on the U.S. Supreme Court?",
+        options: ["7", "9", "11", "13"],
+    },
+    {
+        question: "Which branch of the U.S. government is responsible for making laws?",
+        options: ["Executive", "Legislative", "Judicial", "Administrative"],
+    },
+    {
+        question: "What is the term length for a U.S. Senator?",
+        options: ["2 years", "4 years", "6 years", "8 years"],
+    },
+    // Biology
+    {
+        question: "What is the primary source of energy for Earth's climate system?",
+        options: [
+            "Geothermal Heat",
+            "Solar Radiation",
+            "Ocean Currents",
+            "Atmospheric Pressure",
+        ],
+    },
+    {
+        question: "Which molecule carries genetic information in most living organisms?",
+        options: ["RNA", "DNA", "ATP", "Proteins"],
+    },
+    {
+        question: "What is the process by which plants convert sunlight into energy?",
+        options: ["Respiration", "Photosynthesis", "Fermentation", "Transpiration"],
+    },
+    {
+        question: "Which organelle is known as the powerhouse of the cell?",
+        options: ["Nucleus", "Mitochondrion", "Ribosome", "Golgi Apparatus"],
+    },
+    {
+        question: "What type of cell division produces gametes in animals?",
+        options: ["Mitosis", "Meiosis", "Binary Fission", "Budding"],
+    },
+    {
+        question: "Which gas is primarily responsible for the greenhouse effect in Earth's atmosphere?",
+        options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Helium"],
+    },
+    {
+        question: "What is the primary function of red blood cells in humans?",
+        options: [
+            "Immune Defense",
+            "Oxygen Transport",
+            "Nutrient Storage",
+            "Hormone Production",
+        ],
+    },
+    {
+        question: "Which part of the brain regulates basic bodily functions like breathing and heart rate?",
+        options: ["Cerebrum", "Cerebellum", "Medulla Oblongata", "Hypothalamus"],
+    },
+    {
+        question: "What is the term for an organism that can produce its own food?",
+        options: ["Heterotroph", "Autotroph", "Decomposer", "Carnivore"],
+    },
+    {
+        question: "Which structure in plant cells is responsible for storing water and nutrients?",
+        options: ["Vacuole", "Chloroplast", "Cell Wall", "Nucleus"],
+    },
+    // Philosophy
+    {
+        question: "Who is known for the philosophical concept of the 'Categorical Imperative'?",
+        options: [
+            "John Stuart Mill",
+            "Immanuel Kant",
+            "Friedrich Nietzsche",
+            "Søren Kierkegaard",
+        ],
+    },
+    {
+        question: "Which ancient Greek philosopher wrote 'The Republic'?",
+        options: ["Aristotle", "Socrates", "Plato", "Epicurus"],
+    },
+    {
+        question: "What is the main focus of existentialism?",
+        options: [
+            "Logic and Reason",
+            "Individual Existence and Freedom",
+            "Social Contracts",
+            "Universal Truths",
+        ],
+    },
+    {
+        question: "Which philosopher is associated with the phrase 'I think, therefore I am'?",
+        options: [
+            "René Descartes",
+            "David Hume",
+            "Jean-Jacques Rousseau",
+            "Baruch Spinoza",
+        ],
+    },
+    {
+        question: "What is utilitarianism primarily concerned with?",
+        options: [
+            "Duty and Obligation",
+            "Maximizing Happiness",
+            "Individual Rights",
+            "Absolute Truth",
+        ],
+    },
+    {
+        question: "Who developed the concept of the 'Will to Power'?",
+        options: [
+            "Immanuel Kant",
+            "Friedrich Nietzsche",
+            "John Locke",
+            "Thomas Hobbes",
+        ],
+    },
+    {
+        question: "Which philosophy emphasizes living in harmony with nature?",
+        options: ["Stoicism", "Existentialism", "Nihilism", "Rationalism"],
+    },
+    {
+        question: "Who is considered the father of Western philosophy?",
+        options: ["Plato", "Socrates", "Aristotle", "Heraclitus"],
+    },
+    {
+        question: "What is the primary concern of epistemology?",
+        options: ["Ethics", "Knowledge and Belief", "Aesthetics", "Metaphysics"],
+    },
+    {
+        question: "Which philosopher wrote 'Thus Spoke Zarathustra'?",
+        options: [
+            "Jean-Paul Sartre",
+            "Friedrich Nietzsche",
+            "Martin Heidegger",
+            "Albert Camus",
+        ],
+    },
+];
+exports.default = testQuestions;

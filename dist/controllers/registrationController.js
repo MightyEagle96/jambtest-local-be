@@ -1,1 +1,152 @@
-'use strict';const a13_0xe33b2=a13_0x27c2;(function(_0x111a25,_0x2c0c01){const _0x5dd59b=a13_0x27c2,_0x48a7b5=_0x111a25();while(!![]){try{const _0x2ead2a=-parseInt(_0x5dd59b(0x7d))/0x1+-parseInt(_0x5dd59b(0xb0))/0x2+-parseInt(_0x5dd59b(0xa3))/0x3+parseInt(_0x5dd59b(0x77))/0x4+parseInt(_0x5dd59b(0x9a))/0x5*(parseInt(_0x5dd59b(0x9c))/0x6)+-parseInt(_0x5dd59b(0xb8))/0x7*(-parseInt(_0x5dd59b(0xa0))/0x8)+-parseInt(_0x5dd59b(0x94))/0x9;if(_0x2ead2a===_0x2c0c01)break;else _0x48a7b5['push'](_0x48a7b5['shift']());}catch(_0x475487){_0x48a7b5['push'](_0x48a7b5['shift']());}}}(a13_0x48e4,0xc28b4));var __awaiter=this&&this[a13_0xe33b2(0x73)]||function(_0x2d32df,_0x3a3abd,_0x2afa1b,_0x1d0b49){function _0x4aeafc(_0x40563b){return _0x40563b instanceof _0x2afa1b?_0x40563b:new _0x2afa1b(function(_0x2ce50a){_0x2ce50a(_0x40563b);});}return new(_0x2afa1b||(_0x2afa1b=Promise))(function(_0x5523f3,_0x278441){const _0x40092b=a13_0x27c2;function _0x4eaa15(_0x2b740e){try{_0x54f83e(_0x1d0b49['next'](_0x2b740e));}catch(_0xfc18f0){_0x278441(_0xfc18f0);}}function _0x5d2790(_0x1a0226){const _0x53e763=a13_0x27c2;try{_0x54f83e(_0x1d0b49[_0x53e763(0x98)](_0x1a0226));}catch(_0x125619){_0x278441(_0x125619);}}function _0x54f83e(_0x3cb669){const _0x1806de=a13_0x27c2;_0x3cb669[_0x1806de(0x8b)]?_0x5523f3(_0x3cb669[_0x1806de(0x91)]):_0x4aeafc(_0x3cb669[_0x1806de(0x91)])[_0x1806de(0x79)](_0x4eaa15,_0x5d2790);}_0x54f83e((_0x1d0b49=_0x1d0b49[_0x40092b(0x84)](_0x2d32df,_0x3a3abd||[]))[_0x40092b(0x9e)]());});},__importDefault=this&&this[a13_0xe33b2(0x7b)]||function(_0x48d618){return _0x48d618&&_0x48d618['__esModule']?_0x48d618:{'default':_0x48d618};};Object['defineProperty'](exports,a13_0xe33b2(0x8d),{'value':!![]}),exports[a13_0xe33b2(0x76)]=exports[a13_0xe33b2(0x6f)]=exports[a13_0xe33b2(0x6e)]=exports[a13_0xe33b2(0x80)]=exports[a13_0xe33b2(0x78)]=exports[a13_0xe33b2(0xb9)]=exports[a13_0xe33b2(0x93)]=exports[a13_0xe33b2(0xae)]=exports[a13_0xe33b2(0x81)]=void 0x0;const computerModel_1=__importDefault(require(a13_0xe33b2(0x88))),centreModel_1=__importDefault(require(a13_0xe33b2(0x82))),appNetwork_1=require(a13_0xe33b2(0xa6)),registerComputer=(_0x314e36,_0x5edca4)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x2468a3=a13_0xe33b2;var _0x2c2e7e,_0x5d482d;try{const _0x4d618b=yield centreModel_1[_0x2468a3(0xb7)][_0x2468a3(0x72)]();if(!_0x4d618b)return _0x5edca4[_0x2468a3(0x87)](0x190)[_0x2468a3(0x83)](_0x2468a3(0x7a));const _0x28ab9c=_0x314e36[_0x2468a3(0x74)];if(!_0x28ab9c[_0x2468a3(0x86)]||!_0x28ab9c['processorId']||!_0x28ab9c[_0x2468a3(0x8a)]||_0x28ab9c[_0x2468a3(0x8a)][_0x2468a3(0xad)]===0x0)return _0x5edca4[_0x2468a3(0x87)](0x190)[_0x2468a3(0x83)](_0x2468a3(0xac));const _0x38b14b=(_0x2c2e7e=_0x28ab9c[_0x2468a3(0x86)])===null||_0x2c2e7e===void 0x0?void 0x0:_0x2c2e7e['toLowerCase'](),_0x2696da=(_0x5d482d=_0x28ab9c[_0x2468a3(0x99)])===null||_0x5d482d===void 0x0?void 0x0:_0x5d482d[_0x2468a3(0xa7)](),_0x11b7e5=(_0x28ab9c['macAddresses']||[])[_0x2468a3(0xaf)](_0x11c0e1=>_0x11c0e1[_0x2468a3(0xa7)]()),_0x265681=yield computerModel_1[_0x2468a3(0xb7)]['findOne']({'$and':[{'serialNumber':_0x38b14b},{'processorId':_0x2696da},{'macAddresses':{'$in':_0x11b7e5}}]});if(_0x265681){let _0x32160e=[];if(_0x265681['serialNumber']===_0x38b14b)_0x32160e[_0x2468a3(0x90)](_0x2468a3(0xb4));if(_0x265681[_0x2468a3(0x99)]===_0x2696da)_0x32160e[_0x2468a3(0x90)](_0x2468a3(0x95));if(_0x265681[_0x2468a3(0x8a)][_0x2468a3(0x71)](_0x189942=>_0x11b7e5[_0x2468a3(0xa8)](_0x189942)))_0x32160e[_0x2468a3(0x90)](_0x2468a3(0x89));return _0x5edca4[_0x2468a3(0x87)](0x190)['send'](_0x2468a3(0xa2)+_0x32160e[_0x2468a3(0x70)](',\x20')+'.');}const _0x36e7d3=new computerModel_1[(_0x2468a3(0xb7))](Object['assign'](Object[_0x2468a3(0xa5)]({},_0x28ab9c),{'serialNumber':_0x38b14b,'processorId':_0x2696da,'macAddresses':_0x11b7e5,'centre':_0x4d618b[_0x2468a3(0xa4)]}));yield _0x36e7d3[_0x2468a3(0xb1)](),_0x5edca4['send']('Computer\x20registered\x20successfully');}catch(_0x154863){console['error'](_0x154863),_0x5edca4[_0x2468a3(0x87)](0x1f4)[_0x2468a3(0x83)]('Internal\x20server\x20error');}});exports[a13_0xe33b2(0x81)]=registerComputer;const viewRegisteredComputers=(_0x5147e0,_0x51918d)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0xdc0f5c=a13_0xe33b2,_0x597b27=_0x5147e0[_0xdc0f5c(0x96)][_0xdc0f5c(0x92)]||0x1,_0x1b294e=_0x5147e0[_0xdc0f5c(0x96)]['limit']||0x32,_0x48e507=yield computerModel_1['default']['find']({})[_0xdc0f5c(0x9f)]((_0x597b27-0x1)*_0x1b294e)[_0xdc0f5c(0xb3)](_0x1b294e)[_0xdc0f5c(0x9d)](),[_0x4a3318,_0x4efeb4,_0x4f3deb,_0x559d29,_0xd3d0e6]=yield Promise[_0xdc0f5c(0x8f)]([computerModel_1[_0xdc0f5c(0xb7)][_0xdc0f5c(0x7c)](),computerModel_1[_0xdc0f5c(0xb7)][_0xdc0f5c(0x7c)]({'flagged':![]}),computerModel_1[_0xdc0f5c(0xb7)]['countDocuments']({'flagged':!![]}),computerModel_1['default'][_0xdc0f5c(0x7c)]({'status':_0xdc0f5c(0xba)}),computerModel_1[_0xdc0f5c(0xb7)][_0xdc0f5c(0x7c)]({'status':_0xdc0f5c(0x8c)})]),_0x29193d=_0x48e507[_0xdc0f5c(0xaf)]((_0x1cb4f1,_0x2743f5)=>{const _0x1c583b=_0xdc0f5c;return Object[_0x1c583b(0xa5)](Object[_0x1c583b(0xa5)]({},_0x1cb4f1),{'id':(_0x597b27-0x1)*_0x1b294e+_0x2743f5+0x1});});_0x51918d['send']({'total':_0x4a3318,'totalComputers':_0x29193d,'cleanComputers':_0x4efeb4,'infractions':_0x4f3deb,'uploaded':_0x559d29,'notUploaded':_0xd3d0e6});});exports[a13_0xe33b2(0xae)]=viewRegisteredComputers;const uploadComputers=(_0x5c4eb9,_0x560b72)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x49ecda=a13_0xe33b2;var _0x49866a;const _0x47749b=yield computerModel_1[_0x49ecda(0xb7)][_0x49ecda(0xa1)]({'status':_0x49ecda(0x8c)}),_0x13b6ec=yield appNetwork_1[_0x49ecda(0xaa)][_0x49ecda(0x7f)]('centre/uploadcomputer',{'computers':_0x47749b,'centreId':(_0x49866a=_0x5c4eb9[_0x49ecda(0x75)])===null||_0x49866a===void 0x0?void 0x0:_0x49866a['_id'][_0x49ecda(0x85)]()});_0x560b72[_0x49ecda(0x87)](_0x13b6ec[_0x49ecda(0x87)])[_0x49ecda(0x83)](_0x13b6ec[_0x49ecda(0xab)]);});exports[a13_0xe33b2(0x93)]=uploadComputers;const deleteComputers=()=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){});exports[a13_0xe33b2(0xb9)]=deleteComputers;const fetchInfractionReports=(_0x5757bd,_0x35394a)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0xf7907d=a13_0xe33b2;var _0x1fc1e5;const _0x3f361a=yield appNetwork_1[_0xf7907d(0xaa)][_0xf7907d(0xa9)](_0xf7907d(0x8e),{'headers':{'centreid':(_0x1fc1e5=_0x5757bd['centre'])===null||_0x1fc1e5===void 0x0?void 0x0:_0x1fc1e5[_0xf7907d(0xa4)][_0xf7907d(0x85)]()},'params':{'page':_0x5757bd[_0xf7907d(0x96)][_0xf7907d(0x92)]||0x1,'limit':_0x5757bd[_0xf7907d(0x96)][_0xf7907d(0xb3)]||0x32}});_0x35394a['status'](_0x3f361a[_0xf7907d(0x87)])[_0xf7907d(0x83)](_0x3f361a[_0xf7907d(0xab)]);});exports[a13_0xe33b2(0x78)]=fetchInfractionReports;const getComputers=(_0x59eebb,_0x497802)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x2b28a7=a13_0xe33b2;var _0x9805ee;try{const _0x5ed15b=yield appNetwork_1[_0x2b28a7(0xaa)]['get']('centre/centrecomputers',{'params':{'centre':(_0x9805ee=_0x59eebb[_0x2b28a7(0x75)])===null||_0x9805ee===void 0x0?void 0x0:_0x9805ee['_id']['toString']()}});if(_0x5ed15b[_0x2b28a7(0x87)]===0xc8)yield computerModel_1[_0x2b28a7(0xb7)][_0x2b28a7(0x7e)](),yield computerModel_1[_0x2b28a7(0xb7)][_0x2b28a7(0x97)](_0x5ed15b[_0x2b28a7(0xab)]),_0x497802[_0x2b28a7(0x83)]('New\x20computers\x20imported');else _0x497802[_0x2b28a7(0x87)](_0x5ed15b[_0x2b28a7(0x87)])[_0x2b28a7(0x83)](_0x2b28a7(0xb2));}catch(_0x1be60b){console['error'](_0x1be60b),_0x497802[_0x2b28a7(0x87)](0x1f4)[_0x2b28a7(0x83)](_0x2b28a7(0x9b));}});exports[a13_0xe33b2(0x80)]=getComputers;const deleteComputer=(_0x5c9357,_0x5260ab)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x68277a=a13_0xe33b2;yield computerModel_1[_0x68277a(0xb7)][_0x68277a(0xb5)]({'_id':_0x5c9357[_0x68277a(0xb6)]['id']}),_0x5260ab[_0x68277a(0x83)]('Computer\x20deleted');});function a13_0x27c2(_0x4419d3,_0x1d026f){const _0x48e421=a13_0x48e4();return a13_0x27c2=function(_0x27c20b,_0x14c508){_0x27c20b=_0x27c20b-0x6e;let _0x45f07c=_0x48e421[_0x27c20b];return _0x45f07c;},a13_0x27c2(_0x4419d3,_0x1d026f);}function a13_0x48e4(){const _0x51199e=['find','Computer\x20already\x20registered\x20—\x20duplicate\x20','307269QLUcEM','_id','assign','../appNetwork','toLowerCase','includes','get','httpService','data','Missing\x20required\x20fields','length','viewRegisteredComputers','map','711870bIpOOt','save','Could\x20not\x20import\x20new\x20computers','limit','serial\x20number','deleteOne','params','default','7daISAz','deleteComputers','uploaded','findById','deleteComputer','viewCleanedComputers','join','some','findOne','__awaiter','body','centre','viewComputer','4505256KnJDvP','fetchInfractionReports','then','Centre\x20not\x20found','__importDefault','countDocuments','60685aSEAia','deleteMany','post','getComputers','registerComputer','../models/centreModel','send','apply','toString','serialNumber','status','../models/computerModel','MAC\x20address','macAddresses','done','not\x20uploaded','__esModule','centre/infractions','all','push','value','page','uploadComputers','14193081XLTlSd','processor\x20ID','query','insertMany','throw','processorId','1285bQybhy','Internal\x20server\x20error','27474Chkjch','lean','next','skip','4718296EDhWnl'];a13_0x48e4=function(){return _0x51199e;};return a13_0x48e4();}exports[a13_0xe33b2(0x6e)]=deleteComputer;const viewCleanedComputers=(_0xc949cb,_0x1e99d2)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0xd8c78f=a13_0xe33b2,_0xa6cbd9=yield computerModel_1[_0xd8c78f(0xb7)][_0xd8c78f(0xa1)]({'flagged':![]})['lean']();_0x1e99d2['send'](_0xa6cbd9);});exports[a13_0xe33b2(0x6f)]=viewCleanedComputers;const viewComputer=(_0x4ff881,_0x41eca0)=>__awaiter(void 0x0,void 0x0,void 0x0,function*(){const _0x5dc46e=a13_0xe33b2,_0x4c3357=yield computerModel_1[_0x5dc46e(0xb7)][_0x5dc46e(0xbb)](_0x4ff881[_0x5dc46e(0xb6)]['id'])['lean'](),_0x4193a3=_0x4ff881['ip'];_0x41eca0[_0x5dc46e(0x83)](Object[_0x5dc46e(0xa5)](Object['assign']({},_0x4c3357),{'ip':_0x4193a3}));});exports[a13_0xe33b2(0x76)]=viewComputer;
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.viewComputer = exports.viewCleanedComputers = exports.deleteComputer = exports.getComputers = exports.fetchInfractionReports = exports.deleteComputers = exports.uploadComputers = exports.viewRegisteredComputers = exports.registerComputer = void 0;
+const computerModel_1 = __importDefault(require("../models/computerModel"));
+const centreModel_1 = __importDefault(require("../models/centreModel"));
+const appNetwork_1 = require("../appNetwork");
+const registerComputer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
+    try {
+        const centre = yield centreModel_1.default.findOne();
+        if (!centre)
+            return res.status(400).send("Centre not found");
+        const body = req.body;
+        // Check if all required fields are present
+        if (!body.serialNumber ||
+            !body.processorId ||
+            !body.macAddresses ||
+            body.macAddresses.length === 0)
+            return res.status(400).send("Missing required fields");
+        // Normalize for consistent comparison
+        const serialNumber = (_a = body.serialNumber) === null || _a === void 0 ? void 0 : _a.toLowerCase();
+        const processorId = (_b = body.processorId) === null || _b === void 0 ? void 0 : _b.toLowerCase();
+        const macAddresses = (body.macAddresses || []).map((m) => m.toLowerCase());
+        // Check if a computer already exists with matching identifiers
+        const existingComputer = yield computerModel_1.default.findOne({
+            $and: [
+                { serialNumber },
+                { processorId },
+                { macAddresses: { $in: macAddresses } },
+            ],
+        });
+        if (existingComputer) {
+            let conflictFields = [];
+            if (existingComputer.serialNumber === serialNumber)
+                conflictFields.push("serial number");
+            if (existingComputer.processorId === processorId)
+                conflictFields.push("processor ID");
+            if (existingComputer.macAddresses.some((mac) => macAddresses.includes(mac)))
+                conflictFields.push("MAC address");
+            return res
+                .status(400)
+                .send(`Computer already registered — duplicate ${conflictFields.join(", ")}.`);
+        }
+        // Save new computer
+        const newComputer = new computerModel_1.default(Object.assign(Object.assign({}, body), { serialNumber,
+            processorId,
+            macAddresses, centre: centre._id }));
+        yield newComputer.save();
+        res.send("Computer registered successfully");
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error");
+    }
+});
+exports.registerComputer = registerComputer;
+const viewRegisteredComputers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const page = (req.query.page || 1);
+    const limit = (req.query.limit || 50);
+    const computers = yield computerModel_1.default.find({})
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .lean();
+    const [total, cleanComputers, infractions, uploaded, notUploaded] = yield Promise.all([
+        computerModel_1.default.countDocuments(),
+        computerModel_1.default.countDocuments({ flagged: false }),
+        computerModel_1.default.countDocuments({ flagged: true }),
+        computerModel_1.default.countDocuments({ status: "uploaded" }),
+        computerModel_1.default.countDocuments({ status: "not uploaded" }),
+    ]);
+    const totalComputers = computers.map((c, i) => {
+        return Object.assign(Object.assign({}, c), { id: (page - 1) * limit + i + 1 });
+    });
+    res.send({
+        total,
+        totalComputers,
+        cleanComputers,
+        infractions,
+        uploaded,
+        notUploaded,
+    });
+});
+exports.viewRegisteredComputers = viewRegisteredComputers;
+const uploadComputers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const computers = yield computerModel_1.default.find({ status: "not uploaded" });
+    const response = yield appNetwork_1.httpService.post("centre/uploadcomputer", {
+        computers,
+        centreId: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString(),
+    });
+    res.status(response.status).send(response.data);
+});
+exports.uploadComputers = uploadComputers;
+const deleteComputers = () => __awaiter(void 0, void 0, void 0, function* () { });
+exports.deleteComputers = deleteComputers;
+const fetchInfractionReports = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const response = yield appNetwork_1.httpService.get("centre/infractions", {
+        headers: { centreid: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() },
+        params: { page: req.query.page || 1, limit: req.query.limit || 50 },
+    });
+    res.status(response.status).send(response.data);
+});
+exports.fetchInfractionReports = fetchInfractionReports;
+const getComputers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    try {
+        const response = yield appNetwork_1.httpService.get("centre/centrecomputers", {
+            params: { centre: (_a = req.centre) === null || _a === void 0 ? void 0 : _a._id.toString() },
+        });
+        if (response.status === 200) {
+            yield computerModel_1.default.deleteMany();
+            yield computerModel_1.default.insertMany(response.data);
+            res.send("New computers imported");
+        }
+        else
+            res.status(response.status).send("Could not import new computers");
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error");
+    }
+});
+exports.getComputers = getComputers;
+const deleteComputer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield computerModel_1.default.deleteOne({ _id: req.params.id });
+    res.send("Computer deleted");
+});
+exports.deleteComputer = deleteComputer;
+const viewCleanedComputers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const computers = yield computerModel_1.default.find({ flagged: false }).lean();
+    res.send(computers);
+});
+exports.viewCleanedComputers = viewCleanedComputers;
+const viewComputer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const computer = yield computerModel_1.default.findById(req.params.id).lean();
+    const ip = req.ip;
+    res.send(Object.assign(Object.assign({}, computer), { ip }));
+});
+exports.viewComputer = viewComputer;

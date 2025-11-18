@@ -1,1 +1,31 @@
-'use strict';const a21_0x1e8b09=a21_0x3911;(function(_0x326825,_0x466ee8){const _0x1afc80=a21_0x3911,_0x2477a2=_0x326825();while(!![]){try{const _0x193381=-parseInt(_0x1afc80(0x218))/0x1*(parseInt(_0x1afc80(0x213))/0x2)+-parseInt(_0x1afc80(0x20e))/0x3+-parseInt(_0x1afc80(0x1ff))/0x4*(-parseInt(_0x1afc80(0x1ea))/0x5)+-parseInt(_0x1afc80(0x210))/0x6*(parseInt(_0x1afc80(0x1ef))/0x7)+parseInt(_0x1afc80(0x202))/0x8*(-parseInt(_0x1afc80(0x206))/0x9)+-parseInt(_0x1afc80(0x214))/0xa*(-parseInt(_0x1afc80(0x1fb))/0xb)+parseInt(_0x1afc80(0x21c))/0xc*(parseInt(_0x1afc80(0x1f8))/0xd);if(_0x193381===_0x466ee8)break;else _0x2477a2['push'](_0x2477a2['shift']());}catch(_0x4b5c4d){_0x2477a2['push'](_0x2477a2['shift']());}}}(a21_0x55a6,0xbe4f7));Object[a21_0x1e8b09(0x216)](exports,'__esModule',{'value':!![]}),exports[a21_0x1e8b09(0x1f0)]=void 0x0;const express_1=require(a21_0x1e8b09(0x207)),networkTestControllerClient_1=require(a21_0x1e8b09(0x1fc)),networkTestControllerAdmin_1=require(a21_0x1e8b09(0x1fa)),jwtController_1=require(a21_0x1e8b09(0x215)),centreAccountController_1=require('../controllers/centreAccountController'),networkTestRouter=(0x0,express_1['Router'])();function a21_0x3911(_0x20d0e0,_0x3170c4){const _0x55a69b=a21_0x55a6();return a21_0x3911=function(_0x39119e,_0x13eff8){_0x39119e=_0x39119e-0x1e8;let _0x2215f1=_0x55a69b[_0x39119e];return _0x2215f1;},a21_0x3911(_0x20d0e0,_0x3170c4);}exports[a21_0x1e8b09(0x1f0)]=networkTestRouter,networkTestRouter[a21_0x1e8b09(0x1e9)](a21_0x1e8b09(0x200),networkTestControllerAdmin_1[a21_0x1e8b09(0x212)])[a21_0x1e8b09(0x1e9)](a21_0x1e8b09(0x203),networkTestControllerClient_1['viewNetworkTest'])['post'](a21_0x1e8b09(0x204),networkTestControllerClient_1[a21_0x1e8b09(0x201)],networkTestControllerClient_1[a21_0x1e8b09(0x205)])[a21_0x1e8b09(0x1e9)](a21_0x1e8b09(0x208),networkTestControllerAdmin_1[a21_0x1e8b09(0x1ed)])[a21_0x1e8b09(0x1e9)](a21_0x1e8b09(0x20b),networkTestControllerAdmin_1[a21_0x1e8b09(0x1f1)])['get'](a21_0x1e8b09(0x20c),centreAccountController_1[a21_0x1e8b09(0x209)])[a21_0x1e8b09(0x1ec)](a21_0x1e8b09(0x20f),networkTestControllerClient_1[a21_0x1e8b09(0x217)])[a21_0x1e8b09(0x1e9)]('/ping',networkTestControllerAdmin_1[a21_0x1e8b09(0x1f4)])['post'](a21_0x1e8b09(0x1f6),networkTestControllerClient_1[a21_0x1e8b09(0x219)])['post'](a21_0x1e8b09(0x211),networkTestControllerClient_1[a21_0x1e8b09(0x20d)])[a21_0x1e8b09(0x1e9)]('/myresponse',networkTestControllerClient_1[a21_0x1e8b09(0x21d)])[a21_0x1e8b09(0x1e9)]('/delete',networkTestControllerAdmin_1[a21_0x1e8b09(0x1eb)])[a21_0x1e8b09(0x1e9)]('/endnetworktestadmin',networkTestControllerAdmin_1[a21_0x1e8b09(0x1e8)])[a21_0x1e8b09(0x1f5)](jwtController_1[a21_0x1e8b09(0x21b)])[a21_0x1e8b09(0x1ec)](a21_0x1e8b09(0x21a),networkTestControllerAdmin_1[a21_0x1e8b09(0x1f3)])['get'](a21_0x1e8b09(0x1fe),networkTestControllerAdmin_1[a21_0x1e8b09(0x1f7)])[a21_0x1e8b09(0x1e9)](a21_0x1e8b09(0x20a),networkTestControllerAdmin_1[a21_0x1e8b09(0x1ee)])[a21_0x1e8b09(0x1f2)]('/delete',networkTestControllerAdmin_1['deleteNetworkTest'])[a21_0x1e8b09(0x1e9)](a21_0x1e8b09(0x1f9),networkTestControllerAdmin_1[a21_0x1e8b09(0x1fd)]);function a21_0x55a6(){const _0x551adf=['/toggleactivation','networkTestValidation','32MWdoCg','/view/:id','/begintest','beginNetworkTest','1672893FYRLCd','express','/computerlist/:id','centreDetail','/view','/dashboard','/centredetail','endNetworkTest','2786088fddIus','/sendresponses','366YExcEL','/endnetworktest','toggleActivation','2336fSGSaL','160cWzFit','../controllers/jwtController','defineProperty','sendResponses','469uanXSP','questionAndResponseCount','/create','authenticateToken','9330600kuoDNZ','viewMyComputerResponse','endNetworkTestForAdmin','get','20XgyYog','deleteNetworkTest','post','computerListUnderNetworkTest','viewNetworkTests','145901KdZyXH','networkTestRouter','networkTestDashboard','delete','createNetworkTest','networkPing','use','/questionandresponsecount','retrieveNetworkTestSummary','39WNrWih','/upload','../controllers/networkTestControllerAdmin','395087pzpLJS','../controllers/networkTestControllerClient','uploadNetworkTest','/testsummary','1363608pEWeMH'];a21_0x55a6=function(){return _0x551adf;};return a21_0x55a6();}
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.networkTestRouter = void 0;
+const express_1 = require("express");
+const networkTestControllerClient_1 = require("../controllers/networkTestControllerClient");
+const networkTestControllerAdmin_1 = require("../controllers/networkTestControllerAdmin");
+const jwtController_1 = require("../controllers/jwtController");
+const centreAccountController_1 = require("../controllers/centreAccountController");
+const networkTestRouter = (0, express_1.Router)();
+exports.networkTestRouter = networkTestRouter;
+networkTestRouter
+    .get("/toggleactivation", networkTestControllerAdmin_1.toggleActivation)
+    .get("/view/:id", networkTestControllerClient_1.viewNetworkTest)
+    .post("/begintest", networkTestControllerClient_1.networkTestValidation, networkTestControllerClient_1.beginNetworkTest)
+    .get("/computerlist/:id", networkTestControllerAdmin_1.computerListUnderNetworkTest)
+    .get("/dashboard", networkTestControllerAdmin_1.networkTestDashboard)
+    //get the centre's detail
+    .get("/centredetail", centreAccountController_1.centreDetail)
+    .post("/sendresponses", networkTestControllerClient_1.sendResponses)
+    .get("/ping", networkTestControllerAdmin_1.networkPing)
+    .post("/questionandresponsecount", networkTestControllerClient_1.questionAndResponseCount)
+    .post("/endnetworktest", networkTestControllerClient_1.endNetworkTest)
+    .get("/myresponse", networkTestControllerClient_1.viewMyComputerResponse)
+    .get("/delete", networkTestControllerAdmin_1.deleteNetworkTest)
+    .get("/endnetworktestadmin", networkTestControllerAdmin_1.endNetworkTestForAdmin)
+    .use(jwtController_1.authenticateToken)
+    .post("/create", networkTestControllerAdmin_1.createNetworkTest)
+    .get("/testsummary", networkTestControllerAdmin_1.retrieveNetworkTestSummary)
+    .get("/view", networkTestControllerAdmin_1.viewNetworkTests)
+    .delete("/delete", networkTestControllerAdmin_1.deleteNetworkTest)
+    .get("/upload", networkTestControllerAdmin_1.uploadNetworkTest);

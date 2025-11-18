@@ -1,1 +1,20 @@
-'use strict';const a17_0x527059=a17_0x1141;(function(_0x15dde9,_0x5d1fda){const _0x4f10aa=a17_0x1141,_0x46d66b=_0x15dde9();while(!![]){try{const _0x3bf968=parseInt(_0x4f10aa(0xdd))/0x1*(parseInt(_0x4f10aa(0xef))/0x2)+-parseInt(_0x4f10aa(0xe3))/0x3*(parseInt(_0x4f10aa(0xec))/0x4)+parseInt(_0x4f10aa(0xe0))/0x5+-parseInt(_0x4f10aa(0xe7))/0x6*(-parseInt(_0x4f10aa(0xf1))/0x7)+parseInt(_0x4f10aa(0xe2))/0x8*(-parseInt(_0x4f10aa(0xe5))/0x9)+parseInt(_0x4f10aa(0xe6))/0xa*(parseInt(_0x4f10aa(0xe9))/0xb)+-parseInt(_0x4f10aa(0xe4))/0xc;if(_0x3bf968===_0x5d1fda)break;else _0x46d66b['push'](_0x46d66b['shift']());}catch(_0x58d3b8){_0x46d66b['push'](_0x46d66b['shift']());}}}(a17_0x4c97,0xe1b9f));function a17_0x1141(_0x4a167a,_0x50028f){const _0x4c975f=a17_0x4c97();return a17_0x1141=function(_0x11419c,_0x42fad0){_0x11419c=_0x11419c-0xdd;let _0x429964=_0x4c975f[_0x11419c];return _0x429964;},a17_0x1141(_0x4a167a,_0x50028f);}Object[a17_0x527059(0xeb)](exports,'__esModule',{'value':!![]});function a17_0x4c97(){const _0x17a1fc=['NetworkTest','4ooLDem','Schema','2247pbjpTC','Computer','862669YsEcvd','default','Types','8486795ODcDKJ','mongoose','692216BgGnlN','309vwZfES','28236300QGdsrU','126zrWWMg','750gUgdUj','30756JKrypH','model','140976iLsEFj','ObjectId','defineProperty','59820HixMLu','NetworkTestResponse'];a17_0x4c97=function(){return _0x17a1fc;};return a17_0x4c97();}const mongoose_1=require(a17_0x527059(0xe1)),schema=new mongoose_1[(a17_0x527059(0xf0))]({'networkTest':{'type':mongoose_1[a17_0x527059(0xf0)][a17_0x527059(0xdf)]['ObjectId'],'ref':a17_0x527059(0xee),'required':!![]},'computer':{'type':mongoose_1[a17_0x527059(0xf0)][a17_0x527059(0xdf)][a17_0x527059(0xea)],'ref':a17_0x527059(0xf2),'required':!![]},'loggedInAt':Date,'endedAt':Date,'ipAddress':String,'responses':{'type':Number,'default':0x0},'timeLeft':Number,'status':String,'networkLosses':{'type':Number,'default':0x0}},{'timestamps':!![]}),NetworkTestResponseModel=(0x0,mongoose_1[a17_0x527059(0xe8)])(a17_0x527059(0xed),schema);exports[a17_0x527059(0xde)]=NetworkTestResponseModel;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
+const schema = new mongoose_1.Schema({
+    networkTest: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "NetworkTest",
+        required: true,
+    },
+    computer: { type: mongoose_1.Schema.Types.ObjectId, ref: "Computer", required: true },
+    loggedInAt: Date,
+    endedAt: Date,
+    ipAddress: String,
+    responses: { type: Number, default: 0 },
+    timeLeft: Number,
+    status: String,
+    networkLosses: { type: Number, default: 0 },
+}, { timestamps: true });
+const NetworkTestResponseModel = (0, mongoose_1.model)("NetworkTestResponse", schema);
+exports.default = NetworkTestResponseModel;

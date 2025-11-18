@@ -1,1 +1,12 @@
-'use strict';const a18_0x4d9da0=a18_0x472a;(function(_0x3c02f1,_0x3ebf56){const _0x2beeb4=a18_0x472a,_0x40bea5=_0x3c02f1();while(!![]){try{const _0x4160bb=-parseInt(_0x2beeb4(0x1c0))/0x1+parseInt(_0x2beeb4(0x1be))/0x2+-parseInt(_0x2beeb4(0x1bd))/0x3+-parseInt(_0x2beeb4(0x1c6))/0x4+parseInt(_0x2beeb4(0x1c2))/0x5+parseInt(_0x2beeb4(0x1cb))/0x6+parseInt(_0x2beeb4(0x1c8))/0x7*(parseInt(_0x2beeb4(0x1bf))/0x8);if(_0x4160bb===_0x3ebf56)break;else _0x40bea5['push'](_0x40bea5['shift']());}catch(_0x1f47c7){_0x40bea5['push'](_0x40bea5['shift']());}}}(a18_0x4a82,0x7b09c));Object['defineProperty'](exports,a18_0x4d9da0(0x1c5),{'value':!![]});function a18_0x472a(_0x291439,_0x3dff71){const _0x4a82f2=a18_0x4a82();return a18_0x472a=function(_0x472ac4,_0x58278f){_0x472ac4=_0x472ac4-0x1bd;let _0x279403=_0x4a82f2[_0x472ac4];return _0x279403;},a18_0x472a(_0x291439,_0x3dff71);}const express_1=require('express'),auth_1=require(a18_0x4d9da0(0x1c3)),computerRouter_1=require('./computerRouter'),networkTestRouter_1=require(a18_0x4d9da0(0x1c4)),appRouter=(0x0,express_1['Router'])();function a18_0x4a82(){const _0x4a140d=['__esModule','832188Holsam','default','7JdJeMo','/networktest','use','536940byQrnt','1580202HwLtlH','1839238QLbUAy','4194296KvYhYx','455389HCiVGG','authRouter','803690kQtCpx','./auth','./networkTestRouter'];a18_0x4a82=function(){return _0x4a140d;};return a18_0x4a82();}appRouter[a18_0x4d9da0(0x1ca)]('/auth',auth_1[a18_0x4d9da0(0x1c1)])[a18_0x4d9da0(0x1ca)]('/computer',computerRouter_1['computerRouter'])[a18_0x4d9da0(0x1ca)](a18_0x4d9da0(0x1c9),networkTestRouter_1['networkTestRouter']),exports[a18_0x4d9da0(0x1c7)]=appRouter;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_1 = require("./auth");
+const computerRouter_1 = require("./computerRouter");
+const networkTestRouter_1 = require("./networkTestRouter");
+const appRouter = (0, express_1.Router)();
+appRouter
+    .use("/auth", auth_1.authRouter)
+    .use("/computer", computerRouter_1.computerRouter)
+    .use("/networktest", networkTestRouter_1.networkTestRouter);
+exports.default = appRouter;

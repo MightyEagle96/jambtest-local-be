@@ -1,1 +1,151 @@
-'use strict';function a5_0x3c8b(_0xde76d6,_0x53b56f){const _0x4a349d=a5_0x4a34();return a5_0x3c8b=function(_0x3c8bc7,_0x4b57d0){_0x3c8bc7=_0x3c8bc7-0x1c6;let _0x3684b9=_0x4a349d[_0x3c8bc7];return _0x3684b9;},a5_0x3c8b(_0xde76d6,_0x53b56f);}const a5_0x1fc4fa=a5_0x3c8b;(function(_0x2e7b85,_0x10d28a){const _0x5c9c12=a5_0x3c8b,_0x1aaad5=_0x2e7b85();while(!![]){try{const _0x311bb8=-parseInt(_0x5c9c12(0x1e0))/0x1+-parseInt(_0x5c9c12(0x1e8))/0x2+-parseInt(_0x5c9c12(0x1e1))/0x3+parseInt(_0x5c9c12(0x1cf))/0x4*(-parseInt(_0x5c9c12(0x1dd))/0x5)+-parseInt(_0x5c9c12(0x1d6))/0x6*(-parseInt(_0x5c9c12(0x1d3))/0x7)+-parseInt(_0x5c9c12(0x1e3))/0x8+parseInt(_0x5c9c12(0x1e4))/0x9*(parseInt(_0x5c9c12(0x1ef))/0xa);if(_0x311bb8===_0x10d28a)break;else _0x1aaad5['push'](_0x1aaad5['shift']());}catch(_0x302a10){_0x1aaad5['push'](_0x1aaad5['shift']());}}}(a5_0x4a34,0xb64d1));var __awaiter=this&&this['__awaiter']||function(_0xc5efc6,_0x22533f,_0x1804a0,_0x15959f){function _0x20af8a(_0x1f0ce5){return _0x1f0ce5 instanceof _0x1804a0?_0x1f0ce5:new _0x1804a0(function(_0x135f2f){_0x135f2f(_0x1f0ce5);});}return new(_0x1804a0||(_0x1804a0=Promise))(function(_0x3ae74e,_0x2de865){const _0x24bb19=a5_0x3c8b;function _0x5812fd(_0x2b5646){const _0x31d223=a5_0x3c8b;try{_0x5d9a2f(_0x15959f[_0x31d223(0x1cd)](_0x2b5646));}catch(_0xd4a380){_0x2de865(_0xd4a380);}}function _0x5220d0(_0x4eacdd){const _0x4b2496=a5_0x3c8b;try{_0x5d9a2f(_0x15959f[_0x4b2496(0x1c8)](_0x4eacdd));}catch(_0x40a5e3){_0x2de865(_0x40a5e3);}}function _0x5d9a2f(_0x512898){const _0x274d41=a5_0x3c8b;_0x512898[_0x274d41(0x1f1)]?_0x3ae74e(_0x512898[_0x274d41(0x1e9)]):_0x20af8a(_0x512898['value'])[_0x274d41(0x1ed)](_0x5812fd,_0x5220d0);}_0x5d9a2f((_0x15959f=_0x15959f[_0x24bb19(0x1de)](_0xc5efc6,_0x22533f||[]))['next']());});};Object[a5_0x1fc4fa(0x1e6)](exports,'__esModule',{'value':!![]}),exports[a5_0x1fc4fa(0x1c7)]=exports[a5_0x1fc4fa(0x1dc)]=void 0x0;class AsyncQueue{constructor(){this['queue']=[],this['isRunning']=![];}[a5_0x1fc4fa(0x1eb)](_0x424bf4){const _0x49bd31=a5_0x1fc4fa;this[_0x49bd31(0x1ce)][_0x49bd31(0x1eb)](_0x424bf4),!this[_0x49bd31(0x1ec)]&&this['run']();}[a5_0x1fc4fa(0x1d1)](){return __awaiter(this,void 0x0,void 0x0,function*(){const _0xd2a094=a5_0x3c8b;this[_0xd2a094(0x1ec)]=!![];while(this[_0xd2a094(0x1ce)][_0xd2a094(0x1ee)]>0x0){const _0xf54048=this[_0xd2a094(0x1ce)][_0xd2a094(0x1c9)]();_0xf54048&&(yield _0xf54048());}this[_0xd2a094(0x1ec)]=![];});}[a5_0x1fc4fa(0x1c6)](){return __awaiter(this,void 0x0,void 0x0,function*(){const _0x268f58=a5_0x3c8b;while(this[_0x268f58(0x1ce)][_0x268f58(0x1ee)]>0x0){const _0x274cc7=this[_0x268f58(0x1ce)][_0x268f58(0x1c9)]();_0x274cc7&&(yield _0x274cc7());}});}get[a5_0x1fc4fa(0x1ee)](){const _0x4ad40a=a5_0x1fc4fa;return this[_0x4ad40a(0x1ce)][_0x4ad40a(0x1ee)];}get[a5_0x1fc4fa(0x1cb)](){const _0x98e72b=a5_0x1fc4fa;return this[_0x98e72b(0x1ce)]['length']===0x0;}}exports['AsyncQueue']=AsyncQueue;class ConcurrentJobQueue{constructor(_0x533d5d){const _0x2c1a7b=a5_0x1fc4fa;var _0x4ba6ab,_0x4e8013,_0xba8af0,_0x3593b4;this[_0x2c1a7b(0x1ce)]=[],this[_0x2c1a7b(0x1d0)]=0x0,this[_0x2c1a7b(0x1d2)]=![],this[_0x2c1a7b(0x1d8)]=_0x533d5d[_0x2c1a7b(0x1d8)],this['maxQueueSize']=(_0x4ba6ab=_0x533d5d['maxQueueSize'])!==null&&_0x4ba6ab!==void 0x0?_0x4ba6ab:Infinity,this['retries']=(_0x4e8013=_0x533d5d[_0x2c1a7b(0x1e7)])!==null&&_0x4e8013!==void 0x0?_0x4e8013:0x0,this[_0x2c1a7b(0x1ea)]=(_0xba8af0=_0x533d5d[_0x2c1a7b(0x1ea)])!==null&&_0xba8af0!==void 0x0?_0xba8af0:0x0,this['shutdownTimeout']=(_0x3593b4=_0x533d5d[_0x2c1a7b(0x1cc)])!==null&&_0x3593b4!==void 0x0?_0x3593b4:0x7530;}[a5_0x1fc4fa(0x1df)](_0x45826d){return new Promise((_0x345afb,_0x38a041)=>{const _0xc7c56f=a5_0x3c8b;if(this[_0xc7c56f(0x1d2)]){_0x38a041(new Error(_0xc7c56f(0x1db)));return;}if(this[_0xc7c56f(0x1ce)]['length']>=this[_0xc7c56f(0x1d5)]){_0x38a041(new Error(_0xc7c56f(0x1e2)));return;}const _0x282340=()=>__awaiter(this,void 0x0,void 0x0,function*(){const _0x4482ab=_0xc7c56f;try{const _0x440bdc=yield this['executeWithRetry'](_0x45826d);_0x345afb(_0x440bdc);}catch(_0x9bcbd1){_0x38a041(_0x9bcbd1);}finally{this[_0x4482ab(0x1d0)]--,this[_0x4482ab(0x1f0)]();}});this[_0xc7c56f(0x1ce)]['push'](_0x282340),this[_0xc7c56f(0x1f0)]();});}[a5_0x1fc4fa(0x1e5)](_0x341c5d){return __awaiter(this,void 0x0,void 0x0,function*(){const _0x354bfe=a5_0x3c8b;let _0x5dbecf;for(let _0x5783a4=0x0;_0x5783a4<=this[_0x354bfe(0x1e7)];_0x5783a4++){try{return yield _0x341c5d();}catch(_0x331f9f){_0x5dbecf=_0x331f9f,_0x5783a4<this[_0x354bfe(0x1e7)]&&(yield new Promise(_0x1b2a07=>setTimeout(_0x1b2a07,this[_0x354bfe(0x1ea)])));}}throw _0x5dbecf;});}[a5_0x1fc4fa(0x1f0)](){const _0x522fb1=a5_0x1fc4fa;while(this[_0x522fb1(0x1d0)]<this[_0x522fb1(0x1d8)]&&this[_0x522fb1(0x1ce)][_0x522fb1(0x1ee)]>0x0){const _0x584405=this[_0x522fb1(0x1ce)][_0x522fb1(0x1c9)]();_0x584405&&(this[_0x522fb1(0x1d0)]++,_0x584405());}}get['activeCount'](){return this['running'];}get['pendingCount'](){const _0x53d490=a5_0x1fc4fa;return this['queue'][_0x53d490(0x1ee)];}[a5_0x1fc4fa(0x1da)](){return __awaiter(this,void 0x0,void 0x0,function*(){return this['shuttingDown']=!![],new Promise(_0x4b4fa5=>{const _0x5a5f5c=a5_0x3c8b,_0x57053d=Date[_0x5a5f5c(0x1d4)](),_0x46a86d=()=>{const _0x40c6f5=_0x5a5f5c,_0x56dd15=Date[_0x40c6f5(0x1d4)]()-_0x57053d;if(this[_0x40c6f5(0x1d0)]===0x0&&this[_0x40c6f5(0x1ce)][_0x40c6f5(0x1ee)]===0x0)_0x4b4fa5();else _0x56dd15>=this[_0x40c6f5(0x1cc)]?(console[_0x40c6f5(0x1d9)](_0x40c6f5(0x1ca)+this[_0x40c6f5(0x1cc)]+_0x40c6f5(0x1d7)),_0x4b4fa5()):setTimeout(_0x46a86d,0xc8);};_0x46a86d();});});}}function a5_0x4a34(){const _0x590db6=['shift','⚠️\x20Queue\x20shutdown\x20timeout\x20reached\x20(','isIdle','shutdownTimeout','next','queue','28rAglXr','running','run','shuttingDown','7RiRIft','now','maxQueueSize','3730134hwqhwj','ms).\x20Forcing\x20exit.','concurrency','warn','shutdown','Queue\x20is\x20shutting\x20down.\x20No\x20new\x20jobs\x20accepted.','AsyncQueue','563045CeqYbV','apply','enqueue','205316MaECgB','2172240CWjOWa','Queue\x20is\x20full.\x20Try\x20again\x20later.','7292896wInqtD','9okARBs','executeWithRetry','defineProperty','retries','2107740QstTRf','value','retryDelay','push','isRunning','then','length','38081570hKfDbr','runNext','done','flush','ConcurrentJobQueue','throw'];a5_0x4a34=function(){return _0x590db6;};return a5_0x4a34();}exports[a5_0x1fc4fa(0x1c7)]=ConcurrentJobQueue;
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConcurrentJobQueue = exports.AsyncQueue = void 0;
+class AsyncQueue {
+    constructor() {
+        this.queue = [];
+        this.isRunning = false;
+    }
+    push(job) {
+        this.queue.push(job);
+        if (!this.isRunning) {
+            this.run();
+        }
+    }
+    run() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.isRunning = true;
+            while (this.queue.length > 0) {
+                const job = this.queue.shift();
+                if (job) {
+                    yield job();
+                }
+            }
+            this.isRunning = false;
+        });
+    }
+    flush() {
+        return __awaiter(this, void 0, void 0, function* () {
+            while (this.queue.length > 0) {
+                const job = this.queue.shift();
+                if (job) {
+                    yield job();
+                }
+            }
+        });
+    }
+    get length() {
+        return this.queue.length;
+    }
+    get isIdle() {
+        return this.queue.length === 0;
+    }
+}
+exports.AsyncQueue = AsyncQueue;
+class ConcurrentJobQueue {
+    constructor(options) {
+        var _a, _b, _c, _d;
+        this.queue = [];
+        this.running = 0;
+        this.shuttingDown = false;
+        this.concurrency = options.concurrency;
+        this.maxQueueSize = (_a = options.maxQueueSize) !== null && _a !== void 0 ? _a : Infinity;
+        this.retries = (_b = options.retries) !== null && _b !== void 0 ? _b : 0;
+        this.retryDelay = (_c = options.retryDelay) !== null && _c !== void 0 ? _c : 0;
+        this.shutdownTimeout = (_d = options.shutdownTimeout) !== null && _d !== void 0 ? _d : 30000; // default 30s
+    }
+    enqueue(job) {
+        return new Promise((resolve, reject) => {
+            if (this.shuttingDown) {
+                reject(new Error("Queue is shutting down. No new jobs accepted."));
+                return;
+            }
+            if (this.queue.length >= this.maxQueueSize) {
+                reject(new Error("Queue is full. Try again later."));
+                return;
+            }
+            const wrappedJob = () => __awaiter(this, void 0, void 0, function* () {
+                try {
+                    const result = yield this.executeWithRetry(job);
+                    resolve(result);
+                }
+                catch (err) {
+                    reject(err);
+                }
+                finally {
+                    this.running--;
+                    this.runNext();
+                }
+            });
+            this.queue.push(wrappedJob);
+            this.runNext();
+        });
+    }
+    executeWithRetry(job) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let lastError;
+            for (let i = 0; i <= this.retries; i++) {
+                try {
+                    return yield job();
+                }
+                catch (err) {
+                    lastError = err;
+                    if (i < this.retries) {
+                        yield new Promise((res) => setTimeout(res, this.retryDelay));
+                    }
+                }
+            }
+            throw lastError;
+        });
+    }
+    runNext() {
+        while (this.running < this.concurrency && this.queue.length > 0) {
+            const job = this.queue.shift();
+            if (job) {
+                this.running++;
+                job();
+            }
+        }
+    }
+    /** Number of jobs currently running */
+    get activeCount() {
+        return this.running;
+    }
+    /** Number of jobs waiting in the queue */
+    get pendingCount() {
+        return this.queue.length;
+    }
+    /** Graceful shutdown: wait for all running + queued jobs to finish, with timeout */
+    shutdown() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.shuttingDown = true;
+            return new Promise((resolve) => {
+                const start = Date.now();
+                const check = () => {
+                    const elapsed = Date.now() - start;
+                    if (this.running === 0 && this.queue.length === 0) {
+                        resolve();
+                    }
+                    else if (elapsed >= this.shutdownTimeout) {
+                        console.warn(`⚠️ Queue shutdown timeout reached (${this.shutdownTimeout}ms). Forcing exit.`);
+                        resolve();
+                    }
+                    else {
+                        setTimeout(check, 200); // check every 200ms
+                    }
+                };
+                check();
+            });
+        });
+    }
+}
+exports.ConcurrentJobQueue = ConcurrentJobQueue;
