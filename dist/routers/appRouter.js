@@ -1,12 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const auth_1 = require("./auth");
-const computerRouter_1 = require("./computerRouter");
-const networkTestRouter_1 = require("./networkTestRouter");
-const appRouter = (0, express_1.Router)();
-appRouter
-    .use("/auth", auth_1.authRouter)
-    .use("/computer", computerRouter_1.computerRouter)
-    .use("/networktest", networkTestRouter_1.networkTestRouter);
-exports.default = appRouter;
+'use strict';const a19_0x118a3e=a19_0x5a41;(function(_0x14ae17,_0xf4e52c){const _0x2c9061=a19_0x5a41,_0x6a68ba=_0x14ae17();while(!![]){try{const _0x56c1d8=parseInt(_0x2c9061(0x1f8))/0x1+-parseInt(_0x2c9061(0x1f3))/0x2+parseInt(_0x2c9061(0x1fa))/0x3*(parseInt(_0x2c9061(0x200))/0x4)+-parseInt(_0x2c9061(0x1f4))/0x5+-parseInt(_0x2c9061(0x1f2))/0x6+-parseInt(_0x2c9061(0x201))/0x7+parseInt(_0x2c9061(0x1ee))/0x8*(parseInt(_0x2c9061(0x1fb))/0x9);if(_0x56c1d8===_0xf4e52c)break;else _0x6a68ba['push'](_0x6a68ba['shift']());}catch(_0x3f6f37){_0x6a68ba['push'](_0x6a68ba['shift']());}}}(a19_0x469e,0x43118));Object[a19_0x118a3e(0x1ed)](exports,a19_0x118a3e(0x1f0),{'value':!![]});function a19_0x5a41(_0x2183ca,_0xa34da){const _0x469e27=a19_0x469e();return a19_0x5a41=function(_0x5a4154,_0x40b45d){_0x5a4154=_0x5a4154-0x1ec;let _0x52a5de=_0x469e27[_0x5a4154];return _0x52a5de;},a19_0x5a41(_0x2183ca,_0xa34da);}const express_1=require(a19_0x118a3e(0x1f9)),auth_1=require(a19_0x118a3e(0x1ef)),computerRouter_1=require('./computerRouter'),networkTestRouter_1=require(a19_0x118a3e(0x1f1)),appRouter=(0x0,express_1[a19_0x118a3e(0x1f5)])();appRouter[a19_0x118a3e(0x1fc)](a19_0x118a3e(0x1f7),auth_1[a19_0x118a3e(0x1fd)])['use'](a19_0x118a3e(0x1f6),computerRouter_1[a19_0x118a3e(0x1ec)])[a19_0x118a3e(0x1fc)](a19_0x118a3e(0x1fe),networkTestRouter_1['networkTestRouter']),exports[a19_0x118a3e(0x1ff)]=appRouter;function a19_0x469e(){const _0x369863=['./networkTestRouter','1717008jKpcaW','815308scaFGj','2675415WosEMb','Router','/computer','/auth','354779gnlpnV','express','9HflCNg','12372327xpSxwU','use','authRouter','/networktest','default','341900wVmClU','3376030dKrtyG','computerRouter','defineProperty','8RmELsT','./auth','__esModule'];a19_0x469e=function(){return _0x369863;};return a19_0x469e();}

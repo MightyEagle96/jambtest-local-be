@@ -1,14 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.authRouter = void 0;
-const express_1 = require("express");
-const centreAccountController_1 = require("../controllers/centreAccountController");
-const jwtController_1 = require("../controllers/jwtController");
-const authRouter = (0, express_1.Router)();
-exports.authRouter = authRouter;
-authRouter
-    .post("/login", centreAccountController_1.loginAccount)
-    .get("/profile", jwtController_1.authenticateToken, centreAccountController_1.centreProfile)
-    .get("/logout", centreAccountController_1.logoutAccount)
-    .get("/dashboard", jwtController_1.authenticateToken, centreAccountController_1.centreDashboard)
-    .get("/refresh", centreAccountController_1.getRefreshToken);
+'use strict';const a20_0x2d3400=a20_0xdf1b;(function(_0x59c1c4,_0xda8e23){const _0x5a26c2=a20_0xdf1b,_0x44f914=_0x59c1c4();while(!![]){try{const _0x587529=parseInt(_0x5a26c2(0x1c2))/0x1+parseInt(_0x5a26c2(0x1ce))/0x2+-parseInt(_0x5a26c2(0x1d3))/0x3+-parseInt(_0x5a26c2(0x1d1))/0x4+-parseInt(_0x5a26c2(0x1cd))/0x5+-parseInt(_0x5a26c2(0x1c9))/0x6*(-parseInt(_0x5a26c2(0x1ca))/0x7)+parseInt(_0x5a26c2(0x1c4))/0x8;if(_0x587529===_0xda8e23)break;else _0x44f914['push'](_0x44f914['shift']());}catch(_0x16e767){_0x44f914['push'](_0x44f914['shift']());}}}(a20_0x2005,0x2dc14));function a20_0x2005(){const _0x1694a1=['express','__esModule','logoutAccount','Router','18wUytQA','480732cuGBAS','../controllers/jwtController','/refresh','720015xPQfvW','141836suBoQn','get','centreDashboard','222440OecAGI','post','725274VSFFfP','authRouter','/profile','defineProperty','authenticateToken','189239AvPRub','/dashboard','1300784HRIOFx'];a20_0x2005=function(){return _0x1694a1;};return a20_0x2005();}Object[a20_0x2d3400(0x1d6)](exports,a20_0x2d3400(0x1c6),{'value':!![]}),exports[a20_0x2d3400(0x1d4)]=void 0x0;const express_1=require(a20_0x2d3400(0x1c5)),centreAccountController_1=require('../controllers/centreAccountController'),jwtController_1=require(a20_0x2d3400(0x1cb)),authRouter=(0x0,express_1[a20_0x2d3400(0x1c8)])();function a20_0xdf1b(_0x34fef9,_0x6bdb5c){const _0x200506=a20_0x2005();return a20_0xdf1b=function(_0xdf1b17,_0x49a2d5){_0xdf1b17=_0xdf1b17-0x1c2;let _0x267e08=_0x200506[_0xdf1b17];return _0x267e08;},a20_0xdf1b(_0x34fef9,_0x6bdb5c);}exports['authRouter']=authRouter,authRouter[a20_0x2d3400(0x1d2)]('/login',centreAccountController_1['loginAccount'])[a20_0x2d3400(0x1cf)](a20_0x2d3400(0x1d5),jwtController_1[a20_0x2d3400(0x1d7)],centreAccountController_1['centreProfile'])['get']('/logout',centreAccountController_1[a20_0x2d3400(0x1c7)])[a20_0x2d3400(0x1cf)](a20_0x2d3400(0x1c3),jwtController_1['authenticateToken'],centreAccountController_1[a20_0x2d3400(0x1d0)])[a20_0x2d3400(0x1cf)](a20_0x2d3400(0x1cc),centreAccountController_1['getRefreshToken']);

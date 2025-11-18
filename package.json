@@ -7,7 +7,9 @@
     "dev": "cross-env NODE_ENV=development nodemon src/app.ts",
     "start": "cross-env NODE_ENV=production node dist/app.js",
     "build": "tsc -p .",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "obfuscate": "javascript-obfuscator dist --output dist",
+    "prod:build": "npm run build && npm run obfuscate"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +18,6 @@
     "axios": "^1.12.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "cross-env": "^10.1.0",
     "dotenv": "^17.2.3",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
@@ -33,6 +34,8 @@
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
-    "@types/ws": "^8.18.1"
+    "@types/ws": "^8.18.1",
+    "cross-env": "^10.1.0",
+    "javascript-obfuscator": "^4.1.1"
   }
 }

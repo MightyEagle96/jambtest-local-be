@@ -1,17 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.computerRouter = void 0;
-const express_1 = require("express");
-const registrationController_1 = require("../controllers/registrationController");
-const jwtController_1 = require("../controllers/jwtController");
-const computerRouter = (0, express_1.Router)();
-exports.computerRouter = computerRouter;
-computerRouter
-    .post("/register", registrationController_1.registerComputer)
-    .get("/view", registrationController_1.viewRegisteredComputers)
-    .post("/uploadcomputer", jwtController_1.authenticateToken, registrationController_1.uploadComputers)
-    .get("/infractionreports", jwtController_1.authenticateToken, registrationController_1.fetchInfractionReports)
-    .get("/getcomputers", jwtController_1.authenticateToken, registrationController_1.getComputers)
-    .delete("/delete/:id", registrationController_1.deleteComputer)
-    .get("/cleanedcomputers", registrationController_1.viewCleanedComputers)
-    .get("/viewcomputer/:id", registrationController_1.viewComputer);
+'use strict';const a21_0x412245=a21_0x4e0c;(function(_0x1673d3,_0x58a273){const _0x52c3bf=a21_0x4e0c,_0x593519=_0x1673d3();while(!![]){try{const _0x37ab23=-parseInt(_0x52c3bf(0xe6))/0x1*(parseInt(_0x52c3bf(0xea))/0x2)+-parseInt(_0x52c3bf(0xeb))/0x3*(-parseInt(_0x52c3bf(0xe1))/0x4)+parseInt(_0x52c3bf(0xf0))/0x5+parseInt(_0x52c3bf(0xe9))/0x6+-parseInt(_0x52c3bf(0xda))/0x7+parseInt(_0x52c3bf(0xf7))/0x8+parseInt(_0x52c3bf(0xe2))/0x9*(-parseInt(_0x52c3bf(0xed))/0xa);if(_0x37ab23===_0x58a273)break;else _0x593519['push'](_0x593519['shift']());}catch(_0x4903b3){_0x593519['push'](_0x593519['shift']());}}}(a21_0x4874,0x7677e));function a21_0x4e0c(_0x38210c,_0xf38f0){const _0x487451=a21_0x4874();return a21_0x4e0c=function(_0x4e0cf2,_0x535fbf){_0x4e0cf2=_0x4e0cf2-0xda;let _0x28acab=_0x487451[_0x4e0cf2];return _0x28acab;},a21_0x4e0c(_0x38210c,_0xf38f0);}Object['defineProperty'](exports,a21_0x412245(0xe3),{'value':!![]}),exports[a21_0x412245(0xdf)]=void 0x0;function a21_0x4874(){const _0x3d8a4b=['/register','viewCleanedComputers','6171080jdYuOQ','fetchInfractionReports','5759278WaUoTN','get','/cleanedcomputers','viewRegisteredComputers','uploadComputers','computerRouter','deleteComputer','9884PHlDEp','225LZcNaa','__esModule','/viewcomputer/:id','authenticateToken','1ZVRorR','/uploadcomputer','delete','4157106BhcLQN','966074AtrqKd','849LsDnaq','express','535860XCdssF','getComputers','/infractionreports','4835790rWaONY','/view','post','/delete/:id','viewComputer'];a21_0x4874=function(){return _0x3d8a4b;};return a21_0x4874();}const express_1=require(a21_0x412245(0xec)),registrationController_1=require('../controllers/registrationController'),jwtController_1=require('../controllers/jwtController'),computerRouter=(0x0,express_1['Router'])();exports[a21_0x412245(0xdf)]=computerRouter,computerRouter[a21_0x412245(0xf2)](a21_0x412245(0xf5),registrationController_1['registerComputer'])[a21_0x412245(0xdb)](a21_0x412245(0xf1),registrationController_1[a21_0x412245(0xdd)])[a21_0x412245(0xf2)](a21_0x412245(0xe7),jwtController_1[a21_0x412245(0xe5)],registrationController_1[a21_0x412245(0xde)])['get'](a21_0x412245(0xef),jwtController_1[a21_0x412245(0xe5)],registrationController_1[a21_0x412245(0xf8)])[a21_0x412245(0xdb)]('/getcomputers',jwtController_1[a21_0x412245(0xe5)],registrationController_1[a21_0x412245(0xee)])[a21_0x412245(0xe8)](a21_0x412245(0xf3),registrationController_1[a21_0x412245(0xe0)])[a21_0x412245(0xdb)](a21_0x412245(0xdc),registrationController_1[a21_0x412245(0xf6)])[a21_0x412245(0xdb)](a21_0x412245(0xe4),registrationController_1[a21_0x412245(0xf4)]);

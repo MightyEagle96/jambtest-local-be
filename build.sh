@@ -2,7 +2,7 @@
 
 # build.sh
 echo "Running build..."
-npm run build
+npm run prod:build
 
 
 echo "Staging changes..."
