@@ -18,6 +18,7 @@ import {
   toggleActivation,
   uploadNetworkTest,
   networkPing,
+  retrieveNetworkTestSummary,
 } from "../controllers/networkTestControllerAdmin";
 import { authenticateToken } from "../controllers/jwtController";
 import { centreDetail } from "../controllers/centreAccountController";
@@ -45,6 +46,7 @@ networkTestRouter
 
   .use(authenticateToken)
   .post("/create", createNetworkTest)
+  .get("/testsummary", retrieveNetworkTestSummary)
   .get("/view", viewNetworkTests)
   .delete("/delete", deleteNetworkTest)
   .get("/upload", uploadNetworkTest);

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { httpService } from "../httpService";
-import { AuthenticatedCentre } from "../models/centreModel";
+import CentreModel, { AuthenticatedCentre } from "../models/centreModel";
 import NetworkTestModel, { INetworkTest } from "../models/networkTest";
 import NetworkTestResponseModel from "../models/networkTestResponse";
 import mongoose from "mongoose";
@@ -474,4 +474,45 @@ export const networkPing = async (req: Request, res: Response) => {
     return res.sendStatus(404);
   }
   res.send("pong");
+};
+
+export const retrieveNetworkTestSummary = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const networkTest = await NetworkTestModel.findById(req.query.id).lean();
+
+    if (!networkTest) {
+      return res.status(400).send("Test not found");
+    }
+
+    const centre = await CentreModel.findOne({}).lean();
+
+    if (!centre) {
+      return res.status(400).send("Centre not found");
+    }
+
+    const summary = {
+      testedComputers: networkTest.connectedComputers,
+      capacity: centre.CentreCapacity,
+      capacityMatched: networkTest.connectedComputers >= centre.CentreCapacity,
+      networkLosses: networkTest.totalNetworkLosses,
+      networkLossesThreshold: networkTest.totalNetworkLosses < 45,
+      duration: networkTest.duration,
+      durationMatched: networkTest.duration >= 60 * 60 * 1000,
+      responsesPercentage: networkTest.responseThroughput,
+      responsesPercentageMatched: Number(networkTest.responseThroughput) >= 90,
+
+      canUpload:
+        networkTest.connectedComputers >= centre.CentreCapacity &&
+        networkTest.totalNetworkLosses < 45 &&
+        networkTest.duration >= 60 * 60 * 1000 &&
+        Number(networkTest.responseThroughput) >= 90,
+    };
+
+    res.send(summary);
+  } catch (error) {
+    res.sendStatus(500);
+  }
 };
