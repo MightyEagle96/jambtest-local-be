@@ -9,7 +9,7 @@ echo ">>> Compressing build folder, bundle.js, and package.json into $ZIP_NAME..
 
 zip -r "$ZIP_NAME" \
   dist/build \
-  bundle.js \
+  dist/bundle.js \
   package.json
 
 echo ">>> Done!"
