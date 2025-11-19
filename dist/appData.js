@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConnectDatabase = ConnectDatabase;
 const mongoose_1 = __importDefault(require("mongoose"));
 const mongodb_memory_server_1 = require("mongodb-memory-server");
+const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 // dotenv.config();
 // const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/jambtest";
 // const ConnectDatabase = () => {
@@ -34,6 +36,11 @@ const mongodb_memory_server_1 = require("mongodb-memory-server");
 // };
 function ConnectDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
+        const dbPath = path_1.default.join(process.cwd(), "db");
+        // Ensure directory exists
+        if (!fs_1.default.existsSync(dbPath)) {
+            fs_1.default.mkdirSync(dbPath, { recursive: true });
+        }
         const mongoServer = yield mongodb_memory_server_1.MongoMemoryServer.create({
             instance: {
                 ip: "127.0.0.1",

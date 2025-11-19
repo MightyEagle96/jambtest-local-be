@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { MongoMemoryServer } from "mongodb-memory-server";
+import fs from "fs";
+import path from "path";
 
 // dotenv.config();
 
@@ -23,6 +25,12 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 // };
 
 async function ConnectDatabase() {
+  const dbPath = path.join(process.cwd(), "db");
+
+  // Ensure directory exists
+  if (!fs.existsSync(dbPath)) {
+    fs.mkdirSync(dbPath, { recursive: true });
+  }
   const mongoServer = await MongoMemoryServer.create({
     instance: {
       ip: "127.0.0.1",
