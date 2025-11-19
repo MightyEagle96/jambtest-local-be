@@ -27,6 +27,8 @@ async function ConnectDatabase() {
     instance: {
       ip: "127.0.0.1",
       port: 0, // random port
+      dbPath: "./db",
+      storageEngine: "wiredTiger",
     },
   });
 
