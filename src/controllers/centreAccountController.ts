@@ -11,17 +11,20 @@ import ComputerModel from "../models/computerModel";
 import NetworkTestModel from "../models/networkTest";
 
 import mongoose from "mongoose";
+import NetworkTestResponseModel from "../models/networkTestResponse";
 
 export const loginAccount = async (req: Request, res: Response) => {
   try {
     const response = await httpService.post("centre/login", req.body);
 
     if (response.status !== 200)
-      return res
-        .clearCookie("accessToken")
-        .clearCookie("refreshToken")
-        .status(response.status)
-        .send(response.data);
+      return (
+        res
+          // .clearCookie("accessToken")
+          // .clearCookie("refreshToken")
+          .status(response.status)
+          .send(response.data)
+      );
 
     const { centre, computers, networkTests } = response.data;
 
@@ -66,7 +69,12 @@ export const loginAccount = async (req: Request, res: Response) => {
 };
 
 export const logoutAccount = async (req: Request, res: Response) => {
-  await Promise.all([CentreModel.deleteMany(), ComputerModel.deleteMany()]);
+  await Promise.all([
+    CentreModel.deleteMany(),
+    ComputerModel.deleteMany(),
+    NetworkTestModel.deleteMany(),
+    NetworkTestResponseModel.deleteMany(),
+  ]);
 
   res.clearCookie("accessToken").clearCookie("refreshToken").send("Success");
 };

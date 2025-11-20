@@ -19,15 +19,16 @@ const jwtController_1 = require("./jwtController");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
 const networkTest_1 = __importDefault(require("../models/networkTest"));
+const networkTestResponse_1 = __importDefault(require("../models/networkTestResponse"));
 const loginAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const response = yield httpService_1.httpService.post("centre/login", req.body);
         if (response.status !== 200)
-            return res
-                .clearCookie("accessToken")
-                .clearCookie("refreshToken")
+            return (res
+                // .clearCookie("accessToken")
+                // .clearCookie("refreshToken")
                 .status(response.status)
-                .send(response.data);
+                .send(response.data));
         const { centre, computers, networkTests } = response.data;
         // Defensive check
         if (!centre || !computers || !networkTests)
@@ -67,7 +68,12 @@ const loginAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.loginAccount = loginAccount;
 const logoutAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield Promise.all([centreModel_1.default.deleteMany(), computerModel_1.default.deleteMany()]);
+    yield Promise.all([
+        centreModel_1.default.deleteMany(),
+        computerModel_1.default.deleteMany(),
+        networkTest_1.default.deleteMany(),
+        networkTestResponse_1.default.deleteMany(),
+    ]);
     res.clearCookie("accessToken").clearCookie("refreshToken").send("Success");
 });
 exports.logoutAccount = logoutAccount;
