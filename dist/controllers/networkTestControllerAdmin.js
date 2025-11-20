@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.disconnectedAndComputersWithNetworkLosses = exports.retrieveNetworkTestSummary = exports.networkPing = exports.uploadNetworkTest = exports.computerListUnderNetworkTest = exports.networkTestDashboard = exports.endNetworkTestForAdmin = exports.toggleActivation = exports.deleteNetworkTest = exports.viewNetworkTests = exports.createNetworkTest = void 0;
+exports.disconnectedAndComputersWithNetworkLosses = exports.retrieveNetworkTestSummary = exports.networkPing = exports.uploadNetworkTest = exports.computerListUnderNetworkTest = exports.networkTestDashboard = exports.endNetworkTestForAdmin = exports.toggleActivation = exports.deleteNetworkTest = exports.viewNetworkTests = exports.createNetworkTest = exports.activeTestIntervals = void 0;
 const httpService_1 = require("../httpService");
 const centreModel_1 = __importDefault(require("../models/centreModel"));
 const networkTest_1 = __importDefault(require("../models/networkTest"));
@@ -20,7 +20,7 @@ const networkTestResponse_1 = __importDefault(require("../models/networkTestResp
 const mongoose_1 = __importDefault(require("mongoose"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
 const generateId_1 = require("./generateId");
-const activeTestIntervals = new Map();
+exports.activeTestIntervals = new Map();
 const checkLastActive = (networkTest) => __awaiter(void 0, void 0, void 0, function* () {
     // Find computers not updated in the last 1 minute
     const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
@@ -97,10 +97,10 @@ const deleteNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, functi
             return res.status(400).send("Please end this test before you delete it");
         }
         // Clear the interval for this test, if it exists
-        const intervalId = activeTestIntervals.get(testId);
+        const intervalId = exports.activeTestIntervals.get(testId);
         if (intervalId) {
             clearInterval(intervalId);
-            activeTestIntervals.delete(testId);
+            exports.activeTestIntervals.delete(testId);
         }
         yield networkTest_1.default.findByIdAndDelete(testId);
         yield networkTestResponse_1.default.deleteMany({ networkTest: testId });
@@ -133,10 +133,10 @@ const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, functio
             if (!test.ended) {
                 return res.status(400).send("Cannot deactivate — test not ended yet.");
             }
-            const intervalId = activeTestIntervals.get(testId);
+            const intervalId = exports.activeTestIntervals.get(testId);
             if (intervalId) {
                 clearInterval(intervalId);
-                activeTestIntervals.delete(testId);
+                exports.activeTestIntervals.delete(testId);
             }
             test.active = false;
             test.ended = true;
@@ -155,9 +155,9 @@ const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 .send("Another test is currently active and not yet ended.");
         }
         // Clear any residual interval (safety)
-        if (activeTestIntervals.has(testId)) {
-            clearInterval(activeTestIntervals.get(testId));
-            activeTestIntervals.delete(testId);
+        if (exports.activeTestIntervals.has(testId)) {
+            clearInterval(exports.activeTestIntervals.get(testId));
+            exports.activeTestIntervals.delete(testId);
         }
         yield networkTest_1.default.updateOne({ _id: testId }, { $set: { active: true, ended: false, timeActivated: new Date() } });
         test.active = true;
@@ -168,7 +168,7 @@ const toggleActivation = (req, res) => __awaiter(void 0, void 0, void 0, functio
             checkLastActive(testId);
             console.log(`[${new Date().toISOString()}] Background check for ${testId}`);
         }, 10 * 1000);
-        activeTestIntervals.set(testId, intervalId);
+        exports.activeTestIntervals.set(testId, intervalId);
         return res.send("Test activated successfully.");
     }
     catch (error) {
@@ -186,10 +186,10 @@ const endNetworkTestForAdmin = (req, res) => __awaiter(void 0, void 0, void 0, f
             return res.status(404).send("Test not found"); // Updated to 404 for consistency
         }
         // Clear the interval for this test, if it exists
-        const intervalId = activeTestIntervals.get(testId);
+        const intervalId = exports.activeTestIntervals.get(testId);
         if (intervalId) {
             clearInterval(intervalId);
-            activeTestIntervals.delete(testId);
+            exports.activeTestIntervals.delete(testId);
         }
         const [totalComputers, connected, computersWithNetworkLosses, totalNetworkLosses, ended, disconnected, totalResponses,] = yield Promise.all([
             networkTestResponse_1.default.countDocuments({

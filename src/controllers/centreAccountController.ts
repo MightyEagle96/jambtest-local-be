@@ -12,6 +12,7 @@ import NetworkTestModel from "../models/networkTest";
 
 import mongoose from "mongoose";
 import NetworkTestResponseModel from "../models/networkTestResponse";
+import { activeTestIntervals } from "./networkTestControllerAdmin";
 
 export const loginAccount = async (req: Request, res: Response) => {
   try {
@@ -48,6 +49,14 @@ export const loginAccount = async (req: Request, res: Response) => {
     const accessToken = generateAccessToken({ ...centre, role: "admin" });
     const refreshToken = generateRefreshToken({ ...centre, role: "admin" });
 
+    for (const interval of activeTestIntervals.values()) {
+      clearInterval(interval);
+    }
+
+    activeTestIntervals.clear();
+
+    console.log("Intervals flushed");
+
     res
       .cookie("accessToken", accessToken, {
         httpOnly: false,
@@ -75,6 +84,14 @@ export const logoutAccount = async (req: Request, res: Response) => {
     NetworkTestModel.deleteMany(),
     NetworkTestResponseModel.deleteMany(),
   ]);
+
+  for (const interval of activeTestIntervals.values()) {
+    clearInterval(interval);
+  }
+
+  activeTestIntervals.clear();
+
+  console.log("Intervals flushed");
 
   res.clearCookie("accessToken").clearCookie("refreshToken").send("Success");
 };

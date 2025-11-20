@@ -9,7 +9,7 @@ import ComputerModel from "../models/computerModel";
 import { generateId } from "./generateId";
 import { timeEnd } from "console";
 
-const activeTestIntervals = new Map<string, NodeJS.Timeout>();
+export const activeTestIntervals = new Map<string, NodeJS.Timeout>();
 
 const checkLastActive = async (networkTest: any) => {
   // Find computers not updated in the last 1 minute

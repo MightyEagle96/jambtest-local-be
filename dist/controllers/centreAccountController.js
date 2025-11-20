@@ -20,6 +20,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const computerModel_1 = __importDefault(require("../models/computerModel"));
 const networkTest_1 = __importDefault(require("../models/networkTest"));
 const networkTestResponse_1 = __importDefault(require("../models/networkTestResponse"));
+const networkTestControllerAdmin_1 = require("./networkTestControllerAdmin");
 const loginAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const response = yield httpService_1.httpService.post("centre/login", req.body);
@@ -46,6 +47,11 @@ const loginAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         // ✅ Issue tokens
         const accessToken = (0, jwtController_1.generateAccessToken)(Object.assign(Object.assign({}, centre), { role: "admin" }));
         const refreshToken = (0, jwtController_1.generateRefreshToken)(Object.assign(Object.assign({}, centre), { role: "admin" }));
+        for (const interval of networkTestControllerAdmin_1.activeTestIntervals.values()) {
+            clearInterval(interval);
+        }
+        networkTestControllerAdmin_1.activeTestIntervals.clear();
+        console.log("Intervals flushed");
         res
             .cookie("accessToken", accessToken, {
             httpOnly: false,
@@ -74,6 +80,11 @@ const logoutAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         networkTest_1.default.deleteMany(),
         networkTestResponse_1.default.deleteMany(),
     ]);
+    for (const interval of networkTestControllerAdmin_1.activeTestIntervals.values()) {
+        clearInterval(interval);
+    }
+    networkTestControllerAdmin_1.activeTestIntervals.clear();
+    console.log("Intervals flushed");
     res.clearCookie("accessToken").clearCookie("refreshToken").send("Success");
 });
 exports.logoutAccount = logoutAccount;
