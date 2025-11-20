@@ -525,3 +525,28 @@ export const retrieveNetworkTestSummary = async (
     res.sendStatus(500);
   }
 };
+
+export const disconnectedAndComputersWithNetworkLosses = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const disconnected = await NetworkTestResponseModel.find({
+      status: "disconnected",
+      networkTest: req.query.id,
+    })
+      .select({ ipAddress: 1 })
+      .lean();
+
+    const networkLosses = await NetworkTestResponseModel.find({
+      networkLosses: { $gt: 0 },
+      networkTest: req.query.id,
+    })
+      .select({ ipAddress: 1 })
+      .lean();
+
+    res.send({ disconnected, networkLosses });
+  } catch (error) {
+    res.sendStatus(500);
+  }
+};

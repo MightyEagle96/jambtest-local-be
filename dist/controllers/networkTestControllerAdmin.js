@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.retrieveNetworkTestSummary = exports.networkPing = exports.uploadNetworkTest = exports.computerListUnderNetworkTest = exports.networkTestDashboard = exports.endNetworkTestForAdmin = exports.toggleActivation = exports.deleteNetworkTest = exports.viewNetworkTests = exports.createNetworkTest = void 0;
+exports.disconnectedAndComputersWithNetworkLosses = exports.retrieveNetworkTestSummary = exports.networkPing = exports.uploadNetworkTest = exports.computerListUnderNetworkTest = exports.networkTestDashboard = exports.endNetworkTestForAdmin = exports.toggleActivation = exports.deleteNetworkTest = exports.viewNetworkTests = exports.createNetworkTest = void 0;
 const httpService_1 = require("../httpService");
 const centreModel_1 = __importDefault(require("../models/centreModel"));
 const networkTest_1 = __importDefault(require("../models/networkTest"));
@@ -422,3 +422,24 @@ const retrieveNetworkTestSummary = (req, res) => __awaiter(void 0, void 0, void 
     }
 });
 exports.retrieveNetworkTestSummary = retrieveNetworkTestSummary;
+const disconnectedAndComputersWithNetworkLosses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const disconnected = yield networkTestResponse_1.default.find({
+            status: "disconnected",
+            networkTest: req.query.id,
+        })
+            .select({ ipAddress: 1 })
+            .lean();
+        const networkLosses = yield networkTestResponse_1.default.find({
+            networkLosses: { $gt: 0 },
+            networkTest: req.query.id,
+        })
+            .select({ ipAddress: 1 })
+            .lean();
+        res.send({ disconnected, networkLosses });
+    }
+    catch (error) {
+        res.sendStatus(500);
+    }
+});
+exports.disconnectedAndComputersWithNetworkLosses = disconnectedAndComputersWithNetworkLosses;

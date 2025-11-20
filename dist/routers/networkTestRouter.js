@@ -26,6 +26,7 @@ networkTestRouter
     .use(jwtController_1.authenticateToken)
     .post("/create", networkTestControllerAdmin_1.createNetworkTest)
     .get("/testsummary", networkTestControllerAdmin_1.retrieveNetworkTestSummary)
+    .get("/disconnectedandcomputerswithnetworklosses", networkTestControllerAdmin_1.disconnectedAndComputersWithNetworkLosses)
     .get("/view", networkTestControllerAdmin_1.viewNetworkTests)
     .delete("/delete", networkTestControllerAdmin_1.deleteNetworkTest)
     .get("/upload", networkTestControllerAdmin_1.uploadNetworkTest);
