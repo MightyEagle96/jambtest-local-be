@@ -38,13 +38,6 @@ export const createNetworkTest = async (
    * Check for not uploaded test
    */
 
-  const notUploadedTest = await NetworkTestModel.findOne({
-    status: { $ne: "uploaded" },
-  });
-  if (notUploadedTest) {
-    return res.status(400).send("A test is yet to be uploaded");
-  }
-
   const [computers, uploadedComputers] = await Promise.all([
     ComputerModel.countDocuments(),
     ComputerModel.countDocuments({ status: "uploaded" }),

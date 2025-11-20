@@ -42,12 +42,6 @@ const createNetworkTest = (req, res) => __awaiter(void 0, void 0, void 0, functi
      * Check for not uploaded test
      */
     var _a;
-    const notUploadedTest = yield networkTest_1.default.findOne({
-        status: { $ne: "uploaded" },
-    });
-    if (notUploadedTest) {
-        return res.status(400).send("A test is yet to be uploaded");
-    }
     const [computers, uploadedComputers] = yield Promise.all([
         computerModel_1.default.countDocuments(),
         computerModel_1.default.countDocuments({ status: "uploaded" }),
