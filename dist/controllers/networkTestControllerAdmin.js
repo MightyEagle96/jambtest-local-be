@@ -401,6 +401,7 @@ const retrieveNetworkTestSummary = (req, res) => __awaiter(void 0, void 0, void 
             return res.status(400).send("Centre not found");
         }
         const summary = {
+            testId: networkTest.examId,
             testedComputers: networkTest.connectedComputers,
             capacity: centre.CentreCapacity,
             capacityMatched: networkTest.connectedComputers >= centre.CentreCapacity,
@@ -414,7 +415,12 @@ const retrieveNetworkTestSummary = (req, res) => __awaiter(void 0, void 0, void 
                 networkTest.totalNetworkLosses < 45 &&
                 networkTest.duration >= 60 * 60 * 1000 &&
                 Number(networkTest.responseThroughput) >= 90,
+            datedCreated: networkTest.dateCreated,
+            timeActivated: networkTest.timeActivated,
+            timeEnded: networkTest.timeEnded,
+            timeUploaded: networkTest.timeUploaded,
         };
+        //console.log(summary);
         res.send(summary);
     }
     catch (error) {

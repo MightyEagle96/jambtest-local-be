@@ -8,23 +8,23 @@ import path from "path";
 
 // const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/jambtest";
 
-// const ConnectDatabase = () => {
-//   mongoose
-//     .connect("mongodb://localhost:27017/jambtest", {
-//       connectTimeoutMS: 60000,
-//       serverSelectionTimeoutMS: 60000,
-//     })
-//     .then(() => {
-//       console.log("Database connected successfully");
-//     })
-//     .catch((e) => {
-//       console.log(e);
-//       console.log("DB could not connect at this time. Shutting down");
-//       process.exit(1);
-//     });
-// };
+const devDatabase = () => {
+  mongoose
+    .connect("mongodb://localhost:27017/jambtest", {
+      connectTimeoutMS: 60000,
+      serverSelectionTimeoutMS: 60000,
+    })
+    .then(() => {
+      console.log("Database connected successfully in dev");
+    })
+    .catch((e) => {
+      console.log(e);
+      console.log("DB could not connect at this time. Shutting down");
+      process.exit(1);
+    });
+};
 
-async function ConnectDatabase() {
+async function prodDatabase() {
   const dbPath = path.join(process.cwd(), "db");
 
   // Ensure directory exists
@@ -43,7 +43,14 @@ async function ConnectDatabase() {
   const uri = mongoServer.getUri();
 
   await mongoose.connect(uri);
-  console.log("Database connected successfully");
+  console.log("Database connected successfully in prod");
 }
 
+const ConnectDatabase = () => {
+  if (process.env.NODE_ENV === "development") {
+    devDatabase();
+  } else {
+    prodDatabase();
+  }
+};
 export { ConnectDatabase };

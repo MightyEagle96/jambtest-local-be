@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import ComputerModel from "../models/computerModel";
 
 import { generateId } from "./generateId";
+import { timeEnd } from "console";
 
 const activeTestIntervals = new Map<string, NodeJS.Timeout>();
 
@@ -501,6 +502,7 @@ export const retrieveNetworkTestSummary = async (
     }
 
     const summary = {
+      testId: networkTest.examId,
       testedComputers: networkTest.connectedComputers,
       capacity: centre.CentreCapacity,
       capacityMatched: networkTest.connectedComputers >= centre.CentreCapacity,
@@ -516,7 +518,14 @@ export const retrieveNetworkTestSummary = async (
         networkTest.totalNetworkLosses < 45 &&
         networkTest.duration >= 60 * 60 * 1000 &&
         Number(networkTest.responseThroughput) >= 90,
+
+      datedCreated: networkTest.dateCreated,
+      timeActivated: networkTest.timeActivated,
+      timeEnded: networkTest.timeEnded,
+      timeUploaded: networkTest.timeUploaded,
     };
+
+    //console.log(summary);
 
     res.send(summary);
   } catch (error) {

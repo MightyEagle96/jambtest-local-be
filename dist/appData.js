@@ -12,29 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConnectDatabase = ConnectDatabase;
+exports.ConnectDatabase = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const mongodb_memory_server_1 = require("mongodb-memory-server");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 // dotenv.config();
 // const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/jambtest";
-// const ConnectDatabase = () => {
-//   mongoose
-//     .connect("mongodb://localhost:27017/jambtest", {
-//       connectTimeoutMS: 60000,
-//       serverSelectionTimeoutMS: 60000,
-//     })
-//     .then(() => {
-//       console.log("Database connected successfully");
-//     })
-//     .catch((e) => {
-//       console.log(e);
-//       console.log("DB could not connect at this time. Shutting down");
-//       process.exit(1);
-//     });
-// };
-function ConnectDatabase() {
+const devDatabase = () => {
+    mongoose_1.default
+        .connect("mongodb://localhost:27017/jambtest", {
+        connectTimeoutMS: 60000,
+        serverSelectionTimeoutMS: 60000,
+    })
+        .then(() => {
+        console.log("Database connected successfully in dev");
+    })
+        .catch((e) => {
+        console.log(e);
+        console.log("DB could not connect at this time. Shutting down");
+        process.exit(1);
+    });
+};
+function prodDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         const dbPath = path_1.default.join(process.cwd(), "db");
         // Ensure directory exists
@@ -51,6 +51,15 @@ function ConnectDatabase() {
         });
         const uri = mongoServer.getUri();
         yield mongoose_1.default.connect(uri);
-        console.log("Database connected successfully");
+        console.log("Database connected successfully in prod");
     });
 }
+const ConnectDatabase = () => {
+    if (process.env.NODE_ENV === "development") {
+        devDatabase();
+    }
+    else {
+        prodDatabase();
+    }
+};
+exports.ConnectDatabase = ConnectDatabase;
